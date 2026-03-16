@@ -1,5 +1,5 @@
 import express from 'express';
-import app from 'express';
+const app = express();
 
 
 // Use the port assigned to you, or default to 5001
