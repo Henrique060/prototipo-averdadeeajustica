@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 5001;
 
 app.use(express.static("dist"));
 
