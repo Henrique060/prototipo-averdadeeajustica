@@ -1,9 +1,6 @@
 import express from 'express';
 import app from 'express';
 
-const express = require('express');
-const path = require('path');
-const app = express();
 
 // Use the port assigned to you, or default to 5001
 const PORT = 5001;
