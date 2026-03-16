@@ -10,6 +10,6 @@ app.get("/{*any}", (req, res) => {
   res.sendFile(path.resolve("dist/index.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0",() => {
   console.log(`Server running on ${PORT}`);
 });
