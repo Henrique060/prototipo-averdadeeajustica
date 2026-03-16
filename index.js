@@ -2,12 +2,12 @@ import express from "express";
 import path from "path";
 
 const app = express();
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT;
 
 app.use(express.static("dist"));
 
 // Serve index.html for all non-file routes (SPA fallback)
-app.get('/*splat', (req, res) => {
+app.get('/*sany', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
 });
 
