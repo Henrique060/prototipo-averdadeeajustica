@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node servers.js",
-    "dev": "node servers.js"
+    "start": "node server.js",
+    "dev": "node server.js"
 
   },
   "dependencies": {
