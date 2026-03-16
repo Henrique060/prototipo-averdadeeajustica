@@ -11,6 +11,6 @@ app.get('/*sany', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
