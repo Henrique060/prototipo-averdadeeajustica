@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5002;
 app.use(express.static("dist"));
 
 // Serve index.html for all non-file routes (SPA fallback)
-app.get('/{*any}', (req, res) => {
+app.get('/*splat', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
 });
 
