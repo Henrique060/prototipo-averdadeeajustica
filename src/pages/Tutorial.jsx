@@ -6,7 +6,22 @@ function Tutorial() {
   return (
     <div className="home-wrapper">
       <header className='tutorial-header'>
-        <h2>Como funciona <br/> A Verdade e a J-u-s-t-i-c-a?</h2>
+        <div className="header-container">
+          <h2>Como funciona <br/> A Verdade  e a <br/> J-u-s-t-i-c-a?</h2>
+          <nav>
+            <input type="checkbox" id="check" />
+            <label htmlFor="check" className="checkbtn">
+              <i className="fas fa-bars"></i>
+            </label>
+            <div className="nav-mobile">
+              <a href="#">Home</a>
+              <a href="#">Tutorial</a>
+              <a href="#">Soberania</a>
+              <a href="#">Sufrágio</a>
+              <a href="#">Monumento</a>
+            </div>
+          </nav>
+        </div>
       </header>
 
       <main className="home-main">
