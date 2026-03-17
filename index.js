@@ -6,7 +6,7 @@ const __dirname = new URL('.', import.meta.url).pathname;
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get("/*any", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
