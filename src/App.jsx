@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Tutorial from './pages/Tutorial';
 import './App.css'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         {/* When the URL is "/", show the Home component */}
         <Route path="/" element={<Home />} />
+        <Route path="/tutorial" element={<Tutorial />} />
       </Routes>
     </Router>
   );

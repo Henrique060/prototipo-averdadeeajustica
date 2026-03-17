@@ -1,0 +1,155 @@
+.home-wrapper {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F5E9D8;
+    color: #333;
+}
+
+
+.tutorial-header {
+    color: black;
+    padding: 2rem;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.home-main {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+
+.button-row {
+    display: flex;
+    justify-content: space-between; /* puts one button left, the other right */
+    margin-top: 2rem;
+    max-width: 800px; /* optional: match main content width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #3E2C23;
+    text-transform: uppercase;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.btn-secondary {
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #E76F2E;
+    color: white;
+}
+
+.observe-interact-exp-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    gap: 2rem;
+}
+
+.img-observe {
+    max-width: 50%;
+    height: auto;
+    border: 2px solid #3E2C23;
+    border-radius: 10px;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.interactive-exp-container {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    padding: 2rem;
+    min-height: 400px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-exp-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.interactive-exp-header h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background-color: rgba(62, 44, 35, 0.7);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.interactive-exp-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img-interactive {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(2px);
+}
+
+.interactive-exp-description {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    background-color: rgba(62, 44, 35, 0.8);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.interactive-exp-description p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+footer {
+    background-color: #eeee;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+}

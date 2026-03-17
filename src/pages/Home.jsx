@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="home-wrapper">
       <header>
-        <h1>Exposições em WebAR</h1>
+        <h1>A Verdade  e a <br/> J-u-s-t-i-c-a</h1>
       </header>
 
       <main className="home-main">
@@ -40,8 +40,8 @@ function Home() {
 
         <div className="button-container">
           {/* Link replaces <a href="..."> to stay within the React App */}
-          <Link className="btn btn-secondary" to="/mindar">
-            Experiência com marcador
+          <Link className="btn btn-secondary" to="/tutorial">
+            Começar Experiência
           </Link>
         </div>
       </main>
