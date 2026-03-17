@@ -12,7 +12,7 @@ function Home() {
       <main className="home-main">
         {/* React handles custom elements like <model-viewer> automatically */}
         <model-viewer 
-          src="/models/monumentoJustica.glb" // Ensure this is in your public/models folder
+          src="/models/monumentoJustica.glb"
           camera-controls
           ar
           ar-modes="webxr scene-viewer quick-look"
