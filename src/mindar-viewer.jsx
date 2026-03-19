@@ -27,16 +27,16 @@ export default () => {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: ./public/markers/panfletoVasoSufr.mind;"
+        mindar-image="imageTargetSrc: /markers/panfletoVasoSufr.mind;"
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <a-asset-item id="avatarModel" src="./public/models/estatualisboa.glb"></a-asset-item>
-          <a-asset-item id="vaseModel" src="./public/models/vase.glb"></a-asset-item>
-          <a-asset-item id="stopSign" src="./public/models/stopsign.glb"></a-asset-item>
+          <a-asset-item id="avatarModel" src="/models/estatualisboa.glb"></a-asset-item>
+          <a-asset-item id="vaseModel" src="/models/vase.glb"></a-asset-item>
+          <a-asset-item id="stopSign" src="/models/stopsign.glb"></a-asset-item>
           <video
             id="video"
             autoPlay
@@ -44,7 +44,7 @@ export default () => {
             muted
             playsInline
             webkit-playsinline="true"
-            src="./public/sufragioFemme.mp4"
+            src="/sufragioFemme.mp4"
           />
         </a-assets>
 
@@ -70,6 +70,8 @@ export default () => {
           <a-gltf-model src="#stopSign" position="-0.9 0 0" rotation="0 150 0" scale="0.5 0.5 0.5"></a-gltf-model>
         </a-entity>
       </a-scene>
+
+      
     </div>
   );
 }
