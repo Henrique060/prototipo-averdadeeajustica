@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import '@google/model-viewer';
+import MindARViewer from './mindar-viewer';
 
 const rootEl = document.getElementById('root')
 if (!rootEl) {

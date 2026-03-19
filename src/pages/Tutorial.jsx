@@ -58,7 +58,7 @@ function Tutorial() {
             <Link className="btn btn-secondary" to="/">
             Anterior
             </Link>
-            <Link className="btn btn-secondary" to="/mindar">
+            <Link className="btn btn-secondary" to="/soberania">
             Seguinte
             </Link>
         </div>

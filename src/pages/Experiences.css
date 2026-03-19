@@ -1,0 +1,45 @@
+nav {
+    color: black;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+.home-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+#check {
+    display: none;
+}
+
+.checkbtn {
+    font-size: 1.5rem;
+    color: black;
+    cursor: pointer;
+    display: none;
+}
+
+.home-wrapper {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #F5E9D8;
+    color: #333;
+}
+
+
+footer {
+    background-color: #eeee;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+}
