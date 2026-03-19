@@ -55,11 +55,13 @@ function Tutorial() {
        
        <section className='buttons-section'>
         <div className="button-row">
-            <Link className="btn btn-secondary" to="/">
-            Anterior
+            <Link className="btnNav btnNav-secondary" to="/">
+              <img src="/icons/back-arrow.svg" alt="Voltar" />
+              
             </Link>
-            <Link className="btn btn-secondary" to="/soberania">
-            Seguinte
+            <Link className="btnNav btnNav-secondary" to="/soberania">
+              <img src="/icons/front-arrow.svg" alt="Seguinte" />
+              
             </Link>
         </div>
         </section>

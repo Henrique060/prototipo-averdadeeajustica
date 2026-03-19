@@ -103,40 +103,53 @@ nav {
     padding: 2rem 1rem;
     width: 100%;
     max-width: 100%;
+    padding-bottom:80px;
 }
 
 
 
 .button-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
     display: flex;
-    justify-content: space-between; /* puts one button left, the other right */
-    margin: 2rem 0;
-    max-width: 800px; /* optional: match main content width */
-    margin-left: auto;
-    margin-right: auto;
-}
+    justify-content: space-between;
+    align-items: center;
 
-.btn {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+
     background-color: #3E2C23;
-    text-transform: uppercase;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 10px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+
+    z-index: 1000; /* stays above everything */
 }
 
-.btn-secondary {
+.btnNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+    background-color: #fff;
+
+    transition: transform 0.2s ease;
+}
+
+.btnNav img {
+    width: 22px;
+    height: 22px;
+}
+
+.btnNav-secondary {
     color: white;
 }
 
-.btn-secondary:hover {
+.btnNav-secondary:hover {
     background-color: #E76F2E;
     color: white;
 }
