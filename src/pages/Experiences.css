@@ -36,9 +36,10 @@ nav {
 }
 
 .cameraContainer {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 70%;
+    z-index: 1000; /* stays above everything */
 }
 
 .videoAR {
