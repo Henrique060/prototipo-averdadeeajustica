@@ -28,25 +28,20 @@
     padding: 1rem 2rem;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #3E2C23;
+    outline: 2px solid #E4B9BA;
     text-transform: uppercase;
-    color: white;
+    color: #E4B9BA;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 200px;
     text-decoration: none;
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .btn-secondary {
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #E76F2E;
-    color: white;
+    color: #E4B9BA;
 }
 
 footer {
