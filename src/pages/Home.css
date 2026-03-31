@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #E4B9BA; /* fallback + status bar color */
-    background: url('/images/background-avj-2.png');
+    background: url('/images/background-avj-3.png');
     background-size: cover;
     background-position: center;
     color: #333;
@@ -100,7 +100,7 @@ footer {
     width: 50px;
     height: 50px;
 
-    border-radius: 50%;
+    border-radius: 30%;
     background-color: #E4B9BA;
 
     transition: transform 0.2s ease;
