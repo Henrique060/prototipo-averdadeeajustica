@@ -108,51 +108,9 @@ nav {
 
 
 
-.button-row {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    padding: 0.75rem 1.5rem;
 
-    background-color: #3E2C23;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
-
-    z-index: 1000; /* stays above everything */
-}
-
-.btnNav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 50px;
-    height: 50px;
-
-    border-radius: 50%;
-    background-color: #fff;
-
-    transition: transform 0.2s ease;
-}
-
-.btnNav img {
-    width: 22px;
-    height: 22px;
-}
-
-.btnNav-secondary {
-    color: white;
-}
-
-.btnNav-secondary:hover {
-    background-color: #E76F2E;
-    color: white;
-}
 
 .observe-interact-exp-section {
     display: flex;

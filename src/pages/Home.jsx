@@ -12,10 +12,21 @@ function Home() {
 
         <div className="container-flex">
         <div className="container-flex-item-3">
-          <a className="btn" href="/tutorial">Iniciar</a>
         </div>
       </div>
 
+      <section className='buttons-section'>
+        <div className="button-row">
+            <Link className="btnNavEmpty" to="/">
+            </Link>
+            <Link className="btnNav btnNav-secondary" to="/tutorial">
+              <img src="/icons/front-arrow.svg" alt="Seguinte" />
+              
+            </Link>
+        </div>
+        </section>
+
+          
       </main>
     </div>
   );

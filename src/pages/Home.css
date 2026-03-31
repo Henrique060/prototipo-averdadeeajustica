@@ -73,3 +73,53 @@ footer {
     justify-self: center;
     align-self: center;
 }
+
+
+.button-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.75rem 1.5rem;
+
+    background-color: #3e2c2300;
+
+    z-index: 1000; /* stays above everything */
+}
+
+.btnNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+    background-color: #E4B9BA;
+
+    transition: transform 0.2s ease;
+}
+
+.btnNavEmpty{
+    background-color: transparent;
+}
+
+.btnNav img {
+    width: 22px;
+    height: 22px;
+}
+
+.btnNav-secondary {
+    color: white;
+}
+
+.btnNav-secondary:hover {
+    background-color: #E76F2E;
+    color: white;
+}
