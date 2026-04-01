@@ -1,4 +1,4 @@
-/* RESET / BASE */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -14,38 +14,92 @@ html, body {
 .home-wrapper {
     width: 100%;
     height: 100vh;
-    background-color: #E4B9BA; /* fallback color */
+    background: #E4B9BA;
 }
 
-/* HERO SECTION */
+/* =========================
+   MOBILE VERSION (DEFAULT)
+   ========================= */
+
+.hero-mobile {
+    display: flex;
+}
+
 .hero {
     position: relative;
-
     width: 100%;
     height: 100vh;
-    height: 100dvh; /* mobile-safe viewport */
+    height: 100dvh;
 
-    /* Background image */
     background-image: url('/images/background-avj-4.png');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
+    background-size: cover;
 
-    /* Choose ONE behavior */
-    background-size: cover;   /* fills screen (recommended) */
-    /* background-size: contain; */ /* alternative: no cropping */
-
-    display: flex;
     justify-content: center;
     align-items: flex-end;
 
-    padding: 0 1rem 2rem;
+    padding: 0 1rem calc(2rem + env(safe-area-inset-bottom));
+}
+
+/* =========================
+   DESKTOP VERSION (HIDDEN BY DEFAULT)
+   ========================= */
+
+.hero-desktop {
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+
+/* LEFT SIDE */
+.hero-left {
+    flex: 1;
+    background-image: url('/images/background-avj-4.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    /* reduce image size to stop overflowing on the top*/
+    background-size: contain;
+    
+}
+
+/* RIGHT SIDE */
+.hero-right {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+    text-align: center;
+    background: linear-gradient(to right, #E4B9BA, #fff);
+
+}
+
+.hero-right h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #323232;
+}
+
+.qr-code {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-right p {
+    margin-bottom: 2rem;
+    color: #444;
 }
 
 /* BUTTON */
 .hero-btn {
     width: 100%;
-    max-width: 200px;
-
+    max-width: 220px;
     padding: 1rem;
 
     text-align: center;
@@ -62,25 +116,37 @@ html, body {
     transition: all 0.25s ease;
 }
 
-/* HOVER / ACTIVE */
 .hero-btn:hover {
     transform: translateY(-2px);
     background-color: #d89fa0;
 }
 
-.hero-btn:active {
-    transform: translateY(0);
+/* =========================
+   SWITCH LOGIC
+   ========================= */
+
+/* Desktop OR landscape tablets */
+@media (min-width: 768px) and (orientation: landscape) {
+    .hero-mobile {
+        display: none;
+    }
+
+    .hero-desktop {
+        display: flex;
+    }
 }
 
-/* MOBILE SAFE AREA (iPhone notch support) */
-.hero {
-    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
-}
+/* Large desktops (force desktop layout) */
+@media (min-width: 1024px) {
+    .hero-mobile {
+        display: none;
+    }
 
-/* OPTIONAL: SMALL SCREEN TWEAKS */
-@media (max-width: 480px) {
-    .hero-btn {
-        font-size: 1rem;
-        padding: 0.9rem;
+    .hero-desktop {
+        display: flex;
+    }
+
+    .hero-btn{
+        display: none;
     }
 }
