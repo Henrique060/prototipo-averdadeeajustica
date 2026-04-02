@@ -1,42 +1,57 @@
-.bottom-nav {
+/* The transparent wrapper that holds everything at the bottom */
+.nav-container {
   position: fixed;
-  /* 1. Move it away from the bottom edge to "float" */
-  bottom: 20px; 
-  
-  /* 2. Center it horizontally */
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  
-  /* 3. Give it a defined width */
-  width: 90%;
-  max-width: 400px; /* Optional: keeps it from getting too wide on desktop */
-  
-  height: 60px;
-  background-color: #E4D7C4;
-  backdrop-filter: blur(10px);
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  
-  /* 4. Visual styling */
-  border: 1px solid rgba(0,0,0,0.1);
+  justify-content: center;
+  gap: 12px; /* The gap that makes them look like separate floating objects */
+  width: 95%;
+  max-width: 500px;
   z-index: 1000;
-  border-radius: 30px; /* Highly rounded for a pill shape */
-  
-  /* 5. Clean up padding */
-  padding: 0 10px;
-  
-  /* 6. Add a shadow to emphasize the "floating" effect */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  pointer-events: none; /* Allows clicks to pass through gaps to content behind */
 }
 
-.nav-item {
+/* Common styles for both the circles and the pill */
+.circle-button, .main-pill {
+  background-color: #19283E;
+  color: #E4D7C4;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: auto; /* Re-enables clicks for the buttons themselves */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Circle Buttons */
+.circle-button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
   text-decoration: none;
-  color: #282828;
-  font-size: 12px;
+  color: #E4D7C4;
+}
+
+/* The Main Pill */
+.main-pill {
+  height: 65px;
+  padding: 0 25px;
+  border-radius: 40px;
+  flex-grow: 1; /* Allows the pill to take up the remaining width */
+  max-width: 280px;
+  gap: 30px;
+}
+
+/* Icon Styling */
+.nav-item {
+  color: #E4D7C4;
+  display: flex;
+  transition: transform 0.2s ease;
 }
 
 .nav-item.active {
-  color: #007AFF; /* iOS Blue */
-  font-weight: bold;
+  color: #EE5624;
 }

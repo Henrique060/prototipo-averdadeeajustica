@@ -9,10 +9,15 @@ html, body {
     height: 100%;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    background:#EA562E!important;
+    background-color: #E4D7C4;
 }
 
-/* WRAPPER */
+.page-wrapper{
+    
+    padding: 20px;
+}
+
+/* WRAPPER Home */
 .home-wrapper {
     width: 100%;
     height: 100vh;

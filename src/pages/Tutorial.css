@@ -1,0 +1,57 @@
+h3 {
+    font-weight: 500;
+    padding: 0 0 0 1.5rem;
+}
+
+.tutorial-title{
+    margin: 20px 0 0 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.tutorial-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Space between the two rows */
+  margin-bottom: 100px; /* Space for the floating NavBar */
+  
+}
+
+.tutorial-row {
+  display: flex;
+  align-items: center; /* Vertically centers text with image */
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* This class flips the order of the second row */
+.tutorial-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.tutorial-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.tutorial-image img {
+  width: 100%;
+  max-width: 120px; /* Control size here instead of scale() */
+  height: auto;
+  object-fit: contain;
+}
+
+.tutorial-text {
+  flex: 1;
+  padding: 0 15px;
+  backdrop-filter: blur(10px);
+}
+
+.tutorial-text p {
+  font-size: 1rem;
+  color: #282828;
+  line-height: 1.4;
+  margin: 0;
+}
