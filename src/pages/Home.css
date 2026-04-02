@@ -9,11 +9,10 @@ html, body {
     height: 100%;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    background-color: #E4D7C4;
 }
 
 .page-wrapper{
-    
+    background-color: #E4D7C4;
     padding: 20px;
 }
 
