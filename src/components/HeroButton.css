@@ -1,0 +1,26 @@
+/* BUTTON */
+.hero-btn {
+    width: 100%;
+    max-width: 220px;
+    padding: 1rem;
+
+    text-align: center;
+    text-decoration: none;
+
+    background-color: #19283E;
+    color: #EA562E;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+
+    border-radius: 30px;
+
+    transition: all 0.25s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    background-color: #1d304d;
+    color: #f56740;
+}
