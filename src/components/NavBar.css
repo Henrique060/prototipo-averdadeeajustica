@@ -1,0 +1,42 @@
+.bottom-nav {
+  position: fixed;
+  /* 1. Move it away from the bottom edge to "float" */
+  bottom: 20px; 
+  
+  /* 2. Center it horizontally */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* 3. Give it a defined width */
+  width: 90%;
+  max-width: 400px; /* Optional: keeps it from getting too wide on desktop */
+  
+  height: 60px;
+  background-color: #E4D7C4;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  /* 4. Visual styling */
+  border: 1px solid rgba(0,0,0,0.1);
+  z-index: 1000;
+  border-radius: 30px; /* Highly rounded for a pill shape */
+  
+  /* 5. Clean up padding */
+  padding: 0 10px;
+  
+  /* 6. Add a shadow to emphasize the "floating" effect */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #282828;
+  font-size: 12px;
+}
+
+.nav-item.active {
+  color: #007AFF; /* iOS Blue */
+  font-weight: bold;
+}
