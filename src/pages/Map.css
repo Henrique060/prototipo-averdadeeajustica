@@ -1,0 +1,15 @@
+.map-content-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 20px;
+    height: 100%;
+    width: auto;
+}
+
+.map-content-btn {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

@@ -10,7 +10,6 @@ h3 {
 }
 
 .tutorial-container {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 40px; /* Space between the two rows */
@@ -22,7 +21,9 @@ h3 {
   display: flex;
   align-items: center; /* Vertically centers text with image */
   justify-content: space-between;
-  width: 100%;
+
+  width: 100vw;              /* full screen width */
+  margin-left: calc(-50vw + 50%); /* breakout trick */
 }
 
 /* This class flips the order of the second row */
@@ -31,16 +32,16 @@ h3 {
 }
 
 .tutorial-image {
-  flex: 1;
+  flex: 0 0 50%; /* fixed half width */
+  overflow: hidden;
   display: flex;
-  justify-content: center;
 }
 
 .tutorial-image img {
-  width: 100%;
-  max-width: 120px; /* Control size here instead of scale() */
+  width: 140%; /* bigger than container */
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
+  transform: translateX(-15%);
 }
 
 .tutorial-text {
@@ -49,9 +50,22 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
+.tutorial-row.reverse .tutorial-image img {
+  transform: translateX(15%);
+}
+
 .tutorial-text p {
   font-size: 1rem;
   color: #282828;
   line-height: 1.4;
   margin: 0;
+}
+
+
+.tutorial-image-painting{
+    mask-image: linear-gradient(to right, transparent 0%, #EA562E 20%, #EA562E 80%, transparent 100%);
+}
+
+.tutorial-image-items{
+    mask-image: linear-gradient(to left, transparent 0%, #EA562E 20%, #EA562E 80%, transparent 100%);
 }

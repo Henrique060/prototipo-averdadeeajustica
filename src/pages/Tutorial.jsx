@@ -4,6 +4,9 @@ import './Tutorial.css';
 import PageHeader from '../components/PageHeader';
 import NavBar from '../components/NavBar';
 import LogoHeader from '../components/LogoHeader';
+import { IoHelpCircleOutline } from "react-icons/io5";
+
+
 
 function Tutorial() {
   return (
@@ -11,7 +14,11 @@ function Tutorial() {
       <LogoHeader />
       <PageHeader title="Como funcionam as experiências?" />
 
-      <h3 className="tutorial-description">Esta é uma breve descrição sobre como as experiências funcionam.</h3>
+      <h3 className="tutorial-description">
+        O utilizador deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
+        <br/>
+        Para tal, deverá permitir o acesso à câmara e ao microfone, quando pedido.
+        </h3>
 
       
 
@@ -24,10 +31,12 @@ function Tutorial() {
 
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img src="/images/mobile-phone.png" alt="Phone" />
+            <img className="tutorial-image-painting" src="/images/sufragio.jpg" alt="Phone" />
           </div>
           <div className="tutorial-text">
-            <p>This is a description of the first image, aligned to the right.</p>
+            <p>Alinhe os quadros dentro do visor da câmara e interaja com os elementos presentes. 
+              <br/>
+              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link></p>
           </div>
         </div>
 
@@ -38,10 +47,13 @@ function Tutorial() {
         {/* Row 2: Text Left, Image Right */}
         <div className="tutorial-row reverse">
           <div className="tutorial-image">
-            <img src="/images/mobile-phone.png" alt="Phone" />
+            <img className="tutorial-image-items" src="/images/djose1.png" alt="Phone" />
           </div>
           <div className="tutorial-text">
-            <p>This is a description of the second image, aligned to the left.</p>
+            <p>Coloque peças 3D no mundo real, com recurso à câmara, visualizando-as em pormenor.
+              <br/>
+              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link>
+            </p>
           </div>
         </div>
 
@@ -51,10 +63,13 @@ function Tutorial() {
 
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img src="/images/mobile-phone.png" alt="Phone" />
+            <img className="tutorial-image-items" src="/images/qrcode.jpeg" alt="Phone" />
           </div>
           <div className="tutorial-text">
-            <p>This is a description of the first image, aligned to the right.</p>
+            <p>Aponte a câmara para marcadores, expandindo o mundo à sua volta com nova informação e objetos.
+              <br/>
+              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link>
+            </p>
           </div>
         </div>
 

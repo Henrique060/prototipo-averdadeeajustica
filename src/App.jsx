@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Tutorial from './pages/Tutorial';
 import QuadroTerreiroPaco from './pages/QuadroTerreiroPaco';
+import Map from './pages/Map';
 import './App.css'
 
 function App() {
