@@ -16,7 +16,7 @@
 
 /* Common styles for both the circles and the pill */
 .circle-button, .main-pill {
-  background-color: #19283E;
+  background-color: #19283ea7;
   color: #E4D7C4;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -53,5 +53,6 @@
 }
 
 .nav-item.active {
-  color: #EE5624;
+  color: #19283e;
+  
 }
