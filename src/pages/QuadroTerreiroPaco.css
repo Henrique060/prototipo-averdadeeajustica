@@ -2,12 +2,13 @@
     position: relative;
     width: 100%;
     height: 100%;
+    padding-bottom: 120px;
     
 }
 
 .title-wrapper {
     position: absolute;
-    top: 5%;
+    top: 2.5%;
     left: 5%;
     z-index: 2;
 }
@@ -53,5 +54,6 @@
     display: flex;
     justify-content: center;
     padding-top: 10vw;
+    margin-bottom: 120px;
 }
 
