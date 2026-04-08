@@ -10,9 +10,6 @@ function QuadroTerreiroPaco() {
     return (
         <div className="page-wrapper">
             <LogoHeader />
-            <NavBar />
-            
-            
             <div className="quadro-container">
                 <img className="quadro-container-img" src="/images/terreiropaco.jpeg" alt="Quadro Terreiro Paco" />
                 
@@ -31,9 +28,10 @@ function QuadroTerreiroPaco() {
                     </p>
                 </div>
                 <div className="quadro-container-button-wrapper">
-                    <StartButton to="/tutorial" label="Começar" />
+                    <StartButton to="/tutorial" label="Iniciar Experiência" />
                 </div>
             </div>
+            <NavBar />
         </div>
     );
 }
