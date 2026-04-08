@@ -1,0 +1,57 @@
+/* The transparent wrapper that holds everything at the bottom */
+.nav-container {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* The gap that makes them look like separate floating objects */
+  width: 95%;
+  max-width: 500px;
+  z-index: 1000;
+  pointer-events: none; /* Allows clicks to pass through gaps to content behind */
+}
+
+/* Common styles for both the circles and the pill */
+.circle-button, .main-pill {
+  background-color: #19283E;
+  color: #E4D7C4;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: auto; /* Re-enables clicks for the buttons themselves */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Circle Buttons */
+.circle-button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #E4D7C4;
+}
+
+/* The Main Pill */
+.main-pill {
+  height: 65px;
+  padding: 0 25px;
+  border-radius: 40px;
+  flex-grow: 1; /* Allows the pill to take up the remaining width */
+  max-width: 280px;
+  gap: 30px;
+}
+
+/* Icon Styling */
+.nav-item {
+  color: #E4D7C4;
+  display: flex;
+  transition: transform 0.2s ease;
+}
+
+.nav-item.active {
+  color: #EE5624;
+}

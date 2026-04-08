@@ -1,0 +1,20 @@
+/* BUTTON */
+.start-btn {
+    width: 100%;
+    max-width: 220px;
+    padding: 1rem;
+
+    text-align: center;
+    text-decoration: none;
+
+    background-color: #19283E;
+    color: #E4D7C4;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+
+    border-radius: 40px;
+
+    transition: all 0.25s ease;
+}

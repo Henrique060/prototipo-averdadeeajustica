@@ -8,11 +8,13 @@ import { IoHelpCircleOutline } from "react-icons/io5";
 
 
 
+
 function Tutorial() {
   return (
     <div className="page-wrapper">
       <LogoHeader />
       <PageHeader title="Como funcionam as experiências?" />
+      
 
       <h3 className="tutorial-description">
         O utilizador deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.

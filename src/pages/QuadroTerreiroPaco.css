@@ -1,0 +1,57 @@
+.quadro-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.title-wrapper {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    z-index: 2;
+}
+
+.title-main {
+    font-size: 15vw;
+    color: #19283E;
+    font-weight: 900;
+    margin: 0;
+}
+
+.title-side {
+    position: absolute;
+    top: 100%;
+    left: -10%;
+    font-size: 15vw;
+    color: #19283E;
+    font-weight: 900;
+    white-space: nowrap;
+    transform-origin: top left;
+    transform: rotate(90deg) translateY(-100%);
+}
+
+.quadro-container-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translateY(40%) translateX(20%);
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+}
+
+.quadro-container-text-wrapper {
+    position: relative; /* or just remove position entirely */
+    margin-top: 50vw;   /* space below image */
+    padding-left: 5%;
+    font-size: 5vw;
+    color: #19283E; /* optional: better visibility if it's below */
+    text-shadow: none; /* optional since it's no longer over image */
+}
+
+.quadro-container-button-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 10vw;
+}
+
