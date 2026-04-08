@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Tutorial from './pages/Tutorial';
 import QuadroTerreiroPaco from './pages/QuadroTerreiroPaco';
 import Map from './pages/Map';
+import QuadroAR from './pages/QuadroAR';
 import './App.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/tutorial" element={<Tutorial />} />
         <Route path="/map" element={<Map />} />
         <Route path="/quadro-terreiro-paco" element={<QuadroTerreiroPaco />} />
+        <Route path="/quadro-ar" element={<QuadroAR />} />
       </Routes>
     </Router>
   );

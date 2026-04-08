@@ -10,6 +10,8 @@ import {
 import './NavBar.css';
 
 const NavBar = () => {
+
+  
   const navigate = useNavigate();
   const location = useLocation();
 

@@ -28,7 +28,7 @@ function QuadroTerreiroPaco() {
                     </p>
                 </div>
                 <div className="quadro-container-button-wrapper">
-                    <StartButton to="/tutorial" label="Iniciar Experiência" />
+                    <StartButton to="/quadro-ar" label="Iniciar Experiência" />
                 </div>
             </div>
             <NavBar />
