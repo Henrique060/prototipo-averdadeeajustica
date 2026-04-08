@@ -25,7 +25,9 @@ function QuadroTerreiroPaco() {
                     <p className="quadro-container-text">
                         Texto que irá descrever a alegoria e experiência desejada.
                         <br/>
-                        Mais informações sobre a experiência podem ser adicionadas aqui - falar com artista.
+                        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
+                        <br/>
+                        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa.
                     </p>
                 </div>
                 <div className="quadro-container-button-wrapper">
