@@ -5,6 +5,8 @@ import Tutorial from './pages/Tutorial';
 import QuadroTerreiroPaco from './pages/QuadroTerreiroPaco';
 import Map from './pages/Map';
 import QuadroAR from './pages/QuadroAR';
+import DJoao from './pages/DJoao';
+import ListaExperiencias from './pages/ListaExperiencias';
 import './App.css'
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/map" element={<Map />} />
         <Route path="/quadro-terreiro-paco" element={<QuadroTerreiroPaco />} />
         <Route path="/quadro-ar" element={<QuadroAR />} />
+        <Route path="/djoao" element={<DJoao />} />
+        <Route path="/listaexperiencias" element={<ListaExperiencias />} />
       </Routes>
     </Router>
   );

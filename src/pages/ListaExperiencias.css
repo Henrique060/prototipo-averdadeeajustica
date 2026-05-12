@@ -1,0 +1,129 @@
+/* ONLY LIST MODERNIZATION */
+
+.experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 50px;
+}
+
+.experience-card {
+  border-radius: 22px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.experience-card:active {
+  transform: scale(0.98);
+}
+
+.experience-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  text-decoration: none;
+  color: inherit;
+
+  min-height: 110px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 22px;
+}
+
+.experience-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.experience-room {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.experience-info h3 {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 0;
+}
+
+.experience-image-wrapper {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.experience-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.experiencie-list-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-top: 20px;
+}
+
+/* Hover effects for desktop */
+@media (hover: hover) {
+  .experience-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .experience-link:hover {
+    box-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .experience-image {
+    transition: transform 0.3s ease;
+  }
+
+  .experience-link:hover .experience-image {
+    transform: scale(1.05);
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .experience-link {
+    min-height: 100px;
+    padding: 0.9rem;
+  }
+
+  .experience-image-wrapper {
+    width: 78px;
+    height: 78px;
+    border-radius: 16px;
+  }
+
+  .experience-info h3 {
+    font-size: 0.95rem;
+  }
+}

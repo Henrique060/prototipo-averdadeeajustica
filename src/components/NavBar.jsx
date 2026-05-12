@@ -46,7 +46,7 @@ const NavBar = () => {
         <NavLink to="/map" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <IoMapOutline size={24} />
         </NavLink>
-        <NavLink to="/quadro-terreiro-paco" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/listaexperiencias" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <IoListOutline size={24} />
         </NavLink>
       </div>

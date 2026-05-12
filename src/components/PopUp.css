@@ -1,0 +1,100 @@
+/* Overlay — covers the entire screen */
+.pop-up-overlay {
+  position: fixed;
+  inset: 0;                          /* top/right/bottom/left: 0 */
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+/* The popup card */
+.pop-up {
+  background-color: #19283E;
+  color: white;
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 420px;
+  animation: slideUp 0.25s ease;
+}
+
+/* Header row with title + close button */
+.pop-up-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pop-up-header h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Close button */
+.pop-up-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.pop-up-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* List */
+.pop-up ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pop-up li {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.pop-up li:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pop-up li a {
+  display: block;
+  padding: 14px 18px;
+  color: white;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
