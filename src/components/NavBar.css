@@ -129,6 +129,8 @@
   border-radius: 14px;
   height: 65px;
   overflow: hidden;
+  background-color: #E2E5FF;
+  
 }
 
 
@@ -152,9 +154,6 @@
 
   line-height: 1;
   padding: 0;
-}
 
-.square-forward-btn{
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  border: none;
 }
-

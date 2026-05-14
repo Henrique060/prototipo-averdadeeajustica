@@ -34,6 +34,13 @@ const experiencias = [
   },
 
   {
+    sala: 'Sala de Convite',
+    titulo: 'Figuras de convite do palácio',
+    image: '/images/salaconvite.jpg',
+    url: '/figura-convite',
+  },
+
+  {
     sala: 'Sala 22',
     titulo: 'Cidade joanina (1707-1750)',
     image: '/images/sala22.jpeg',
@@ -56,42 +63,66 @@ const experiencias = [
     sala: 'Sala 23',
     titulo: 'Terramoto de 1755',
     image: '/images/sala23.jpeg',
-    url: '/sala23',
+    url: '/quadro-escombros',
   },
 
   {
     sala: 'Sala 24',
     titulo: 'Reconstrução pombalina / Escravatura',
     image: '/images/sala24.jpeg',
-    url: '/sala24',
+    url: '/gravura-marques',
   },
 
   {
     sala: 'Sala 25',
     titulo: 'Inquisição',
     image: '/images/sala26.jpeg',
-    url: '/sala25',
+    url: '/gravura-marques',
   },
 
   {
     sala: 'Sala 26',
     titulo: 'Cidade no tempo de D. Maria I / Guerra Peninsular',
     image: '/images/sala26.jpeg',
-    url: '/sala26',
+    popup: {
+      headerName: 'Sala 26 - Cidade no tempo de D. Maria I / Guerra Peninsular',
+
+      listOfItems: [
+        'Quadro de D. Maria I',
+        'Saudade e Felicidade',
+      ],
+
+      listOfURLs: [
+        '/d-maria',
+        '/lenco-saudade',
+      ],
+    },
   },
 
   {
     sala: 'Sala 27',
     titulo: 'Cidade oitocentista / República',
     image: '/images/sala27.jpeg',
-    url: '/sala27',
+    url: '/busto-republica',
   },
 
   {
     sala: 'Salas 28 & 29',
     titulo: 'Estado Novo (1933 - 1974)',
     image: '/images/sala28.jpeg',
-    url: '/sala28',
+    popup: {
+      headerName: 'Sala 28 & 29 - Estado Novo',
+
+      listOfItems: [
+        'Monumento Descobrimentos',
+        'Estátua Soberania',
+      ],
+
+      listOfURLs: [
+        '/descobrimentos',
+        '/soberania',
+      ],
+    },
   },
 
   {

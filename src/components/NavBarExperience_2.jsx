@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   IoMapOutline,
@@ -16,13 +17,20 @@ import './NavBar.css';
 
 const NavBarExperience_2 = () => {
 
-  
+  let inactiveColor = "#A0A0A0";
+  let btnActiveColor = "#003C72";
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const routes = ["/tutorial", "/map", "/quadro-terreiro-paco"];
+  const routes = ["/escadaria", "/quadro-terreiro-paco", "/figura-convite", 
+                  "/djoao", "/quadro-escombros", "/gravura-marques",
+                  "/d-maria", "/lenco-saudade", "/busto-republica",
+                  "/descobrimentos", "/soberania"
+  ];
 
-  const currentIndex = routes.indexOf(location.pathname);
+  //const currentIndex = routes.indexOf(location.pathname);
+  const currentIndex = routes.findIndex(r => location.pathname.endsWith(r));
 
   const goNext = () => {
     if (currentIndex < routes.length - 1) {
@@ -62,16 +70,27 @@ const NavBarExperience_2 = () => {
       </div>
 
       <div className="back-forward-buttons">
-        <NavLink to="/quadro-terreiro-paco" className="square-backward-btn">
-        <div className="icon-text-container">
-          <GrFormPreviousLink size={18} />
-        </div>
-      </NavLink>
-        <NavLink to="/quadro-terreiro-paco" className="square-forward-btn">
+        <button
+          onClick={goBack}
+          className="square-backward-btn"
+          disabled={currentIndex <= 0}
+          style={{ color: currentIndex <= 0 ? inactiveColor : btnActiveColor }}
+        >
+          <div className="icon-text-container">
+            <GrFormPreviousLink size={18} />
+          </div>
+        </button>
+
+        <button
+          onClick={goNext}
+          className="square-forward-btn"
+          disabled={currentIndex >= routes.length - 1}
+          style={{ color: currentIndex >= routes.length - 1 ? inactiveColor : btnActiveColor }}
+        >
           <div className="icon-text-container">
             <GrFormNextLink size={18} />
           </div>
-        </NavLink>
+        </button>
       </div>
     </nav>
   );

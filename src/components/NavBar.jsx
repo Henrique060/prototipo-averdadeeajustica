@@ -57,7 +57,7 @@ const NavBar = () => {
         </NavLink>
       </div>
 
-        <NavLink to="/quadro-terreiro-paco" className="square-start-btn">
+        <NavLink to="/escadaria" className="square-start-btn">
         <div className="icon-text-container">
           <VscDebugStart size={18} />
           <p className="ic-text-start">Iniciar</p>
