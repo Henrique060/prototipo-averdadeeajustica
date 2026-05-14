@@ -21,7 +21,7 @@ import './App.css'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/prototipo-averdadeeajustica">
       <Routes>
         {/* When the URL is "/", show the Home component */}
         <Route path="/quadro-ar" element={<QuadroAR />} />
