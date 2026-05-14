@@ -1,8 +1,9 @@
 import React from 'react';
 import LogoHeader from './LogoHeader';
-import NavBar from './NavBar';
+import NavBarExperience from './NavBarExperience_1';
 import StartButton from './StartButton';
 import './ExperiencePageComponent.css';
+import NavBarExperience_2 from './NavBarExperience_2';
 
 function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonTo, buttonLabel }) {
   return (
@@ -21,7 +22,7 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           <StartButton to={buttonTo} label={buttonLabel} />
         </div>
       </div>
-      <NavBar />
+      <NavBarExperience_2 />
     </div>
   );
 }

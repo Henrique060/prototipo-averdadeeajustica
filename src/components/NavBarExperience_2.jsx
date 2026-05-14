@@ -10,9 +10,11 @@ import {
 } from "react-icons/io5";
 import { GoHome } from "react-icons/go";
 import { VscDebugStart } from "react-icons/vsc";
+import { GrFormNextLink } from "react-icons/gr";
+import { GrFormPreviousLink } from "react-icons/gr";
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBarExperience_2 = () => {
 
   
   const navigate = useNavigate();
@@ -23,7 +25,9 @@ const NavBar = () => {
   const currentIndex = routes.indexOf(location.pathname);
 
   const goNext = () => {
-
+    if (currentIndex < routes.length - 1) {
+      navigate(routes[currentIndex + 1]);
+    }
   };
 
   const goBack = () => {
@@ -57,14 +61,20 @@ const NavBar = () => {
         </NavLink>
       </div>
 
-        <NavLink to="/quadro-terreiro-paco" className="square-start-btn">
+      <div className="back-forward-buttons">
+        <NavLink to="/quadro-terreiro-paco" className="square-backward-btn">
         <div className="icon-text-container">
-          <VscDebugStart size={18} />
-          <p className="ic-text-start">Iniciar</p>
+          <GrFormPreviousLink size={18} />
         </div>
       </NavLink>
+        <NavLink to="/quadro-terreiro-paco" className="square-forward-btn">
+          <div className="icon-text-container">
+            <GrFormNextLink size={18} />
+          </div>
+        </NavLink>
+      </div>
     </nav>
   );
 };
 
-export default NavBar;
+export default NavBarExperience_2;

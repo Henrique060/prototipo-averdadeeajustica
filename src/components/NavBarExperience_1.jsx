@@ -10,9 +10,10 @@ import {
 } from "react-icons/io5";
 import { GoHome } from "react-icons/go";
 import { VscDebugStart } from "react-icons/vsc";
+import { GrFormNextLink } from "react-icons/gr";
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBarExperience_1 = () => {
 
   
   const navigate = useNavigate();
@@ -57,14 +58,14 @@ const NavBar = () => {
         </NavLink>
       </div>
 
-        <NavLink to="/quadro-terreiro-paco" className="square-start-btn">
+        <NavLink to="/djoao" className="square-start-btn">
         <div className="icon-text-container">
-          <VscDebugStart size={18} />
-          <p className="ic-text-start">Iniciar</p>
+          <GrFormNextLink size={18} />
+          <p className="ic-text-start">Próximo</p>
         </div>
       </NavLink>
     </nav>
   );
 };
 
-export default NavBar;
+export default NavBarExperience_1;

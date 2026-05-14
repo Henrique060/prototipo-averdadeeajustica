@@ -15,10 +15,10 @@
 }
 
 /* Common styles for both the circles and the pill */
-.circle-button, .main-pill {
-  background-color: #19283ea7;
-  color: #E4D7C4;
-  backdrop-filter: blur(10px);
+.main-pill {
+  background-color: #1A293E;
+  color: #450026;
+  /*backdrop-filter: blur(10px);*/
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   pointer-events: auto; /* Re-enables clicks for the buttons themselves */
   display: flex;
@@ -34,7 +34,31 @@
   height: 55px;
   border-radius: 50%;
   text-decoration: none;
-  color: #E4D7C4;
+  color: #450026;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square-start-btn {
+  width: 60px;
+  height: 55px;
+  border-radius: 14px;
+  text-decoration: none;
+
+  background-color: #E2E5FF;
+  color: #003C72;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  pointer-events: auto;
+
+  /* FIX */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  padding: 0;
 }
 
 /* The Main Pill */
@@ -49,13 +73,13 @@
 
 /* Icon Styling */
 .nav-item {
-  color: #E4D7C4;
+  color: #f2f2f2;
   display: flex;
   transition: transform 0.2s ease;
 }
 
 .nav-item.active {
-  color: #19283e;
+  color: #f2f2f2;
   
 }
 
@@ -71,3 +95,66 @@
   padding: 0 18px;
   gap: 20px;
 }
+
+.icon-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  gap: 2px;
+}
+
+.ic-text{
+  font-size: 12px;
+}
+
+.ic-text-start{
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ic-text,
+.ic-text-start {
+  margin: 0;
+}
+
+.back-forward-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap:0px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  height: 55px;
+  overflow: hidden;
+}
+
+
+
+
+.square-backward-btn, .square-forward-btn {
+  width: 30px;
+  height: 55px;
+  text-decoration: none;
+
+  background-color: #E2E5FF;
+  color: #003C72;
+  
+
+  pointer-events: auto;
+
+  /* FIX */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  padding: 0;
+}
+
+.square-forward-btn{
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+

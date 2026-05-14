@@ -107,6 +107,12 @@ const experiencias = [
     image: '/images/sala31.jpeg',
     url: '/sala31',
   },
+  {
+    sala: 'Jardim',
+    titulo: 'Monumento à Justiça & Terreiro do Paço',
+    image: '/images/jardim.jpg',
+    url: '/jardim',
+  }
 ];
 
 const ListaExperiencias = () => {
@@ -131,7 +137,7 @@ const ListaExperiencias = () => {
   return (
     <div className="page-wrapper">
       <LogoHeader />
-      <PageHeader title="Lista de Experiências" />
+      <PageHeader title="Mapa de Experiências" />
       <NavBar />
 
       <div className="experience-list-container">
