@@ -7,9 +7,14 @@
   "background_color": "#EA562E",
   "icons": [
     {
-      "src": "./images/miratecnica.png",
+      "src": "/images/miratecnica.png",
       "sizes": "192x192",
       "type": "image/png"
-    }
+    },
+    {
+    "src": "/images/miratecnica.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
   ]
 }
