@@ -4,7 +4,12 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#EA562E",
-  "background_color": "#EA562E"
-  
-  
+  "background_color": "#EA562E",
+  "icons": [
+    {
+      "src": "/images/miratecnica.png",
+      "sizes": "782x782",
+      "type": "image/png"
+    }
+  ]
 }
