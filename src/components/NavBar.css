@@ -41,8 +41,8 @@
 }
 
 .square-start-btn {
-  width: 60px;
-  height: 55px;
+  width: 65px;
+  height: 65px;
   border-radius: 14px;
   text-decoration: none;
 
@@ -127,7 +127,7 @@
   gap:0px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   border-radius: 14px;
-  height: 55px;
+  height: 65px;
   overflow: hidden;
 }
 
@@ -135,8 +135,8 @@
 
 
 .square-backward-btn, .square-forward-btn {
-  width: 30px;
-  height: 55px;
+  width: 32px;
+  height: 65px;
   text-decoration: none;
 
   background-color: #E2E5FF;
