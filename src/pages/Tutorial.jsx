@@ -27,7 +27,7 @@ function Tutorial() {
         </div>
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img className="tutorial-image-painting" src="/images/sufragio.webp" alt="Quadros" />
+            <img className="tutorial-image-painting" src="/images/terreiropaco.webp" alt="Quadros" />
           </div>
           <div className="tutorial-text">
             <p>
@@ -43,7 +43,7 @@ function Tutorial() {
           <LearnMorePopUp
             headerName="Experiências com Quadros"
             onClose={() => setActivePopUp(null)}
-            imgSrc="/images/sufragio.webp"
+            imgSrc="/images/terreiropaco.webp"
             description="lorem ipsum"
           />
         )}
@@ -54,7 +54,7 @@ function Tutorial() {
         </div>
         <div className="tutorial-row reverse">
           <div className="tutorial-image">
-            <img className="tutorial-image-items" src="/images/djose1.webp" alt="Peças" />
+            <img className="tutorial-image-items" src="/images/soberania.webp" alt="Peças" />
           </div>
           <div className="tutorial-text">
             <p>
@@ -70,7 +70,7 @@ function Tutorial() {
           <LearnMorePopUp
             headerName="Experiências com Peças"
             onClose={() => setActivePopUp(null)}
-            imgSrc="/images/djose1.webp"
+            imgSrc="/images/soberania.webp"
             description="lorem ipsum"
           />
         )}
@@ -81,7 +81,7 @@ function Tutorial() {
         </div>
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img className="tutorial-image-items" src="/images/qrcode.webp" alt="Marcadores" />
+            <img className="tutorial-image-items" src="/images/salaconvite.webp" alt="Marcadores" />
           </div>
           <div className="tutorial-text">
             <p>
@@ -97,7 +97,7 @@ function Tutorial() {
           <LearnMorePopUp
             headerName="Experiências com Marcadores"
             onClose={() => setActivePopUp(null)}
-            imgSrc="/images/qrcode.webp"
+            imgSrc="/images/salaconvite.webp"
             description="lorem ipsum"
           />
         )}
