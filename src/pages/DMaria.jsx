@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function DMaria() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/dmaria.png"
+      imageSrc="/images/dmaria.webp"
       imageAlt="D.Maria I"
       titleMain="D. Maria I"
       titleSide="Sala 26 - Cidade no tempo de D. Maria I"
@@ -13,7 +13,7 @@ function DMaria() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-26.png"
+      mapImgSrc="/images/mapa-museu-26.webp"
     />
   );
 }

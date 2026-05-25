@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function QuadroTerreiroPaco() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/terreiropaco.jpeg"
+      imageSrc="/images/terreiropaco.webp"
       imageAlt="Quadro Terreiro Paco"
       titleMain="Terreiro do Paço"
       titleSide="Sala 21 - Cidade no séc. XVII"
@@ -13,7 +13,7 @@ function QuadroTerreiroPaco() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-21.png"
+      mapImgSrc="/images/mapa-museu-21.webp"
     />
   );
 }

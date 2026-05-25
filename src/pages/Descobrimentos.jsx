@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function Descobrimentos() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/sufragio.png"
+      imageSrc="/images/sufragio.webp"
       imageAlt="Monumento Descobrimentos"
       titleMain="Monumento aos Descobrimentos"
       titleSide="Sala 28 - Estado Novo"
@@ -13,7 +13,7 @@ function Descobrimentos() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-28.png"
+      mapImgSrc="/images/mapa-museu-28.webp"
     />
   );
 }

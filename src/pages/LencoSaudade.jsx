@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function LencoSaudade() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/sufragio.jpg"
+      imageSrc="/images/sufragio.webp"
       imageAlt="Saudade e Felicidade"
       titleMain="Saudade e Felicidade"
       titleSide="

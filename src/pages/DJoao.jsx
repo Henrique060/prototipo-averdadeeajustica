@@ -5,7 +5,7 @@ import ExperiencePageComponent from "../components/ExperiencePageComponent";
 function DJoao() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/djoao.jpeg"
+      imageSrc="/images/djoao.webp"
       imageAlt="D. João V"
       titleMain="D.João V"
       titleSide="Sala 22 - Cidade Joanina"
@@ -14,7 +14,7 @@ function DJoao() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-22.png"
+      mapImgSrc="/images/mapa-museu-22.webp"
     />
   );
 }

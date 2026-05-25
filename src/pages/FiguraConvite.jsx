@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function FiguraConvite() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/salaconvite.jpg"
+      imageSrc="/images/salaconvite.webp"
       imageAlt="Sala Convite"
       titleMain="Figuras de Convite"
       titleSide="Sala de Convite"
@@ -13,7 +13,7 @@ function FiguraConvite() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-convite.png"
+      mapImgSrc="/images/mapa-museu-convite.webp"
     />
   );
 }

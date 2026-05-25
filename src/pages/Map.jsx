@@ -25,7 +25,7 @@ const Map = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <div className="map-content-img">
-            <img src="/images/mapa-museu.png" alt="Map" />
+            <img src="/images/mapa-museu.webp" alt="Map" />
           </div>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -38,7 +38,7 @@ const Map = () => {
 
         <div className="map-description-section">
           <div className="map-description-image">
-            <img src="./images/escadaria.jpeg" alt="Escadaria do Palácio Pimenta" />
+            <img src="./images/escadaria.webp" alt="Escadaria do Palácio Pimenta" />
           </div>
 
           <div className="map-description-text">

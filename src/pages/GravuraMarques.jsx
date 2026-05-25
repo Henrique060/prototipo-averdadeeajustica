@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function GravuraMarques() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/alegoriaMarques.png"
+      imageSrc="/images/alegoriaMarques.webp"
       imageAlt="Alegoria ao Marques"
       titleMain="Alegoria a Sebastião"
       titleSide="Sala 24 - Reconstrução Pombalina"
@@ -13,7 +13,7 @@ function GravuraMarques() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-24.png"
+      mapImgSrc="/images/mapa-museu-24.webp"
     />
   );
 }

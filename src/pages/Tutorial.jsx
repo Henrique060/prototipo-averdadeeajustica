@@ -1,79 +1,106 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import './Tutorial.css';
 import PageHeader from '../components/PageHeader';
 import NavBar from '../components/NavBar';
 import LogoHeader from '../components/LogoHeader';
-import { IoHelpCircleOutline } from "react-icons/io5";
-
-
-
+import LearnMorePopUp from '../components/LearnMorePopUp';
 
 function Tutorial() {
+  const [activePopUp, setActivePopUp] = useState(null);
+
   return (
     <div className="page-wrapper">
       <LogoHeader />
       <PageHeader title="Como funcionam as experiências?" />
-      
 
       <h3 className="tutorial-description">
         O utilizador deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
-        <br/>
+        <br />
         Para tal, deverá permitir o acesso à câmara e ao microfone, quando pedido.
-        </h3>
-
-      
+      </h3>
 
       <div className="tutorial-container">
-        {/* Row 1: Image Left, Text Right */}
 
+        {/* Row 1: Quadros */}
         <div className="tutorial-title">
           <p>Experiências com <b>Quadros</b></p>
         </div>
-
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img className="tutorial-image-painting" src="/images/sufragio.jpg" alt="Phone" />
+            <img className="tutorial-image-painting" src="/images/sufragio.webp" alt="Quadros" />
           </div>
           <div className="tutorial-text">
-            <p>Alinhe os quadros dentro do visor da câmara e interaja com os elementos presentes. 
-              <br/>
-              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link></p>
+            <p>
+              Alinhe os quadros dentro do visor da câmara e interaja com os elementos presentes.
+              <br />
+              <button onClick={() => setActivePopUp('quadros')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                Saiba Mais
+              </button>
+            </p>
           </div>
         </div>
+        {activePopUp === 'quadros' && (
+          <LearnMorePopUp
+            headerName="Experiências com Quadros"
+            onClose={() => setActivePopUp(null)}
+            imgSrc="/images/sufragio.webp"
+            description="lorem ipsum"
+          />
+        )}
 
+        {/* Row 2: Peças */}
         <div className="tutorial-title">
           <p>Experiências com <b>Peças</b></p>
         </div>
-
-        {/* Row 2: Text Left, Image Right */}
         <div className="tutorial-row reverse">
           <div className="tutorial-image">
-            <img className="tutorial-image-items" src="/images/djose1.png" alt="Phone" />
+            <img className="tutorial-image-items" src="/images/djose1.webp" alt="Peças" />
           </div>
           <div className="tutorial-text">
-            <p>Coloque peças 3D no mundo real, com recurso à câmara, visualizando-as em pormenor.
-              <br/>
-              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link>
+            <p>
+              Coloque peças 3D no mundo real, com recurso à câmara, visualizando-as em pormenor.
+              <br />
+              <button onClick={() => setActivePopUp('pecas')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                Saiba Mais
+              </button>
             </p>
           </div>
         </div>
+        {activePopUp === 'pecas' && (
+          <LearnMorePopUp
+            headerName="Experiências com Peças"
+            onClose={() => setActivePopUp(null)}
+            imgSrc="/images/djose1.webp"
+            description="lorem ipsum"
+          />
+        )}
 
+        {/* Row 3: Marcadores */}
         <div className="tutorial-title">
           <p>Experiências com <b>Marcadores</b></p>
         </div>
-
         <div className="tutorial-row">
           <div className="tutorial-image">
-            <img className="tutorial-image-items" src="/images/qrcode.jpeg" alt="Phone" />
+            <img className="tutorial-image-items" src="/images/qrcode.webp" alt="Marcadores" />
           </div>
           <div className="tutorial-text">
-            <p>Aponte a câmara para marcadores, expandindo o mundo à sua volta com nova informação e objetos.
-              <br/>
-              <Link style={{ color: '#EA562E' }} to="/"> Saiba Mais</Link>
+            <p>
+              Aponte a câmara para marcadores, expandindo o mundo à sua volta com nova informação e objetos.
+              <br />
+              <button onClick={() => setActivePopUp('marcadores')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                Saiba Mais
+              </button>
             </p>
           </div>
         </div>
+        {activePopUp === 'marcadores' && (
+          <LearnMorePopUp
+            headerName="Experiências com Marcadores"
+            onClose={() => setActivePopUp(null)}
+            imgSrc="/images/qrcode.webp"
+            description="lorem ipsum"
+          />
+        )}
 
       </div>
 

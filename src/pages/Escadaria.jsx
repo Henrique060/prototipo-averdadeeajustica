@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function Escadaria() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/escadaria.jpeg"
+      imageSrc="/images/escadaria.webp"
       imageAlt="Introdução"
       titleMain="Introdução"
       titleSide="Escadaria"
@@ -13,7 +13,7 @@ function Escadaria() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu.png"
+      mapImgSrc="/images/mapa-museu.webp"
     />
   );
 }

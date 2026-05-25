@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function BustoRepublica() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/bustorepublica.png"
+      imageSrc="/images/bustorepublica.webp"
       imageAlt="Busto Republica"
       titleMain="Busto da República"
       titleSide="Sala 27 - República"
@@ -13,7 +13,7 @@ function BustoRepublica() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-27.png"
+      mapImgSrc="/images/mapa-museu-27.webp"
     />
   );
 }

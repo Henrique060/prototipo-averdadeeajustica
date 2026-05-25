@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function QuadroEscombros() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/quadro-escombros.png"
+      imageSrc="/images/quadro-escombros.webp"
       imageAlt="Escombros-Nª Sr.ª da Estrela"
       titleMain="Nª Sr.ª da Estrela"
       titleSide="Sala 23 - Terramoto de 1755"
@@ -13,7 +13,7 @@ function QuadroEscombros() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-23.png"
+      mapImgSrc="/images/mapa-museu-23.webp"
     />
   );
 }

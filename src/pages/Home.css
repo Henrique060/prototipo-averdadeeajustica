@@ -42,7 +42,7 @@ html, body {
     height: 100vh;
     height: 100dvh;
 
-    background-image: url('/images/background-avj-queiroz-mobile.png');
+    background-image: url('/images/background-avj-queiroz-mobile.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -67,7 +67,7 @@ html, body {
 /* LEFT SIDE */
 .hero-left {
     flex: 1;
-    background-image: url('/images/background-avj-queiroz.png');
+    background-image: url('/images/background-avj-queiroz.webp');
     background-repeat: no-repeat;
     background-position: left;
     background-size: cover;

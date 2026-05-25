@@ -9,14 +9,14 @@ const experiencias = [
   {
     sala: 'Entrada',
     titulo: 'Escadaria Principal',
-    image: '/images/escadaria.jpeg',
+    image: '/images/escadaria.webp',
     url: '/escadaria',
   },
 
   {
     sala: 'Sala 21',
     titulo: 'Cidade no século XVII',
-    image: '/images/sala21.jpeg',
+    image: '/images/sala21.webp',
 
     popup: {
       headerName: 'Sala 21 - Experiências',
@@ -36,14 +36,14 @@ const experiencias = [
   {
     sala: 'Sala de Convite',
     titulo: 'Figuras de convite do palácio',
-    image: '/images/salaconvite.jpg',
+    image: '/images/salaconvite.webp',
     url: '/figura-convite',
   },
 
   {
     sala: 'Sala 22',
     titulo: 'Cidade joanina (1707-1750)',
-    image: '/images/sala22.jpeg',
+    image: '/images/sala22.webp',
     popup: {
       headerName: 'Sala 22 - Cidade joanina',
 
@@ -62,28 +62,28 @@ const experiencias = [
   {
     sala: 'Sala 23',
     titulo: 'Terramoto de 1755',
-    image: '/images/sala23.jpeg',
+    image: '/images/sala23.webp',
     url: '/quadro-escombros',
   },
 
   {
     sala: 'Sala 24',
     titulo: 'Reconstrução pombalina / Escravatura',
-    image: '/images/sala24.jpeg',
+    image: '/images/sala24.webp',
     url: '/gravura-marques',
   },
 
   {
     sala: 'Sala 25',
     titulo: 'Inquisição',
-    image: '/images/sala26.jpeg',
+    image: '/images/sala26.webp',
     url: '/gravura-marques',
   },
 
   {
     sala: 'Sala 26',
     titulo: 'Cidade no tempo de D. Maria I / Guerra Peninsular',
-    image: '/images/sala26.jpeg',
+    image: '/images/sala26.webp',
     popup: {
       headerName: 'Sala 26 - Cidade no tempo de D. Maria I / Guerra Peninsular',
 
@@ -102,14 +102,14 @@ const experiencias = [
   {
     sala: 'Sala 27',
     titulo: 'Cidade oitocentista / República',
-    image: '/images/sala27.jpeg',
+    image: '/images/sala27.webp',
     url: '/busto-republica',
   },
 
   {
     sala: 'Salas 28 & 29',
     titulo: 'Estado Novo (1933 - 1974)',
-    image: '/images/sala28.jpeg',
+    image: '/images/sala28.webp',
     popup: {
       headerName: 'Sala 28 & 29 - Estado Novo',
 
@@ -128,20 +128,20 @@ const experiencias = [
   {
     sala: 'Sala 30',
     titulo: 'Cidade contemporânea (1974 - 1998)',
-    image: '/images/sala30.jpeg',
+    image: '/images/sala30.webp',
     url: '/sala30',
   },
 
   {
     sala: 'Sala 31',
     titulo: 'Exposição Mundial de 1998',
-    image: '/images/sala31.jpeg',
+    image: '/images/sala31.webp',
     url: '/sala31',
   },
   {
     sala: 'Jardim',
     titulo: 'Monumento à Justiça & Terreiro do Paço',
-    image: '/images/jardim.jpg',
+    image: '/images/jardim.webp',
     url: '/jardim',
   }
 ];
@@ -174,7 +174,7 @@ const ListaExperiencias = () => {
       <div className="experience-list-container">
 
         <div className="map-content-img">
-          <img src="/images/mapa-museu.png" alt="Map" />
+          <img src="/images/mapa-museu.webp" alt="Map" />
         </div>
 
         <div className="experience-list-text-container">

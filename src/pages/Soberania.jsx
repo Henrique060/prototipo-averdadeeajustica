@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function Soberania() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/soberania.png"
+      imageSrc="/images/soberania.webp"
       imageAlt="Soberania"
       titleMain="Estátua Soberania"
       titleSide="Sala 28 - Estado Novo"
@@ -13,7 +13,7 @@ function Soberania() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-28.png"
+      mapImgSrc="/images/mapa-museu-28.webp"
     />
   );
 }

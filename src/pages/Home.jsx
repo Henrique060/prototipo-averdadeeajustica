@@ -9,7 +9,7 @@ function Home() {
 
       {/* MOBILE / PORTRAIT VERSION */}
       <section className="hero-landing hero-mobile">
-        <HeroButton to="/tutorial" label="Iniciar Experiência" className="hero-btn" />
+        <HeroButton to="/tutorial" label="Entrar" className="hero-btn" />
       </section>
 
       {/* DESKTOP / LANDSCAPE VERSION */}
@@ -21,7 +21,7 @@ function Home() {
           <h1 className="hero-right-header">Aceda às experiências no seu telemóvel</h1>
 
           <img
-            src="/images/qrcode.jpeg"
+            src="/images/qrcode.webp"
             alt="QR Code"
             className="qr-code"
           />
@@ -31,7 +31,7 @@ function Home() {
           </p>
 
           <Link className="hero-btn" to="/tutorial">
-            Iniciar Experiência
+            Entrar
           </Link>
         </div>
 
