@@ -6,8 +6,8 @@ function DMaria() {
     <ExperiencePageComponent
       imageSrc="/images/dmaria.png"
       imageAlt="D.Maria I"
-      titleMain="Legado"
-      titleSide="D. Maria I"
+      titleMain="D. Maria I"
+      titleSide="Sala 26 - Cidade no tempo de D. Maria I"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

@@ -8,13 +8,8 @@
   "icons": [
     {
       "src": "/images/miratecnica.png",
-      "sizes": "192x192",
+      "sizes": "782x782",
       "type": "image/png"
-    },
-    {
-    "src": "/images/miratecnica.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
+    }
   ]
 }

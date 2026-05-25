@@ -6,8 +6,8 @@ function Soberania() {
     <ExperiencePageComponent
       imageSrc="/images/soberania.png"
       imageAlt="Soberania"
-      titleMain="Estátua"
-      titleSide="Soberania"
+      titleMain="Estátua Soberania"
+      titleSide="Sala 28 - Estado Novo"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

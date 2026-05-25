@@ -6,8 +6,9 @@ function LencoSaudade() {
     <ExperiencePageComponent
       imageSrc="/images/sufragio.jpg"
       imageAlt="Saudade e Felicidade"
-      titleMain="Saudade e "
-      titleSide="Felicidade"
+      titleMain="Saudade e Felicidade"
+      titleSide="
+      Sala 26 - Guerra Peninsular"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

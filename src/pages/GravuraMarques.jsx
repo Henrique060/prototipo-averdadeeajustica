@@ -6,8 +6,8 @@ function GravuraMarques() {
     <ExperiencePageComponent
       imageSrc="/images/alegoriaMarques.png"
       imageAlt="Alegoria ao Marques"
-      titleMain="Alegoria a"
-      titleSide="Sebastião"
+      titleMain="Alegoria a Sebastião"
+      titleSide="Sala 24 - Reconstrução Pombalina"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

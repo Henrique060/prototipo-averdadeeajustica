@@ -6,8 +6,8 @@ function QuadroEscombros() {
     <ExperiencePageComponent
       imageSrc="/images/quadro-escombros.png"
       imageAlt="Escombros-Nª Sr.ª da Estrela"
-      titleMain="Nª Sr.ª da "
-      titleSide="Estrela"
+      titleMain="Nª Sr.ª da Estrela"
+      titleSide="Sala 23 - Terramoto de 1755"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

@@ -6,8 +6,8 @@ function FiguraConvite() {
     <ExperiencePageComponent
       imageSrc="/images/salaconvite.jpg"
       imageAlt="Sala Convite"
-      titleMain="Sala de "
-      titleSide="Convite"
+      titleMain="Figuras de Convite"
+      titleSide="Sala de Convite"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

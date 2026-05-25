@@ -8,7 +8,7 @@ function DJoao() {
       imageSrc="/images/djoao.jpeg"
       imageAlt="D. João V"
       titleMain="D.João V"
-      titleSide="A Riqueza"
+      titleSide="Sala 22 - Cidade Joanina"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."

@@ -1,0 +1,9 @@
+.map-popup-btn {
+  background-color: #E2E5FF;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+}
