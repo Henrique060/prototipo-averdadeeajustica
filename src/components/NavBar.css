@@ -135,9 +135,8 @@
 
 
 
-
-.square-backward-btn, .square-forward-btn {
-  width: 32px;
+.square-forward-btn {
+  width: 65px;
   height: 65px;
   text-decoration: none;
 

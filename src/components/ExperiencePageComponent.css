@@ -41,3 +41,19 @@
   display: flex;
   align-items: center;
 }
+
+.title-btn-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.title-btn-back-btn{
+  background-color: #E2E5FF;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 14px;
+}

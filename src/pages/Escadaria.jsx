@@ -13,6 +13,7 @@ function Escadaria() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
+      mapImgSrc="/images/mapa-museu.png"
     />
   );
 }

@@ -71,17 +71,6 @@ const NavBarExperience_2 = () => {
 
       <div className="back-forward-buttons">
         <button
-          onClick={goBack}
-          className="square-backward-btn"
-          disabled={currentIndex <= 0}
-          style={{ color: currentIndex <= 0 ? inactiveColor : btnActiveColor }}
-        >
-          <div className="icon-text-container">
-            <GrFormPreviousLink size={18} />
-          </div>
-        </button>
-
-        <button
           onClick={goNext}
           className="square-forward-btn"
           disabled={currentIndex >= routes.length - 1}
