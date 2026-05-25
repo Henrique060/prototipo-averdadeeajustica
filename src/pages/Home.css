@@ -10,6 +10,7 @@ html, body {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     background: #EA562E;
+    color: #19283E;
 }
 
 .page-wrapper{
@@ -17,6 +18,7 @@ html, body {
     padding: 20px;
     width: 100%;
     min-height: 100vh;
+    color: #19283E
 }
 
 /* WRAPPER Home */
