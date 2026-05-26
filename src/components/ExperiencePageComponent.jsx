@@ -9,9 +9,12 @@ import MapPopUpBtn from './MapPopUpBtn';
 import MapPopUp from './MapPopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
 
+import MindARViewer from '../mindar-viewer';
+
 function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonTo, buttonLabel, mapImgSrc }) {
   //for pop up handling
   const [showPopUp, setShowPopUp] = useState(false);
+  const [started, setStarted] = useState(null);
 
   return (
     <div className="page-wrapper">
@@ -40,8 +43,15 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           <p className="quadro-container-text">{description}</p>
         </div>
         <div className="quadro-container-button-wrapper">
-          <StartButton to={buttonTo} label={buttonLabel} />
+          {started === null && <button onClick={() => {setStarted('aframe')}}>{buttonLabel}</button>}
+          {started !== null && <button onClick={() => {setStarted(null)}}>Stop</button>}
         </div>
+        {started === 'aframe' && (
+          <div className="container">
+            <MindARViewer targetSrc="/markers/terreiro-militar-marker.mind" />
+            
+          </div>
+        )}
       </div>
       <NavBarExperience_2 />
     </div>

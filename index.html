@@ -5,29 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-    <meta name="theme-color" content="#EA562E" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#EA562E" media="(prefers-color-scheme: dark)" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
     <title>My AR App</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
+    <!-- PWA / icons -->
+    <meta name="theme-color" content="#EA562E" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-    <link rel="manifest" href="./public/manifest.json">
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/miratecnica.png" />
+    <!-- IMPORTANT: A-FRAME MUST LOAD FIRST -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
-    <!-- Preloading all imgs-->
-   
+    <!-- THEN MINDAR -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 
+    <!-- If Vite: this is correct -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/images/miratecnica.png" />
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
