@@ -13,7 +13,7 @@ function ARExperience() {
     navigate(-1);
   };
 
-  const targetSrc = location.state?.targetSrc || "/markers/terreiro-militar-marker.mind";
+  const targetSrc = location.state?.targetSrc || "/markers/targets-4.mind";
 
   return (
     <div className="ar-experience-page">
