@@ -1,6 +1,6 @@
 /* ARExperience.css */
 
-/* Full-screen AR page */
+/* Full-screen AR page container */
 .ar-experience-page {
   position: fixed;
   inset: 0;
@@ -8,17 +8,44 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: transparent; /* Changed from #000 so the video behind it is visible */
+  background: #000;
   z-index: 99999;
-  pointer-events: none; /* Let clicks pass through to video/canvas if needed */
 }
 
-/* Ensure interactive elements inside the container still work */
+/* Container matching your route component viewport rules */
+.ar-viewer-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style the template's injected local video component */
+.ar-viewer-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 1;
+}
+
+/* Ensure the A-Frame canvas maps precisely on top of the camera timeline */
+.ar-viewer-container canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 2 !important;
+}
+
+/* Back button rules */
 .ar-back-btn {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 100000;
+  z-index: 100000; /* Stays comfortably above layers */
 
   display: inline-flex;
   align-items: center;
@@ -31,60 +58,36 @@
   border-radius: 50px;
 
   padding: 10px 20px;
-
   font-weight: 600;
   cursor: pointer;
-  pointer-events: auto; /* Re-enable pointer events for the button */
 }
 
-.ar-viewer-container {
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
+/* --- Fix any MindAR global UI elements --- */
+body > .mindar-ui-overlay {
+  z-index: 100001 !important;
 }
 
-/* --- MindAR & Safari Layout Normalization --- */
+/* ARExperience.css supplement */
 
-/* Force the video feed to span the full viewport correctly */
-body > video {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
+/* Target the specific video injected by MindAR with inline math styles */
+.ar-viewer-container video[style] {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100vw !important;
   height: 100vh !important;
   height: 100dvh !important;
   object-fit: cover !important;
-  z-index: 1 !important;
-}
-
-/* Force A-frame's canvas to fill its container and align with the video */
-.ar-viewer-container canvas {
   position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 2 !important;
 }
 
-/* Fix the floating MindAR UI elements shown in your console */
-body > .mindar-ui-overlay {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
+/* Ensure the A-Frame canvas mirrors the exact same centered grid bounds */
+.ar-viewer-container canvas.a-canvas {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100vw !important;
   height: 100vh !important;
   height: 100dvh !important;
-  z-index: 100001 !important; /* Higher than .ar-experience-page */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  pointer-events: none;
-}
-
-/* Ensure the scanning graphic itself scales properly */
-.mindar-ui-overlay .scanning .inner {
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
+  object-fit: cover !important;
 }

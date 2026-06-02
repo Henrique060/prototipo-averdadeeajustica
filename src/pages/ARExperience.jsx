@@ -1,3 +1,4 @@
+// ARExperience.jsx
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -9,24 +10,24 @@ function ARExperience() {
   const location = useLocation();
 
   const handleBack = () => {
-  // Small delay lets MindAR cleanup finish before React unmounts
     setTimeout(() => navigate(-1), 100);
   };
 
   const targetSrc = location.state?.targetSrc || "/markers/terreiro-militar-marker.mind";
 
   return (
-    <div className="page-wrapper">
-      <div className="ar-experience-page">
-        <button className="ar-back-btn" onClick={handleBack}>
-          <IoArrowBackOutline /> Voltar
-        </button>
+    <div className="ar-experience-page">
+      <button className="ar-back-btn" onClick={handleBack}>
+        <IoArrowBackOutline /> Voltar
+      </button>
+      
+      <div className="ar-viewer-container">
         <MindARViewer targetSrc={targetSrc} />
-        
+        {/* CRITICAL: Empty video element required by MindAR inside the template container */}
+        <video playsInline muted></video>
+      </div>
     </div>
-  </div>
-);
-
+  );
 }
 
 export default ARExperience;
