@@ -10,7 +10,7 @@ function ARExperience() {
   const location = useLocation();
 
   const handleBack = () => {
-    setTimeout(() => navigate(-1), 100);
+    navigate(-1);
   };
 
   const targetSrc = location.state?.targetSrc || "/markers/terreiro-militar-marker.mind";
@@ -23,8 +23,6 @@ function ARExperience() {
       
       <div className="ar-viewer-container">
         <MindARViewer targetSrc={targetSrc} />
-        {/* CRITICAL: Empty video element required by MindAR inside the template container */}
-        <video playsInline muted></video>
       </div>
     </div>
   );
