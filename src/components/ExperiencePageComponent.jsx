@@ -1,5 +1,5 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this
 import LogoHeader from './LogoHeader';
 import NavBarExperience from './NavBarExperience_1';
 import StartButton from './StartButton';
@@ -9,12 +9,18 @@ import MapPopUpBtn from './MapPopUpBtn';
 import MapPopUp from './MapPopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
 
-import MindARViewer from '../mindar-viewer';
+// NOTE: MindARViewer import is removed from here since it's moved to the new page!
 
-function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonTo, buttonLabel, mapImgSrc }) {
-  //for pop up handling
+function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc }) {
   const [showPopUp, setShowPopUp] = useState(false);
-  const [started, setStarted] = useState(null);
+  const navigate = useNavigate(); // Add hook instance
+
+  const handleStartExperience = () => {
+    // Route to the AR page and pass the marker route dynamically
+    navigate('/ar-experience', { 
+      state: { targetSrc: "/markers/js-prototipo.mind" } 
+    });
+  };
 
   return (
     <div className="page-wrapper">
@@ -22,36 +28,35 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
         <LogoHeader />
         <MapPopUpBtn text="Salas" onClick={() => setShowPopUp(true)} />
         {showPopUp && (
-        <MapPopUp
-          headerName="Mapa de Salas"
-          onClose={() => setShowPopUp(false)}
-          imgSrc={mapImgSrc}
-        />
+          <MapPopUp
+            headerName="Mapa de Salas"
+            onClose={() => setShowPopUp(false)}
+            imgSrc={mapImgSrc}
+          />
         )}
       </div>
       
       <div className="quadro-container">
-          <div className="title-wrapper">
-            <div className="title-btn-wrapper">
-              <button className="title-btn-back-btn" onClick={() => window.history.back()}><IoArrowBackOutline /></button>
-              <p className="title-side">{titleSide}</p>
-            </div>
-            <p className="title-main">{titleMain}</p>
+        <div className="title-wrapper">
+          <div className="title-btn-wrapper">
+            <button className="title-btn-back-btn" onClick={() => window.history.back()}>
+              <IoArrowBackOutline />
+            </button>
+            <p className="title-side">{titleSide}</p>
           </div>
+          <p className="title-main">{titleMain}</p>
+        </div>
+        
         <img className="quadro-container-img" src={imageSrc} alt={imageAlt} />
+        
         <div className="quadro-container-text-wrapper">
           <p className="quadro-container-text">{description}</p>
         </div>
+        
         <div className="quadro-container-button-wrapper">
-          {started === null && <button onClick={() => {setStarted('aframe')}}>{buttonLabel}</button>}
-          {started !== null && <button onClick={() => {setStarted(null)}}>Stop</button>}
+          {/* Replaced old local state button logic with navigation trigger */}
+          <button onClick={handleStartExperience}>{buttonLabel}</button>
         </div>
-        {started === 'aframe' && (
-          <div className="container">
-            <MindARViewer targetSrc="/markers/terreiro-militar-marker.mind" />
-            
-          </div>
-        )}
       </div>
       <NavBarExperience_2 />
     </div>

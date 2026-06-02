@@ -57,3 +57,10 @@
   align-items: center;
   border-radius: 14px;
 }
+
+.control-buttons {
+  position: relative;
+  z-index: 1000;
+}
+
+
