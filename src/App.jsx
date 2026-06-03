@@ -17,6 +17,7 @@ import BustoRepublica from './pages/BustoRepublica';
 import Descobrimentos from './pages/Descobrimentos';
 import Soberania from './pages/Soberania';
 import ARExperience from './pages/ARExperience';
+import ChromaPage from './pages/ChromaPage';
 import './App.css'
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/descobrimentos" element={<Descobrimentos />} />
         <Route path="/soberania" element={<Soberania />} />
         <Route path="/ar-experience" element={<ARExperience />} />
+        <Route path="/chroma-page" element={<ChromaPage />} />
 
       </Routes>
     </Router>

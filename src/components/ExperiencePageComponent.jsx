@@ -35,6 +35,10 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
     });
   };
 
+  const handleStartChromaKeyExperience = () => {
+    navigate('/chroma-page');
+  };
+
   return (
     <div className="page-wrapper">
       <div className="header-container">
@@ -68,7 +72,7 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
         
         <div className="quadro-container-button-wrapper">
           {/* Replaced old local state button logic with navigation trigger */}
-          <button onClick={handleStartExperience}>{buttonLabel}</button>
+          <button onClick={handleStartChromaKeyExperience}>{buttonLabel}</button>
         </div>
       </div>
       <NavBarExperience_2 />
