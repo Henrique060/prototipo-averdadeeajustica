@@ -8,14 +8,14 @@ export default function MindARViewer({ targetSrc }) {
     const currentContainer = containerRef.current;
     if (!currentContainer) return;
 
-    // FIX: Using explicit string assignment for targetIndex: 0 
-    // We also swap a-text for a highly-visible a-text setup with a colored background block
+    // FIX: Clean, strict configuration string without loose trailing semicolons or double spaces.
+    // Explicitly declaring targetIndex: 0 binds the tracking compiler cleanly.
     const sceneHTML = `
       <a-scene 
-        mindar-image="imageTargetSrc: ${targetSrc}; autoStart: false; uiLoading: yes; uiError: no; uiScanning: yes;" 
+        mindar-image="imageTargetSrc: ${targetSrc}; autoStart: false; uiLoading: yes; uiError: no; uiScanning: yes" 
         embedded 
         color-space="sRGB" 
-        renderer="colorManagement: true; physicallyCorrectLights: true;" 
+        renderer="colorManagement: true; physicallyCorrectLights: true" 
         vr-mode-ui="enabled: false" 
         device-orientation-permission-ui="enabled: false"
         style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;"
@@ -37,17 +37,18 @@ export default function MindARViewer({ targetSrc }) {
       </a-scene>
     `;
 
+    // Drop clean layout directly into physical DOM execution
     currentContainer.innerHTML = sceneHTML;
 
     const sceneEl = currentContainer.querySelector('a-scene');
 
-    // Setup detection logging to prove your compiled target is anchoring
+    // Console logs to monitor target tracking states
     const handleTargetFound = () => {
-      console.log("🎯 AR Marker successfully found and matched!");
+      console.log("🎯 AR Target Match Found! Anchoring 3D Elements...");
     };
     
     const handleTargetLost = () => {
-      console.log("❌ AR Marker lost tracking viewport.");
+      console.log("❌ AR Target lost tracking viewport.");
     };
 
     const handleRenderStart = () => {
@@ -56,11 +57,14 @@ export default function MindARViewer({ targetSrc }) {
         console.log("MindAR successfully initialized on physical DOM track.");
         arSystem.start();
         
-        // Listen to tracking events directly via the target entity pointer
+        // Grab the tracking target and attach event listeners
         const targetEntity = sceneEl.querySelector('[mindar-image-target]');
         if (targetEntity) {
+          console.log("Target anchor element located successfully in DOM tree.");
           targetEntity.addEventListener("targetFound", handleTargetFound);
           targetEntity.addEventListener("targetLost", handleTargetLost);
+        } else {
+          console.error("Critical: Could not find target element matching [mindar-image-target]");
         }
       }
     };
@@ -69,7 +73,7 @@ export default function MindARViewer({ targetSrc }) {
       sceneEl.addEventListener('renderstart', handleRenderStart);
     }
 
-    // Cleanup
+    // Comprehensive clean slate removal on route change
     return () => {
       if (sceneEl) {
         sceneEl.removeEventListener('renderstart', handleRenderStart);
