@@ -2,34 +2,49 @@
 .fullscreen-container {
   position: relative;
   width: 100vw;
-  height: 100dvh; /* dynamic viewport height fixes mobile browser UI sizing */
+  height: 100dvh; /* Dynamic viewport height for mobile */
   overflow: hidden;
-  background-color: #000; /* Fallback background */
+  background-color: #000; /* Black background fills any gaps */
 }
 
-/* Base style for both layers to stack them cleanly */
+/* Base style for both layers */
 .video-layer {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Target the canvas elements inside the components */
-.video-layer canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Crops and scales to fill the screen nicely without stretching distortion */
-}
-
-/* Ensures the camera background stays behind */
+/* --- LAYER 1: BACKGROUND CAMERA --- */
 .background-camera {
   z-index: 1;
 }
 
-/* Ensures the keyed video layer floats perfectly on top */
+.background-camera canvas {
+  width: 100%;
+  height: 100%;
+  /* CHANGED: 'contain' stops the stretching and weird zoom. 
+     It shows the full camera feed safely within the screen boundaries. */
+  object-fit: contain; 
+}
+
+/* --- LAYER 2: FOREGROUND CHROMACONTENT --- */
 .foreground-asset {
   z-index: 2;
-  pointer-events: none; /* Allows user interactions to pass through to the background if needed */
+  pointer-events: none; /* Let clicks pass through to the background */
+}
+
+.foreground-asset canvas {
+  /* CHANGED: Instead of 100% full screen, we make the keyed asset 
+     smaller (e.g., 60% of the screen width) and let it scale naturally */
+  width: 50%; 
+  height: auto;
+  object-fit: contain;
+  
+  /* OPTIONAL: Adds a slight shadow to separate your asset from the camera background */
+  filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.5)); 
 }
