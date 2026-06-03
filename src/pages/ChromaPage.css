@@ -1,14 +1,24 @@
-/* FULL SCREEN APP CONTAINER */
-.fullscreen-container {
-  position: relative;
-  width: 100vw;
-  height: 100dvh;
-  overflow: hidden;
-  background: radial-gradient(circle at top, #111 0%, #000 70%);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+/* ChromaPage.css */
+
+/* Centers the entire interface on the screen */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #000000; /* Clean, dark backdrop */
+  gap: 20px; /* Spacing between the video container and the button below */
 }
 
-/* VIDEO LAYERS */
+/* Container holds the 9:16 aspect ratio stack */
+.chroma-page-container {
+  position: relative;
+  width: 360px;  /* Matches your exact video width */
+  height: 640px; /* Matches your exact video height */
+}
+
+/* Shared absolute positioning for the stacked video layers */
 .video-layer {
   position: absolute;
   inset: 0;
@@ -17,92 +27,48 @@
   justify-content: center;
 }
 
-/* BACK CAMERA */
-.background-camera canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.9) contrast(1.1);
+/* Stack order: Camera on bottom, Foreground asset directly on top */
+.background-camera {
+  z-index: 1;
 }
 
-/* FOREGROUND FRAME (modern floating card) */
+.foreground-asset {
+  z-index: 2;
+}
+
 .video-frame {
-  width: min(360px, 90vw);
-  height: min(640px, 80vh);
-
-  border-radius: 24px;
-  overflow: hidden;
-
-}
-
-/* CANVAS INSIDE FRAME */
-.video-frame canvas {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  display: block;
 }
 
-/* UI OVERLAY */
-.ui-overlay {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+/* Clean, flat button container below the videos */
+.ui-controls {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-/* BUTTON BASE */
-.start-btn,
-.stop-btn {
-  padding: 14px 22px;
-  border-radius: 999px;
-  border: none;
-
-  font-size: 14px;
+/* Minimalist modern button (No unnecessary shadows/blurs) */
+.action-btn {
+  padding: 12px 24px;
+  font-family: sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0.3px;
-
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* START BUTTON */
 .start-btn {
-  background: linear-gradient(135deg, #00c853, #00e676);
-  color: #0b1b10;
+  background-color: #2563eb;
+  color: #ffffff;
 }
 
-.start-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.05);
-}
-
-/* STOP BUTTON */
 .stop-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #ef4444;
+  color: #ffffff;
 }
 
-.stop-btn:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* MOBILE TWEAKS */
-@media (max-width: 480px) {
-  .video-frame {
-    border-radius: 18px;
-  }
-
-  .ui-overlay {
-    bottom: 20px;
-  }
+.foreground-asset{
+    aspect-ratio: 1/1;
 }
