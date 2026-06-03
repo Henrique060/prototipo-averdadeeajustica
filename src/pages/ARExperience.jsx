@@ -9,20 +9,25 @@ function ARExperience() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  const { targetSrc, assets, entities } = location.state || {};
 
-  const targetSrc = location.state?.targetSrc || "/markers/targets-4.mind";
+  const handleTap = (e) => {
+    console.log('tapped entity:', e.target);
+    // add custom logic here per experience if needed
+  };
 
   return (
     <div className="ar-experience-page">
-      <button className="ar-back-btn" onClick={handleBack}>
+      <button className="ar-back-btn" onClick={() => navigate(-1)}>
         <IoArrowBackOutline /> Voltar
       </button>
-      
       <div className="ar-viewer-container">
-        <MindARViewer targetSrc={targetSrc} />
+        <MindARViewer
+          targetSrc={targetSrc || "/markers/terreiro-militar-marker.mind"}
+          assets={assets || []}
+          entities={entities || []}
+          onTap={handleTap}
+        />
       </div>
     </div>
   );

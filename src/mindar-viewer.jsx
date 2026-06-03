@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default () => {
+export default function MindARViewer({ targetSrc, assets = [], entities = [], onTap }) {
   const sceneRef = useRef(null);
 
   useEffect(() => {
@@ -13,6 +13,11 @@ export default () => {
       sceneEl.addEventListener('renderstart', () => {
         arSystem.start();
       });
+
+      // Optional tap interaction
+      if (onTap) {
+        sceneEl.addEventListener('click', onTap);
+      }
     };
 
     loadScripts();
@@ -24,19 +29,65 @@ export default () => {
   }, []);
 
   return (
-    <a-scene ref={sceneRef} mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/card.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;" color-space="sRGB" embedded renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene
+      ref={sceneRef}
+      mindar-image={`imageTargetSrc: ${targetSrc}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+      color-space="sRGB"
+      embedded
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
       <a-assets>
-        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/card.png" />
-        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+        {assets.map((asset) =>
+          asset.type === 'img' ? (
+            <img key={asset.id} id={asset.id} src={asset.src} />
+          ) : (
+            <a-asset-item key={asset.id} id={asset.id} src={asset.src} />
+          )
+        )}
       </a-assets>
+
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-        <a-gltf-model rotation="0 0 0" position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+        {entities.map((entity, i) => {
+          if (entity.type === 'plane') return (
+            <a-plane
+              key={i}
+              src={entity.src}
+              position={entity.position || "0 0 0"}
+              height={entity.height || "1"}
+              width={entity.width || "1"}
+              rotation={entity.rotation || "0 0 0"}
+            />
+          );
+          if (entity.type === 'gltf') return (
+            <a-gltf-model
+              key={i}
+              src={entity.src}
+              position={entity.position || "0 0 0"}
+              scale={entity.scale || "1 1 1"}
+              rotation={entity.rotation || "0 0 0"}
+              animation={entity.animation || ""}
+            />
+          );
+          if (entity.type === 'video') return (
+            <a-video
+              key={i}
+              src={entity.src}
+              position={entity.position || "0 0 0"}
+              width={entity.width || "1"}
+              height={entity.height || "1"}
+              rotation={entity.rotation || "0 0 0"}
+            />
+          );
+          return null;
+        })}
       </a-entity>
     </a-scene>
   );
-};
+}
 
 function loadScript(src) {
   return new Promise((resolve, reject) => {

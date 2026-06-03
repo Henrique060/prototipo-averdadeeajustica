@@ -16,9 +16,22 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
   const navigate = useNavigate(); // Add hook instance
 
   const handleStartExperience = () => {
-    // Route to the AR page and pass the marker route dynamically
-    navigate('/ar-experience', { 
-      state: { targetSrc: "/markers/js-prototipo.mind" } 
+    navigate('/ar-experience', {
+      state: {
+        targetSrc: "/markers/terreiro-militar-marker.mind",
+        assets: [
+          { id: "card", type: "img", src: "/images/jardim.webp" },
+        ],
+        entities: [
+          {
+            type: "plane",
+            src: "#card",
+            position: "0 0 0",
+            height: "0.552",
+            width: "1",
+          }
+        ]
+      }
     });
   };
 
