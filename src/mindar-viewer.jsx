@@ -1,16 +1,31 @@
-// mindar-viewer.jsx
 import React, { useEffect, useRef } from "react";
 
 export default function MindARViewer({ targetSrc }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    let sceneEl = null;
-    let targetEntity = null;
-    let arSystem = null;
-
     const container = containerRef.current;
     if (!container) return;
+
+    let sceneEl;
+    let targetEntity;
+    let arSystem;
+
+    const onTargetFound = () => {
+      console.log("🎯 TARGET FOUND");
+    };
+
+    const onTargetLost = () => {
+      console.log("❌ TARGET LOST");
+    };
+
+    const onARReady = () => {
+      console.log("🚀 AR READY");
+    };
+
+    const onARError = (e) => {
+      console.error("💥 AR ERROR", e);
+    };
 
     container.innerHTML = `
       <a-scene
@@ -22,7 +37,7 @@ export default function MindARViewer({ targetSrc }) {
         device-orientation-permission-ui="enabled: false"
         style="width:100%;height:100%;position:absolute;top:0;left:0;"
       >
-        <a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
+        <a-camera active="false" position="0 0 0"></a-camera>
 
         <a-entity mindar-image-target="targetIndex: 0">
           <a-box
@@ -39,17 +54,12 @@ export default function MindARViewer({ targetSrc }) {
     sceneEl = container.querySelector("a-scene");
 
     if (!sceneEl) {
-      console.error("Failed to create A-Frame scene");
+      console.error("❌ Failed to create scene");
       return;
     }
 
-    const onTargetFound = () => {
-      console.log("🎯 TARGET FOUND");
-    };
-
-    const onTargetLost = () => {
-      console.log("❌ TARGET LOST");
-    };
+    sceneEl.addEventListener("arReady", onARReady);
+    sceneEl.addEventListener("arError", onARError);
 
     const onSceneLoaded = () => {
       console.log("✅ Scene loaded");
@@ -57,16 +67,17 @@ export default function MindARViewer({ targetSrc }) {
       arSystem = sceneEl.systems?.["mindar-image-system"];
 
       if (!arSystem) {
-        console.error("❌ MindAR system not found");
+        console.error("❌ MindAR system missing");
         return;
       }
 
       console.log("✅ MindAR system initialized");
+      console.log("MindAR system:", arSystem);
 
       targetEntity = sceneEl.querySelector("[mindar-image-target]");
 
       if (!targetEntity) {
-        console.error("❌ Target entity not found");
+        console.error("❌ Target entity missing");
         return;
       }
 
@@ -74,6 +85,16 @@ export default function MindARViewer({ targetSrc }) {
       targetEntity.addEventListener("targetLost", onTargetLost);
 
       console.log("✅ Target listeners attached");
+
+      setTimeout(() => {
+        console.log("========== MINDAR DEBUG ==========");
+        console.log("Target source:", targetSrc);
+        console.log("System:", arSystem);
+        console.log("Video:", arSystem.video);
+        console.log("Controller:", arSystem.controller);
+        console.log("Scene:", sceneEl);
+        console.log("=================================");
+      }, 5000);
     };
 
     if (sceneEl.hasLoaded) {
@@ -83,22 +104,21 @@ export default function MindARViewer({ targetSrc }) {
     }
 
     return () => {
-      try {
-        if (targetEntity) {
-          targetEntity.removeEventListener("targetFound", onTargetFound);
-          targetEntity.removeEventListener("targetLost", onTargetLost);
-        }
-
-        if (arSystem && typeof arSystem.stop === "function") {
-          arSystem.stop();
-        }
-
-        if (container) {
-          container.innerHTML = "";
-        }
-      } catch (err) {
-        console.error("Cleanup error:", err);
+      if (targetEntity) {
+        targetEntity.removeEventListener("targetFound", onTargetFound);
+        targetEntity.removeEventListener("targetLost", onTargetLost);
       }
+
+      if (sceneEl) {
+        sceneEl.removeEventListener("arReady", onARReady);
+        sceneEl.removeEventListener("arError", onARError);
+      }
+
+      if (arSystem?.stop) {
+        arSystem.stop();
+      }
+
+      container.innerHTML = "";
     };
   }, [targetSrc]);
 
