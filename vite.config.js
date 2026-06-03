@@ -5,9 +5,12 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   assetsInclude: ['**/*.mind'],
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    exclude: ['aframe', 'mind-ar'],
+  },
   build: {
     rollupOptions: {
-      external: ['aframe', 'mind-ar/dist/mindar-image-aframe.prod.js'],
+      // remove the external block entirely
     }
   }
 })

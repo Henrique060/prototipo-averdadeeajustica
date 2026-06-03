@@ -1,135 +1,52 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
-export default function MindARViewer({ targetSrc }) {
-  const containerRef = useRef(null);
+export default () => {
+  const sceneRef = useRef(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const loadScripts = async () => {
+      await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
 
-    let sceneEl;
-    let targetEntity;
-    let arSystem;
-
-    const onTargetFound = () => {
-      console.log("🎯 TARGET FOUND");
+      const sceneEl = sceneRef.current;
+      const arSystem = sceneEl.systems["mindar-image-system"];
+      sceneEl.addEventListener('renderstart', () => {
+        arSystem.start();
+      });
     };
 
-    const onTargetLost = () => {
-      console.log("❌ TARGET LOST");
-    };
-
-    const onARReady = () => {
-      console.log("🚀 AR READY");
-    };
-
-    const onARError = (e) => {
-      console.error("💥 AR ERROR", e);
-    };
-
-    container.innerHTML = `
-      <a-scene
-        mindar-image="imageTargetSrc: ${targetSrc}; uiLoading: yes; uiError: yes; uiScanning: yes"
-        embedded
-        color-space="sRGB"
-        renderer="colorManagement: true; physicallyCorrectLights: true"
-        vr-mode-ui="enabled: false"
-        device-orientation-permission-ui="enabled: false"
-        style="width:100%;height:100%;position:absolute;top:0;left:0;"
-      >
-        <a-camera active="false" position="0 0 0"></a-camera>
-
-        <a-entity mindar-image-target="targetIndex: 0">
-          <a-box
-            position="0 0 0"
-            width="0.5"
-            height="0.5"
-            depth="0.5"
-            color="red"
-          ></a-box>
-        </a-entity>
-      </a-scene>
-    `;
-
-    sceneEl = container.querySelector("a-scene");
-
-    if (!sceneEl) {
-      console.error("❌ Failed to create scene");
-      return;
-    }
-
-    sceneEl.addEventListener("arReady", onARReady);
-    sceneEl.addEventListener("arError", onARError);
-
-    const onSceneLoaded = () => {
-      console.log("✅ Scene loaded");
-
-      arSystem = sceneEl.systems?.["mindar-image-system"];
-
-      if (!arSystem) {
-        console.error("❌ MindAR system missing");
-        return;
-      }
-
-      console.log("✅ MindAR system initialized");
-      console.log("MindAR system:", arSystem);
-
-      targetEntity = sceneEl.querySelector("[mindar-image-target]");
-
-      if (!targetEntity) {
-        console.error("❌ Target entity missing");
-        return;
-      }
-
-      targetEntity.addEventListener("targetFound", onTargetFound);
-      targetEntity.addEventListener("targetLost", onTargetLost);
-
-      console.log("✅ Target listeners attached");
-
-      setTimeout(() => {
-        console.log("========== MINDAR DEBUG ==========");
-        console.log("Target source:", targetSrc);
-        console.log("System:", arSystem);
-        console.log("Video:", arSystem.video);
-        console.log("Controller:", arSystem.controller);
-        console.log("Scene:", sceneEl);
-        console.log("=================================");
-      }, 5000);
-    };
-
-    if (sceneEl.hasLoaded) {
-      onSceneLoaded();
-    } else {
-      sceneEl.addEventListener("loaded", onSceneLoaded, { once: true });
-    }
+    loadScripts();
 
     return () => {
-      if (targetEntity) {
-        targetEntity.removeEventListener("targetFound", onTargetFound);
-        targetEntity.removeEventListener("targetLost", onTargetLost);
-      }
-
-      if (sceneEl) {
-        sceneEl.removeEventListener("arReady", onARReady);
-        sceneEl.removeEventListener("arError", onARError);
-      }
-
-      if (arSystem?.stop) {
-        arSystem.stop();
-      }
-
-      container.innerHTML = "";
+      const arSystem = sceneRef.current?.systems["mindar-image-system"];
+      arSystem?.stop();
     };
-  }, [targetSrc]);
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-      }}
-    />
+    <a-scene ref={sceneRef} mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/card.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;" color-space="sRGB" embedded renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/card.png" />
+        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+        <a-gltf-model rotation="0 0 0" position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel" animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+      </a-entity>
+    </a-scene>
   );
+};
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve(); return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
 }
