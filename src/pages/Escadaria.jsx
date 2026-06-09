@@ -14,6 +14,10 @@ function Escadaria() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu.webp"
+      targetImg="/images/escadaria.webp"
+      assets={[
+        "/images/djose1.webp"
+      ]}
     />
   );
 }

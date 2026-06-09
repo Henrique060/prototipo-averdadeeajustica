@@ -11,16 +11,18 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 // NOTE: MindARViewer import is removed from here since it's moved to the new page!
 
-function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc }) {
+function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, targetImg, assets=[] }) {
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate(); // Add hook instance
 
   const handleStartExperience = () => {
     navigate('/ar-experience', {
       state: {
-        targetSrc: "/markers/terreiro-militar-marker.mind",
+        targetSrc: targetImg,
         assets: [
-          { id: "card", type: "img", src: "/images/jardim.webp" },
+          { src: assets[0], type: 'img', id: 'card'},
+          { src: assets[1], type: 'video', id: 'video1'},
+          { src: assets[2], type:'glb', id: 'model1'}
         ],
         entities: [
           {
@@ -29,6 +31,18 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
             position: "0 0 0",
             height: "0.552",
             width: "1",
+          },
+          {
+            type: "video",
+            src: "#video1",
+            position: "0 0 0",
+            loop: true
+          },
+          {
+            type: "model",
+            src: "#model1",
+            position: "0 0 0",
+            scale: "0.1 0.1 0.1"
           }
         ]
       }

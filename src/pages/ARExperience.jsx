@@ -2,8 +2,8 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
-import MindARViewer from '../mindar-viewer';
 import './ARExperience.css';
+import MindARComponent from '../components/MindARComponent';
 
 function ARExperience() {
   const navigate = useNavigate();
@@ -22,10 +22,10 @@ function ARExperience() {
         <IoArrowBackOutline /> Voltar
       </button>
       <div className="ar-viewer-container">
-        <MindARViewer
-          targetSrc={targetSrc || "/markers/terreiro-militar-marker.mind"}
-          assets={assets || []}
-          entities={entities || []}
+        <MindARComponent
+          targetSrc={targetSrc} //Removed the || [] (or empty)
+          assets={assets}
+          entities={entities}
           onTap={handleTap}
         />
       </div>
