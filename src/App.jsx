@@ -16,6 +16,7 @@ import LencoSaudade from './pages/LencoSaudade';
 import BustoRepublica from './pages/BustoRepublica';
 import Descobrimentos from './pages/Descobrimentos';
 import Soberania from './pages/Soberania';
+import Jardim from './pages/Jardim';
 import ARExperience from './pages/ARExperience';
 import ChromaPage from './pages/ChromaPage';
 import './App.css'
@@ -42,8 +43,10 @@ function App() {
         <Route path="/djoao" element={<DJoao />} />
         <Route path="/descobrimentos" element={<Descobrimentos />} />
         <Route path="/soberania" element={<Soberania />} />
+        <Route path="/jardim" element={<Jardim />} />
         <Route path="/ar-experience" element={<ARExperience />} />
         <Route path="/chroma-page" element={<ChromaPage />} />
+
 
       </Routes>
     </Router>

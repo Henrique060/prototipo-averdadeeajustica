@@ -16,35 +16,47 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
   const navigate = useNavigate(); // Add hook instance
 
   const handleStartExperience = () => {
+    // 1. Build a dynamic array of assets based on what actually exists
+    const dynamicAssets = [];
+    const dynamicEntities = [];
+
+    if (assets[0]) {
+      dynamicAssets.push({ src: assets[0], type: 'img', id: 'card' });
+      dynamicEntities.push({
+        type: "plane",
+        src: "#card",
+        position: "0 0 0",
+        height: "0.552",
+        width: "1",
+      });
+    }
+
+    if (assets[1]) {
+      dynamicAssets.push({ src: assets[1], type: 'video', id: 'video1' });
+      dynamicEntities.push({
+        type: "video",
+        src: "#video1",
+        position: "0 0 0",
+        loop: true
+      });
+    }
+
+    if (assets[2]) {
+      dynamicAssets.push({ src: assets[2], type: 'glb', id: 'model1' });
+      dynamicEntities.push({
+        type: "model",
+        src: "#model1",
+        position: "0 0 0.1", // slightly pushed forward off the target
+        scale: "0.1 0.1 0.1"
+      });
+    }
+
+    // 2. Ship clean collections down to the AR Page
     navigate('/ar-experience', {
       state: {
         targetSrc: targetImg,
-        assets: [
-          { src: assets[0], type: 'img', id: 'card'},
-          { src: assets[1], type: 'video', id: 'video1'},
-          { src: assets[2], type:'glb', id: 'model1'}
-        ],
-        entities: [
-          {
-            type: "plane",
-            src: "#card",
-            position: "0 0 0",
-            height: "0.552",
-            width: "1",
-          },
-          {
-            type: "video",
-            src: "#video1",
-            position: "0 0 0",
-            loop: true
-          },
-          {
-            type: "model",
-            src: "#model1",
-            position: "0 0 0",
-            scale: "0.1 0.1 0.1"
-          }
-        ]
+        assets: dynamicAssets,
+        entities: dynamicEntities
       }
     });
   };
