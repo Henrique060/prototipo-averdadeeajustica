@@ -16,7 +16,7 @@ function Escadaria() {
       mapImgSrc="/images/mapa-museu.webp"
       targetImg="/images/escadaria.webp"
       assets={[
-        "/images/djose1.webp"
+        "/images/djose1.webp", null, null
       ]}
     />
   );
