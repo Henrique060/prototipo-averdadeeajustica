@@ -14,7 +14,7 @@ function Escadaria() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu.webp"
-      targetImg="/images/escadaria.webp"
+      targetImg="/markers/terreiro-militar-marker.mind"
       assets={[
         "/images/djose1.webp", null, null
       ]}
