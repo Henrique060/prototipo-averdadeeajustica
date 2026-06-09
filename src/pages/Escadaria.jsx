@@ -16,7 +16,7 @@ function Escadaria() {
       mapImgSrc="/images/mapa-museu.webp"
       targetImg="/markers/terreiro-militar-marker.mind"
       assets={[
-        "/images/terreiro-militar.jpeg"
+        "/models/left-arrow.glb"
       ]}
     />
   );
