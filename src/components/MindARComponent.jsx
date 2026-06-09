@@ -55,7 +55,7 @@ export default function MindARComponent({ targetSrc, assets = [], entities = [],
             <a-plane
               key={i}
               src={entity.src}
-              position={entity.position || "0 0 0"}
+              position={entity.position || "0 0 0.1"}
               height={entity.height || "1"}
               width={entity.width || "1"}
               rotation={entity.rotation || "0 0 0"}
@@ -65,7 +65,7 @@ export default function MindARComponent({ targetSrc, assets = [], entities = [],
             <a-gltf-model
               key={i}
               src={entity.src}
-              position={entity.position || "0 0 0"}
+              position={entity.position || "0 0 0.1"}
               scale={entity.scale || "1 1 1"}
               rotation={entity.rotation || "0 0 0"}
               animation={entity.animation || ""}
@@ -75,7 +75,7 @@ export default function MindARComponent({ targetSrc, assets = [], entities = [],
             <a-video
               key={i}
               src={entity.src}
-              position={entity.position || "0 0 0"}
+              position={entity.position || "0 0 0.1"}
               width={entity.width || "1"}
               height={entity.height || "1"}
               rotation={entity.rotation || "0 0 0"}
