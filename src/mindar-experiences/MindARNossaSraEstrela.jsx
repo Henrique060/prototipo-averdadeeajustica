@@ -4,15 +4,33 @@ export default function MindARNossaSraEstrela({ onTap }) {
   const sceneRef = useRef(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
 
+      // If the user navigated away while scripts were loading, stop here
+      if (!isMounted) return;
+
       const sceneEl = sceneRef.current;
-      const arSystem = sceneEl.systems["mindar-image-system"];
-      sceneEl.addEventListener('renderstart', () => {
-        arSystem.start();
-      });
+      if (!sceneEl) return;
+
+      const startAR = () => {
+        const arSystem = sceneEl.systems["mindar-image-system"];
+        if (arSystem && !arSystem.started) {
+          arSystem.start();
+        }
+      };
+
+      // CRITICAL FIX: If the scene has already rendered/loaded before the 
+      // scripts finished fetching, start it immediately.
+      if (sceneEl.hasLoaded || sceneEl.renderStarted) {
+        startAR();
+      } else {
+        // Otherwise, wait for the event normally
+        sceneEl.addEventListener('renderstart', startAR);
+      }
 
       // Optional tap interaction
       if (onTap) {
@@ -23,8 +41,12 @@ export default function MindARNossaSraEstrela({ onTap }) {
     loadScripts();
 
     return () => {
+      isMounted = false;
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
-      arSystem?.stop();
+      // Only stop it if it was actually running
+      if (arSystem?.started) {
+        arSystem.stop();
+      }
     };
   }, [onTap]);
 
