@@ -1,5 +1,6 @@
 import React from 'react';
 import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
+import MindARConvite from '../mindar-experiences/MindARConvite.jsx';
 
 function FiguraConvite() {
   return (
@@ -14,6 +15,7 @@ function FiguraConvite() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-convite.webp"
+      experienceId="convite"
     />
   );
 }

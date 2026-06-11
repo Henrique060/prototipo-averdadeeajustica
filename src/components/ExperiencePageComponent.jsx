@@ -11,52 +11,14 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 // NOTE: MindARViewer import is removed from here since it's moved to the new page!
 
-function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, targetImg, assets=[] }) {
+function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId}) {
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate(); // Add hook instance
 
   const handleStartExperience = () => {
-    // 1. Build a dynamic array of assets based on what actually exists
-    const dynamicAssets = [];
-    const dynamicEntities = [];
-
-    if (assets[0]) {
-      dynamicAssets.push({ src: assets[0], type: 'img', id: 'card' });
-      dynamicEntities.push({
-        type: "plane",
-        src: "#card",
-        position: "0 0 0",
-        height: "0.552",
-        width: "1",
-      });
-    }
-
-    if (assets[1]) {
-      dynamicAssets.push({ src: assets[1], type: 'video', id: 'video1' });
-      dynamicEntities.push({
-        type: "video",
-        src: "#video1",
-        position: "0 0 0",
-        loop: true
-      });
-    }
-
-    if (assets[2]) {
-      dynamicAssets.push({ src: assets[2], type: 'glb', id: 'model1' });
-      dynamicEntities.push({
-        type: "model",
-        src: "#model1",
-        position: "0 0 0.1", // slightly pushed forward off the target
-        scale: "0.1 0.1 0.1"
-      });
-    }
-
-    // 2. Ship clean collections down to the AR Page
     navigate('/ar-experience', {
       state: {
-        targetSrc: targetImg,
-        assets: dynamicAssets,
-        entities: dynamicEntities
+        experienceId: experienceId
       }
     });
   };

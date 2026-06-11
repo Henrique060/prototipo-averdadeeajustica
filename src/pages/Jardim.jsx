@@ -13,9 +13,7 @@ function Jardim() {
       mapImgSrc="/images/mapa-jardim.webp"
       targetImg="/images/jardim-target.webp"
       assets={[
-        "/images/jardim-1.webp",
-        "/videos/jardim-1.mp4",
-        "/models/jardim-1.glb"
+        
       ]}
     />
   );

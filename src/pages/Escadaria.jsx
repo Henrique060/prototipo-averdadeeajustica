@@ -1,5 +1,6 @@
 import React from 'react';
 import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
+import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx';
 
 function Escadaria() {
   return (
@@ -14,10 +15,7 @@ function Escadaria() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu.webp"
-      targetImg="/markers/terreiro-militar-marker.mind"
-      assets={[
-        null, null,"/models/left-arrow.glb"
-      ]}
+      experienceId="escadaria" 
     />
   );
 }
