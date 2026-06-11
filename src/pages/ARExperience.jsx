@@ -4,6 +4,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx'; // 👈 Import it directly here
 import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; // 👈 Import it directly here
 import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; // 👈 Import it directly here
+import MindARNossaSraEstrela from '../mindar-experiences/MindARNossaSraEstrela.jsx';
 import './ARExperience.css';
 
 // 1. Create a registry map of your experiences
@@ -11,6 +12,7 @@ const EXPERIENCES = {
   escadaria: MindAREscadaria,
   convite: MindARConvite,
   djoao: MindARDJoao,
+  nsraestrela: MindARNossaSraEstrela,
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };

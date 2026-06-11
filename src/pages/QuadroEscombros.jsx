@@ -14,6 +14,7 @@ function QuadroEscombros() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-23.webp"
+      experienceId="nsraestrela"
     />
   );
 }
