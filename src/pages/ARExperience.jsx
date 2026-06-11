@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBackOutline } from "react-icons/io5";
 import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx'; // 👈 Import it directly here
 import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; // 👈 Import it directly here
+import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; // 👈 Import it directly here
 import './ARExperience.css';
 
 // 1. Create a registry map of your experiences
