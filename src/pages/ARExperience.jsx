@@ -9,6 +9,7 @@ import './ARExperience.css';
 const EXPERIENCES = {
   escadaria: MindAREscadaria,
   convite: MindARConvite,
+  djoao: MindARDJoao,
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };
