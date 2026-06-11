@@ -41,14 +41,11 @@ export default function MindARNossaSraEstrela({ onTap }) {
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
-      <a-assets></a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         {/* Target Index 0: Custom Text Panel with Background */}
-        <a-entity mindar-image-target="targetIndex:0">
-            <a-gltf-model id="arrow-left-entity-0" src="#arrow-left" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
-            
+        <a-entity mindar-image-target="targetIndex:0">            
             {/* 1. Black Plane Background Panel */}
             <a-plane 
               id="text-background-panel"
@@ -69,14 +66,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
               position="0 0.6 0.02"
               wrap-count="25"
             ></a-text>
-        </a-entity>
-
-        <a-entity mindar-image-target="targetIndex:1">
-            <a-gltf-model id="arrow-left-entity-1" src="#arrow-left" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
-        </a-entity>
-        
-        <a-entity mindar-image-target="targetIndex:2">
-            <a-gltf-model id="arrow-right-entity-0" src="#arrow-right" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
         </a-entity>
     </a-scene>
   );
