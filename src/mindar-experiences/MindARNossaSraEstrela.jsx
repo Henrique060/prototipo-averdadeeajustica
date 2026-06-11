@@ -64,9 +64,9 @@ export default function MindARNossaSraEstrela({ onTap }) {
             <a-plane 
               id="text-background-panel"
               color="#000000" 
-              opacity="0.8" 
-              width="1.2" 
-              height="1.7" 
+              opacity="1" 
+              width="1.0" 
+              height="1.0" 
               position="0 0 0.05"
               
             ></a-plane>
@@ -81,7 +81,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
                 
                 /* Troika sizing configurations */
                 font-size="0.05"     
-                max-width="1.0"     
+                max-width="0.7"     
                 line-height="1.4"  
                 
                 ></a-troika-text>
