@@ -19,6 +19,7 @@ import Soberania from './pages/Soberania';
 import Jardim from './pages/Jardim';
 import ARExperience from './pages/ARExperience';
 import ChromaPage from './pages/ChromaPage';
+import ThesisProjectPage from './pages/ThesisProjectPage';
 import './App.css'
 
 
@@ -46,6 +47,7 @@ function App() {
         <Route path="/jardim" element={<Jardim />} />
         <Route path="/ar-experience" element={<ARExperience />} />
         <Route path="/chroma-page" element={<ChromaPage />} />
+        <Route path="/thesis-project-page" element={<ThesisProjectPage />} />
 
 
       </Routes>

@@ -9,9 +9,19 @@ function Escadaria() {
       imageAlt="Introdução"
       titleMain="Introdução"
       titleSide="Escadaria"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description={`Por teu bem querer, eu penso e discirno: 
+                    que tu me sigas, e eu serei tua guia. 
+                    - Eu sou Beatriz. 
+                    Levar-te-ei daqui para lugar incerto; 
+                    verás obras que não me deram respostas, 
+                    mas me fizeram pensar.
+                    (levando-te pela mão)
+                    partilharei contigo,
+                    os meus questionamentos,
+                    atravessando de um passado para outro.
+                    E depois deste caminho, perguntar-te-ei:
+                    Que futuro almejas?
+                    `}
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu.webp"

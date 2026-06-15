@@ -1,6 +1,6 @@
 import React from "react";
 import './LearnMorePopUp.css';
-import { IoIosClose } from "react-icons/io";
+import { IoCloseOutline } from "react-icons/io5";
 
 
 function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
@@ -9,7 +9,7 @@ function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
       <div className="pop-up" onClick={(e) => e.stopPropagation()}>
         <div className="pop-up-header">
           <h2>{headerName}</h2>
-          <button className="pop-up-close" onClick={onClose}><IoIosClose size={24} /></button>
+          <button className="pop-up-close-btn" onClick={onClose}>Fechar</button>
         </div>
         <div className="learn-more-pop-up-content-img-div">
           <img src={imgSrc} alt="Map" />

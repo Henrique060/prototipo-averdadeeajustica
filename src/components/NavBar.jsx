@@ -37,10 +37,10 @@ const NavBar = () => {
 
       {/* Center Pill */}
       <div className="main-pill">
-        <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/thesis-project-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <div className="icon-text-container">
             <GoHome size={18} />
-            <p className="ic-text">Home</p>
+            <p className="ic-text">Projeto</p>
           </div>
         </NavLink>
         <NavLink to="/tutorial" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>

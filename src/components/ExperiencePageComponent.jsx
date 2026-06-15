@@ -60,7 +60,7 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
         
         <div className="quadro-container-button-wrapper">
           {/* Replaced old local state button logic with navigation trigger */}
-          <button onClick={handleStartExperience}>{buttonLabel}</button>
+          <button className="quadro-container-button"onClick={handleStartExperience}>{buttonLabel}</button>
         </div>
       </div>
       <NavBarExperience_2 />

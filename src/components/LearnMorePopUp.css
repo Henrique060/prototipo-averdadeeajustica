@@ -1,9 +1,143 @@
-.learn-more-pop-up-content-img-div{
-    aspect-ratio: 1/1;
-    border-radius: 14px;
+.pop-up-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 17, 28, 0.75); /* Deepened for better contrast and focus */
+    backdrop-filter: blur(8px); /* Soft blur on the background for a modern overlay feel */
+    -webkit-backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    z-index: 1000;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop-up {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* Slightly crisper max-width */
+    max-height: 85vh;
+    overflow-y: auto;
+    background: linear-gradient(145deg, #19283E, #131F31); /* Subtle gradient for depth */
+    border-radius: 24px; /* More modern, softer rounded corners */
+    border: 1px solid rgba(226, 229, 255, 0.08);
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.2),
+        0 24px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05); /* Crisp inner glow */
+    padding: 2rem; /* Enhanced padding for better breathing room */
+    box-sizing: border-box;
+    
+    /* Animation for smooth entrance */
+    animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    /* Custom Scrollbar Styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(226, 229, 255, 0.2) transparent;
+}
+
+/* Custom Scrollbar for Webkit browsers */
+.pop-up::-webkit-scrollbar {
+    width: 6px;
+}
+.pop-up::-webkit-scrollbar-thumb {
+    background: rgba(226, 229, 255, 0.2);
+    border-radius: 10px;
+}
+
+.pop-up-header {
+    position: sticky;
+    top: -2rem; /* Matches the new top padding of .pop-up to stick perfectly */
+    margin: -2rem -2rem 1.75rem -2rem; /* Bleeds into the padding seamlessly */
+    padding: 1.5rem 2rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures header text and button sit perfectly on opposite sides */
+
+    background: rgba(25, 40, 62, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 229, 255, 0.08);
+}
+
+.pop-up-header h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #FFFFFF; /* High contrast white */
+    letter-spacing: -0.01em; /* Modern tight tracking */
+    margin: 0;
+}
+
+.pop-up-close-btn {
+    background: rgba(226, 229, 255, 0.06);
+    border: 1px solid rgba(226, 229, 255, 0.08);
+    color: #E2E5FF;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pop-up-close-btn:hover {
+    background: rgba(226, 229, 255, 0.12);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+.pop-up-close-btn:active {
+    transform: translateY(1px);
+}
+
+.learn-more-pop-up-content-img-div {
+    aspect-ratio: 16 / 10;
+    border-radius: 16px; /* Match the softer aesthetic */
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(226, 229, 255, 0.05);
+}
+
+.learn-more-pop-up-content-img-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Subtle zoom effect on image when user interacts with the pop-up */
+.pop-up:hover .learn-more-pop-up-content-img-div img {
+    transform: scale(1.02);
 }
 
 .learn-more-pop-up-content-description-text {
-    padding: 10px;
-    color: #E2E5FF;
+    color: #C2C7F0; 
+    font-size: 0.975rem;
+    line-height: 1.7;             /* Slightly increased line height for paragraph readability */
+    text-align: left;             /* Explicitly forces left-alignment (no justification) */
+    white-space: pre-wrap;        /* Keeps your manual line breaks / paragraph breaks intact */
+    margin: 0;
+}
+
+/* Smooth Entrance Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { 
+        opacity: 0; 
+        transform: scale(0.96) translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+    }
 }

@@ -9,7 +9,7 @@ function Home() {
 
       {/* MOBILE / PORTRAIT VERSION */}
       <section className="hero-landing hero-mobile">
-        <HeroButton to="/tutorial" label="Entrar" className="hero-btn" />
+        <HeroButton to="/thesis-project-page" label="Entrar" className="hero-btn" />
       </section>
 
       {/* DESKTOP / LANDSCAPE VERSION */}
@@ -30,7 +30,7 @@ function Home() {
             Se estiver a utilizar um tablet, coloque na orientação vertical
           </p>
 
-          <Link className="hero-btn" to="/tutorial">
+          <Link className="hero-btn" to="/thesis-project-page">
             Entrar
           </Link>
         </div>
