@@ -11,7 +11,14 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // remove the external block entirely
+      output: {
+        // This splits your giant dependencies into smaller, separate chunks
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+          }
+        }
+      }
     }
   }
 })
