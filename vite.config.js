@@ -14,16 +14,19 @@ export default defineConfig({
       external: ['aframe', 'mind-ar'],
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-dom')) {
-            return 'react-dom'
-          }
-          if (id.includes('node_modules/react')) {
-            return 'react'
-          }
-          if (id.includes('node_modules/')) {
-            return 'vendor'
-          }
-        }
+  if (id.includes('node_modules/@google/model-viewer')) {
+    return 'model-viewer'
+  }
+  if (id.includes('node_modules/react-dom')) {
+    return 'react-dom'
+  }
+  if (id.includes('node_modules/react')) {
+    return 'react'
+  }
+  if (id.includes('node_modules/')) {
+    return 'vendor'
+  }
+}
       }
     }
   }
