@@ -11,7 +11,22 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // remove the external block entirely
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/aframe') || id.includes('node_modules/three')) {
+            return 'aframe-three'
+          }
+          if (id.includes('node_modules/mind-ar')) {
+            return 'mind-ar'
+          }
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'react-vendor'
+          }
+          if (id.includes('node_modules/')) {
+            return 'vendor'
+          }
+        }
+      }
     }
   }
 })
