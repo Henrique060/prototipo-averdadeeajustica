@@ -11,27 +11,19 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      external: ['aframe', 'mind-ar'],
       output: {
         manualChunks(id) {
-  if (id.includes('node_modules/three')) {
-    return 'three'
-  }
-  if (id.includes('node_modules/aframe')) {
-    return 'aframe'
-  }
-  if (id.includes('node_modules/mind-ar')) {
-    return 'mind-ar'
-  }
-  if (id.includes('node_modules/react-dom')) {
-    return 'react-dom'
-  }
-  if (id.includes('node_modules/react')) {
-    return 'react'
-  }
-  if (id.includes('node_modules/')) {
-    return 'vendor'
-  }
-}
+          if (id.includes('node_modules/react-dom')) {
+            return 'react-dom'
+          }
+          if (id.includes('node_modules/react')) {
+            return 'react'
+          }
+          if (id.includes('node_modules/')) {
+            return 'vendor'
+          }
+        }
       }
     }
   }
