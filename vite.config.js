@@ -13,19 +13,25 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/aframe') || id.includes('node_modules/three')) {
-            return 'aframe-three'
-          }
-          if (id.includes('node_modules/mind-ar')) {
-            return 'mind-ar'
-          }
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
-            return 'react-vendor'
-          }
-          if (id.includes('node_modules/')) {
-            return 'vendor'
-          }
-        }
+  if (id.includes('node_modules/three')) {
+    return 'three'
+  }
+  if (id.includes('node_modules/aframe')) {
+    return 'aframe'
+  }
+  if (id.includes('node_modules/mind-ar')) {
+    return 'mind-ar'
+  }
+  if (id.includes('node_modules/react-dom')) {
+    return 'react-dom'
+  }
+  if (id.includes('node_modules/react')) {
+    return 'react'
+  }
+  if (id.includes('node_modules/')) {
+    return 'vendor'
+  }
+}
       }
     }
   }
