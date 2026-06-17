@@ -11,7 +11,14 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // remove the external block entirely
+      output: {
+        // This splits vendor libraries into separate chunks to stay under the proxy size limits
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+          }
+        }
+      }
     }
   }
 })
