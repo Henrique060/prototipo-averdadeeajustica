@@ -74,13 +74,6 @@ const experiencias = [
   },
 
   {
-    sala: 'Sala 25',
-    titulo: 'Inquisição',
-    image: '/images/sala26.webp',
-    url: '/gravura-marques',
-  },
-
-  {
     sala: 'Sala 26',
     titulo: 'Cidade no tempo de D. Maria I / Guerra Peninsular',
     image: '/images/sala26.webp',
@@ -107,11 +100,11 @@ const experiencias = [
   },
 
   {
-    sala: 'Salas 28 & 29',
+    sala: 'Salas 28',
     titulo: 'Estado Novo (1933 - 1974)',
     image: '/images/sala28.webp',
     popup: {
-      headerName: 'Sala 28 & 29 - Estado Novo',
+      headerName: 'Sala 28 - Estado Novo',
 
       listOfItems: [
         'Monumento Descobrimentos',
@@ -125,19 +118,6 @@ const experiencias = [
     },
   },
 
-  {
-    sala: 'Sala 30',
-    titulo: 'Cidade contemporânea (1974 - 1998)',
-    image: '/images/sala30.webp',
-    url: '/sala30',
-  },
-
-  {
-    sala: 'Sala 31',
-    titulo: 'Exposição Mundial de 1998',
-    image: '/images/sala31.webp',
-    url: '/sala31',
-  },
   {
     sala: 'Jardim',
     titulo: 'Monumento à Justiça & Terreiro do Paço',
@@ -168,7 +148,7 @@ const ListaExperiencias = () => {
   return (
     <div className="page-wrapper">
       <LogoHeader />
-      <PageHeader title="Mapa de Experiências" />
+      <PageHeader title="Salas com Experiências" />
       <NavBar />
 
       <div className="experience-list-container">

@@ -1,0 +1,571 @@
+diff --git a/src/App.jsx b/src/App.jsx
+index 2fa619f..1deb3ea 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -19,6 +19,7 @@ import Soberania from './pages/Soberania';
+ import Jardim from './pages/Jardim';
+ import ARExperience from './pages/ARExperience';
+ import ChromaPage from './pages/ChromaPage';
++import ThesisProjectPage from './pages/ThesisProjectPage';
+ import './App.css'
+ 
+ 
+@@ -46,6 +47,7 @@ function App() {
+         <Route path="/jardim" element={<Jardim />} />
+         <Route path="/ar-experience" element={<ARExperience />} />
+         <Route path="/chroma-page" element={<ChromaPage />} />
++        <Route path="/thesis-project-page" element={<ThesisProjectPage />} />
+ 
+ 
+       </Routes>
+diff --git a/src/components/ExperiencePageComponent.css b/src/components/ExperiencePageComponent.css
+index 2585fed..6ae6829 100644
+--- a/src/components/ExperiencePageComponent.css
++++ b/src/components/ExperiencePageComponent.css
+@@ -25,6 +25,9 @@
+   font-size: 1rem;
+   font-weight: 400;
+   color: #19283E;
++  white-space: pre-line;
++  font-synthesis: style;
++  font-style: italic;
+ }
+ 
+ .quadro-container-button-wrapper{
+@@ -64,3 +67,16 @@
+ }
+ 
+ 
++.quadro-container-button{
++  background-color: #EA562E;
++  color: #E4D7C4;
++  border: none;
++  padding: 12px 24px;
++  border-radius: 14px;
++  cursor: pointer;
++}
++
++.quadro-container-button:hover {
++  background-color: #d9534f;
++}
++
+diff --git a/src/components/ExperiencePageComponent.jsx b/src/components/ExperiencePageComponent.jsx
+index c23dcbf..c0f2349 100644
+--- a/src/components/ExperiencePageComponent.jsx
++++ b/src/components/ExperiencePageComponent.jsx
+@@ -60,7 +60,7 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
+         
+         <div className="quadro-container-button-wrapper">
+           {/* Replaced old local state button logic with navigation trigger */}
+-          <button onClick={handleStartExperience}>{buttonLabel}</button>
++          <button className="quadro-container-button"onClick={handleStartExperience}>{buttonLabel}</button>
+         </div>
+       </div>
+       <NavBarExperience_2 />
+diff --git a/src/components/LearnMorePopUp.css b/src/components/LearnMorePopUp.css
+index 47ba709..ec188c0 100644
+--- a/src/components/LearnMorePopUp.css
++++ b/src/components/LearnMorePopUp.css
+@@ -1,9 +1,143 @@
+-.learn-more-pop-up-content-img-div{
+-    aspect-ratio: 1/1;
+-    border-radius: 14px;
++.pop-up-overlay {
++    position: fixed;
++    inset: 0;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    background: rgba(10, 17, 28, 0.75); /* Deepened for better contrast and focus */
++    backdrop-filter: blur(8px); /* Soft blur on the background for a modern overlay feel */
++    -webkit-backdrop-filter: blur(8px);
++    padding: 1.5rem;
++    z-index: 1000;
++    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+ }
+ 
+-.learn-more-pop-up-content-description-text {
+-    padding: 10px;
++.pop-up {
++    position: relative;
++    width: 100%;
++    max-width: 700px; /* Slightly crisper max-width */
++    max-height: 85vh;
++    overflow-y: auto;
++    background: linear-gradient(145deg, #19283E, #131F31); /* Subtle gradient for depth */
++    border-radius: 24px; /* More modern, softer rounded corners */
++    border: 1px solid rgba(226, 229, 255, 0.08);
++    box-shadow: 
++        0 4px 30px rgba(0, 0, 0, 0.2),
++        0 24px 60px rgba(0, 0, 0, 0.4),
++        inset 0 1px 1px rgba(255, 255, 255, 0.05); /* Crisp inner glow */
++    padding: 2rem; /* Enhanced padding for better breathing room */
++    box-sizing: border-box;
++    
++    /* Animation for smooth entrance */
++    animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
++    
++    /* Custom Scrollbar Styling */
++    scrollbar-width: thin;
++    scrollbar-color: rgba(226, 229, 255, 0.2) transparent;
++}
++
++/* Custom Scrollbar for Webkit browsers */
++.pop-up::-webkit-scrollbar {
++    width: 6px;
++}
++.pop-up::-webkit-scrollbar-thumb {
++    background: rgba(226, 229, 255, 0.2);
++    border-radius: 10px;
++}
++
++.pop-up-header {
++    position: sticky;
++    top: -2rem; /* Matches the new top padding of .pop-up to stick perfectly */
++    margin: -2rem -2rem 1.75rem -2rem; /* Bleeds into the padding seamlessly */
++    padding: 1.5rem 2rem;
++    z-index: 10;
++    display: flex;
++    align-items: center;
++    justify-content: space-between; /* Ensures header text and button sit perfectly on opposite sides */
++
++    background: rgba(25, 40, 62, 0.8);
++    backdrop-filter: blur(20px);
++    -webkit-backdrop-filter: blur(20px);
++    border-bottom: 1px solid rgba(226, 229, 255, 0.08);
++}
++
++.pop-up-header h2 {
++    font-size: 1.35rem;
++    font-weight: 600;
++    color: #FFFFFF; /* High contrast white */
++    letter-spacing: -0.01em; /* Modern tight tracking */
++    margin: 0;
++}
++
++.pop-up-close-btn {
++    background: rgba(226, 229, 255, 0.06);
++    border: 1px solid rgba(226, 229, 255, 0.08);
+     color: #E2E5FF;
++    padding: 0.5rem 1rem;
++    border-radius: 10px;
++    font-size: 0.85rem;
++    font-weight: 500;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    cursor: pointer;
++    transition: all 0.2s ease;
++}
++
++.pop-up-close-btn:hover {
++    background: rgba(226, 229, 255, 0.12);
++    color: #FFFFFF;
++    transform: translateY(-1px);
++}
++
++.pop-up-close-btn:active {
++    transform: translateY(1px);
++}
++
++.learn-more-pop-up-content-img-div {
++    aspect-ratio: 16 / 10;
++    border-radius: 16px; /* Match the softer aesthetic */
++    overflow: hidden;
++    margin-bottom: 1.75rem;
++    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
++    border: 1px solid rgba(226, 229, 255, 0.05);
++}
++
++.learn-more-pop-up-content-img-div img {
++    width: 100%;
++    height: 100%;
++    object-fit: cover;
++    display: block;
++    transition: transform 0.5s ease;
++}
++
++/* Subtle zoom effect on image when user interacts with the pop-up */
++.pop-up:hover .learn-more-pop-up-content-img-div img {
++    transform: scale(1.02);
++}
++
++.learn-more-pop-up-content-description-text {
++    color: #C2C7F0; 
++    font-size: 0.975rem;
++    line-height: 1.7;             /* Slightly increased line height for paragraph readability */
++    text-align: left;             /* Explicitly forces left-alignment (no justification) */
++    white-space: pre-wrap;        /* Keeps your manual line breaks / paragraph breaks intact */
++    margin: 0;
++}
++
++/* Smooth Entrance Animations */
++@keyframes fadeIn {
++    from { opacity: 0; }
++    to { opacity: 1; }
++}
++
++@keyframes scaleUp {
++    from { 
++        opacity: 0; 
++        transform: scale(0.96) translateY(10px); 
++    }
++    to { 
++        opacity: 1; 
++        transform: scale(1) translateY(0); 
++    }
+ }
+\ No newline at end of file
+diff --git a/src/components/LearnMorePopUp.jsx b/src/components/LearnMorePopUp.jsx
+index 1d8bd21..d8d4be6 100644
+--- a/src/components/LearnMorePopUp.jsx
++++ b/src/components/LearnMorePopUp.jsx
+@@ -1,6 +1,6 @@
+ import React from "react";
+ import './LearnMorePopUp.css';
+-import { IoIosClose } from "react-icons/io";
++import { IoCloseOutline } from "react-icons/io5";
+ 
+ 
+ function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
+@@ -9,7 +9,7 @@ function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
+       <div className="pop-up" onClick={(e) => e.stopPropagation()}>
+         <div className="pop-up-header">
+           <h2>{headerName}</h2>
+-          <button className="pop-up-close" onClick={onClose}><IoIosClose size={24} /></button>
++          <button className="pop-up-close-btn" onClick={onClose}>Fechar</button>
+         </div>
+         <div className="learn-more-pop-up-content-img-div">
+           <img src={imgSrc} alt="Map" />
+diff --git a/src/components/NavBar.jsx b/src/components/NavBar.jsx
+index 99f66ec..6a6502c 100644
+--- a/src/components/NavBar.jsx
++++ b/src/components/NavBar.jsx
+@@ -37,10 +37,10 @@ const NavBar = () => {
+ 
+       {/* Center Pill */}
+       <div className="main-pill">
+-        <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
++        <NavLink to="/thesis-project-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+           <div className="icon-text-container">
+             <GoHome size={18} />
+-            <p className="ic-text">Home</p>
++            <p className="ic-text">Projeto</p>
+           </div>
+         </NavLink>
+         <NavLink to="/tutorial" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+diff --git a/src/components/NavBarExperience_2.jsx b/src/components/NavBarExperience_2.jsx
+index 7a3f6aa..c8096dc 100644
+--- a/src/components/NavBarExperience_2.jsx
++++ b/src/components/NavBarExperience_2.jsx
+@@ -49,10 +49,10 @@ const NavBarExperience_2 = () => {
+ 
+       {/* Center Pill */}
+       <div className="main-pill">
+-        <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
++        <NavLink to="/thesis-project-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+           <div className="icon-text-container">
+             <GoHome size={18} />
+-            <p className="ic-text">Home</p>
++            <p className="ic-text">Projeto</p>
+           </div>
+         </NavLink>
+         <NavLink to="/tutorial" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+diff --git a/src/pages/DJoao.jsx b/src/pages/DJoao.jsx
+index 4aa77a2..dc0c6cb 100644
+--- a/src/pages/DJoao.jsx
++++ b/src/pages/DJoao.jsx
+@@ -9,9 +9,17 @@ function DJoao() {
+       imageAlt="D. João V"
+       titleMain="D.João V"
+       titleSide="Sala 22 - Cidade Joanina"
+-      description="Texto que irá descrever a alegoria e experiência desejada.
+-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
+-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
++      description={`Magnífico, 
++                magnânimo. 
++                Um braço que se vê 
++                e o outro se esconde. 
++                (Para que a Justiça ao Sólio real se incline;) 
++                Rei de grandes obras, 
++                grande cultura... 
++                (E a quem a Fama a Eternidade une) 
++                O seu próprio bem consome: 
++                e qual seria 
++                o néctar que o sacia?`}
+       buttonTo="/quadro-ar"
+       buttonLabel="Iniciar Experiência"
+       mapImgSrc="/images/mapa-museu-22.webp"
+diff --git a/src/pages/Escadaria.jsx b/src/pages/Escadaria.jsx
+index 2caf484..8f547a9 100644
+--- a/src/pages/Escadaria.jsx
++++ b/src/pages/Escadaria.jsx
+@@ -9,9 +9,19 @@ function Escadaria() {
+       imageAlt="Introdução"
+       titleMain="Introdução"
+       titleSide="Escadaria"
+-      description="Texto que irá descrever a alegoria e experiência desejada.
+-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
+-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
++      description={`Por teu bem querer, eu penso e discirno: 
++                    que tu me sigas, e eu serei tua guia. 
++                    - Eu sou Beatriz. 
++                    Levar-te-ei daqui para lugar incerto; 
++                    verás obras que não me deram respostas, 
++                    mas me fizeram pensar.
++                    (levando-te pela mão)
++                    partilharei contigo,
++                    os meus questionamentos,
++                    atravessando de um passado para outro.
++                    E depois deste caminho, perguntar-te-ei:
++                    Que futuro almejas?
++                    `}
+       buttonTo="/quadro-ar"
+       buttonLabel="Iniciar Experiência"
+       mapImgSrc="/images/mapa-museu.webp"
+diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
+index 1013d6f..3fb28b0 100644
+--- a/src/pages/Home.jsx
++++ b/src/pages/Home.jsx
+@@ -9,7 +9,7 @@ function Home() {
+ 
+       {/* MOBILE / PORTRAIT VERSION */}
+       <section className="hero-landing hero-mobile">
+-        <HeroButton to="/tutorial" label="Entrar" className="hero-btn" />
++        <HeroButton to="/thesis-project-page" label="Entrar" className="hero-btn" />
+       </section>
+ 
+       {/* DESKTOP / LANDSCAPE VERSION */}
+@@ -30,7 +30,7 @@ function Home() {
+             Se estiver a utilizar um tablet, coloque na orientação vertical
+           </p>
+ 
+-          <Link className="hero-btn" to="/tutorial">
++          <Link className="hero-btn" to="/thesis-project-page">
+             Entrar
+           </Link>
+         </div>
+diff --git a/src/pages/ThesisProjectPage.css b/src/pages/ThesisProjectPage.css
+new file mode 100644
+index 0000000..9b403f1
+--- /dev/null
++++ b/src/pages/ThesisProjectPage.css
+@@ -0,0 +1,65 @@
++.project-container {
++    display: flex;
++    flex-direction: column;
++    gap: 1.5rem;
++    max-width: 900px;
++    margin: 2rem auto;
++    padding: 0 1rem;
++    padding-bottom: 50px;
++}
++
++.project-container-image-author-row {
++    display: flex;
++    flex-direction: column;
++    gap: 0.75rem;
++}
++
++.project-container-image img {
++    width: 100%;
++    height: auto;
++    display: block;
++    border-radius: 14px;
++    aspect-ratio: 4 / 3;
++    object-fit: cover;
++    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
++}
++
++.project-container-author {
++    display: flex;
++    justify-content: flex-end;
++}
++
++.project-container-author p {
++    font-size: 0.95rem;
++    font-weight: 600;
++    font-style: italic;
++}
++
++.project-container-description p {
++    font-size: 1rem;
++    font-weight: 400;
++    line-height: 1.7;
++    text-align: justify;
++}
++
++.project-container-author-name {
++    font-size: 0.95rem;
++    font-weight: 600;
++    font-synthesis: style;
++    font-style: italic;
++    color: #19283E;
++}
++
++.project-container-learn-more {
++    background-color: #EA562E;
++    color: #E4D7C4;
++    border: none;
++    padding: 6px 12px;
++    border-radius: 14px;
++    cursor: pointer;
++    font-size: .9rem;
++}
++
++.project-container-learn-more:hover {
++    background-color: #da4c24;
++}
+diff --git a/src/pages/ThesisProjectPage.jsx b/src/pages/ThesisProjectPage.jsx
+new file mode 100644
+index 0000000..4ef9599
+--- /dev/null
++++ b/src/pages/ThesisProjectPage.jsx
+@@ -0,0 +1,63 @@
++import React, { useState } from 'react';
++import './Tutorial.css';
++import PageHeader from '../components/PageHeader';
++import NavBar from '../components/NavBar';
++import LogoHeader from '../components/LogoHeader';
++import LearnMorePopUp from '../components/LearnMorePopUp';
++import './ThesisProjectPage.css';
++
++function ThesisProjectPage() {
++  const [activePopUp, setActivePopUp] = useState(null);
++
++  return (
++    <div className="page-wrapper">
++        <LogoHeader />
++        <PageHeader title={<span>Nota artística do projeto</span>} />
++        <NavBar />
++
++        <h3 className="project-description">
++            No âmbito de tese de Mestrado em Engenharia Informática, em parceria com a artista Ana Fonseca, concebeu-se o projeto artístico "A Verdade e a J-u-s-t-i-ç-a". Aplicada à coleção do Museu de Lisboa, a o projeto artístico propõe uma reflexão sobre as peças, expandindo as alegorias representadas em Realidade Aumentada.
++            <br />  
++            Abaixo, lê-se a nota da artista, sobre os ideais em que o projeto se assenta.
++      </h3>
++
++        <div className="project-container">
++            <div className="project-container-image-author-row">
++                <div className="project-container-image">
++                    <img src="/images/anafonseca.png" alt="Project" />
++                </div>
++                <div className="project-container-author">
++                    <p className="project-container-author-name">Ana Fonseca, 2026</p>
++                </div>
++            </div>
++            <div className="project-container-description">
++                <p>"A verdade e a justiça são conceitos e ideais morais que foram considerados ao longo dos tempos como sendo virtudes aos quais deveríamos querer atingir. 
++                    O que tem variado ao longo dos tempos e das sociedades são os conceitos de verdade e justiça, mas não a sua própria existência. Com a inteligência artificial, a separação entre narrativas e factos (era da pós-verdade) os próprios conceitos de verdade e justiça já não tem o mesmo peso social."
++                </p>
++                <button onClick={() => setActivePopUp('projeto')} className="project-container-learn-more">
++                  Saiba Mais
++                </button>
++                {activePopUp === 'projeto' && (
++                    <LearnMorePopUp
++                        headerName="O Projeto Artístico"
++                        onClose={() => setActivePopUp(null)}
++                        imgSrc="/images/anafonseca.png"
++                        description={` "A verdade e a justiça são conceitos e ideais morais que foram considerados ao longo dos tempos como sendo virtudes aos quais deveríamos querer atingir. 
++                            
++O que tem variado ao longo dos tempos e das sociedades são os conceitos de verdade e justiça, mas não a sua própria existência. Com a inteligência artificial, a separação entre narrativas e factos (era da pós-verdade) os próprios conceitos de verdade e justiça já não tem o mesmo peso social. 
++
++A partir do conjunto escultórico de homenagem a Eça de Queirós, “A verdade”, onde o escritor está acompanhado pela verdade e onde se lê: "Sobre a nudez forte da Verdade o manto diáphano da phantasia." (citação da sua obra “A relíquia”) surge a ideia de abordar as virtudes, juntando à verdade a justiça. Tema que Ana Fonseca tem vindo a explorar.
++
++A coleção do Museu de Lisboa do Palácio Pimenta aborda a evolução do território de Lisboa através dos tempos. A importância da atual Praça do Comércio como alegoria da própria cidade é muito interessante. O período do século XVII ao estado novo, mostra-nos uma Lisboa pré-terremoto, mas pós restauração até ao fim do estado novo. Nesta imensidão histórica, podemos reconhecer a cidade de Lisboa, no entanto, muito foi se reconfigurando. A pesquisa e mergulho histórico criam fascínio pois é como redescobrir um território que parecia conhecido. 
++
++A sua intervenção foca-se nas salas do século XVII ao Estado Novo e no jardim junto à referida estátua, pontuando os espaços com experiências de realidade aumentada que aparecem sobre as obras da coleção, criando uma leitura das mesmas. A artista interroga-se sobre o lugar da Justiça no espaço público: utilização, representatividade, arquitetura efémera e propõe o uso da realidade aumentada como arte urbana não invasiva, mas interventiva."
++     `}
++                    />
++                )}
++            </div>
++        </div>
++    </div>
++  );
++}
++
++export default ThesisProjectPage;
+\ No newline at end of file
+diff --git a/src/pages/Tutorial.jsx b/src/pages/Tutorial.jsx
+index 6751913..fde32ce 100644
+--- a/src/pages/Tutorial.jsx
++++ b/src/pages/Tutorial.jsx
+@@ -14,9 +14,9 @@ function Tutorial() {
+       <PageHeader title="Como funcionam as experiências?" />
+ 
+       <h3 className="tutorial-description">
+-        O utilizador deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
++        Deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
+         <br />
+-        Para tal, deverá permitir o acesso à câmara e ao microfone, quando pedido.
++        Para tal, <b>deverá permitir o acesso à câmara e ao microfone</b>, quando pedido.
+       </h3>
+ 
+       <div className="tutorial-container">
+@@ -31,9 +31,9 @@ function Tutorial() {
+           </div>
+           <div className="tutorial-text">
+             <p>
+-              Alinhe os quadros dentro do visor da câmara e interaja com os elementos presentes.
++              Alinhe os quadros com a sua câmara para visualizar novo conteúdo, dentro dos mesmos.
+               <br />
+-              <button onClick={() => setActivePopUp('quadros')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
++              <button className="project-container-learn-more" onClick={() => setActivePopUp('quadros')}>
+                 Saiba Mais
+               </button>
+             </p>
+@@ -50,7 +50,7 @@ function Tutorial() {
+ 
+         {/* Row 2: Peças */}
+         <div className="tutorial-title">
+-          <p>Experiências com <b>Peças</b></p>
++          <p>Experiências <b>Tridimensionais</b></p>
+         </div>
+         <div className="tutorial-row reverse">
+           <div className="tutorial-image">
+@@ -58,9 +58,9 @@ function Tutorial() {
+           </div>
+           <div className="tutorial-text">
+             <p>
+-              Coloque peças 3D no mundo real, com recurso à câmara, visualizando-as em pormenor.
++              Manuseie, mova e manipule itens para melhor compreendê-los.
+               <br />
+-              <button onClick={() => setActivePopUp('pecas')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
++              <button className="project-container-learn-more" onClick={() => setActivePopUp('pecas')}>
+                 Saiba Mais
+               </button>
+             </p>
+@@ -75,32 +75,7 @@ function Tutorial() {
+           />
+         )}
+ 
+-        {/* Row 3: Marcadores */}
+-        <div className="tutorial-title">
+-          <p>Experiências com <b>Marcadores</b></p>
+-        </div>
+-        <div className="tutorial-row">
+-          <div className="tutorial-image">
+-            <img className="tutorial-image-items" src="/images/salaconvite.webp" alt="Marcadores" />
+-          </div>
+-          <div className="tutorial-text">
+-            <p>
+-              Aponte a câmara para marcadores, expandindo o mundo à sua volta com nova informação e objetos.
+-              <br />
+-              <button onClick={() => setActivePopUp('marcadores')} style={{ color: '#EA562E', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+-                Saiba Mais
+-              </button>
+-            </p>
+-          </div>
+-        </div>
+-        {activePopUp === 'marcadores' && (
+-          <LearnMorePopUp
+-            headerName="Experiências com Marcadores"
+-            onClose={() => setActivePopUp(null)}
+-            imgSrc="/images/salaconvite.webp"
+-            description="lorem ipsum"
+-          />
+-        )}
++       
+ 
+       </div>
+ 

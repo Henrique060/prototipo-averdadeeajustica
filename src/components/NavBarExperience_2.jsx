@@ -64,7 +64,7 @@ const NavBarExperience_2 = () => {
         <NavLink to="/listaexperiencias" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <div className="icon-text-container">
             <IoMapOutline size={18} />
-            <p className="ic-text">Mapa</p>
+            <p className="ic-text">Salas</p>
           </div>
         </NavLink>
       </div>
