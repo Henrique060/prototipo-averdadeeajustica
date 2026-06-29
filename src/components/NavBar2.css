@@ -1,0 +1,163 @@
+/* The transparent wrapper that holds everything at the bottom */
+.nav-container-2 {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 225px; /* The gap that makes them look like separate floating objects */
+  width: 95%;
+  max-width: 500px;
+  z-index: 1000;
+  pointer-events: none; /* Allows clicks to pass through gaps to content behind */
+}
+
+/* Common styles for both the circles and the pill */
+.main-pill-2 {
+  background-color: #1A293E;
+  color: #450026;
+  /*backdrop-filter: blur(10px);*/
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: auto; /* Re-enables clicks for the buttons themselves */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+}
+
+/* Individual Circle Buttons */
+.circle-button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #450026;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square-start-btn {
+  width: 65px;
+  height: 65px;
+  border-radius: 14px;
+  text-decoration: none;
+
+  background-color: #E2E5FF;
+  color: #003C72;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  pointer-events: auto;
+
+  /* FIX */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  padding: 0;
+}
+
+/* The Main Pill */
+.main-pill-2 {
+  height: 65px;
+  padding: 0 25px;
+  border-radius: 50px;
+  flex-grow: 1; /* Allows the pill to take up the remaining width */
+  max-width: 65px;
+  gap: 30px;
+}
+
+/* Icon Styling */
+.nav-item {
+  color: #f2f2f2;
+  display: flex;
+  transition: transform 0.2s ease;
+}
+
+.nav-item.active {
+  color: #EA562E;
+  
+}
+
+
+/* When scrolling */
+.nav-container.scrolled .circle-button {
+  width: 45px;
+  height: 45px;
+}
+
+.nav-container.scrolled .main-pill {
+  height: 55px;
+  padding: 0 18px;
+  gap: 20px;
+}
+
+.icon-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  gap: 2px;
+}
+
+.ic-text{
+  font-size: 12px;
+}
+
+.ic-text-start{
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ic-text,
+.ic-text-start {
+  margin: 0;
+}
+
+.back-forward-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap:0px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  height: 65px;
+  overflow: hidden;
+  background-color: #E2E5FF;
+  
+}
+
+
+
+.square-forward-btn {
+  width: 65px;
+  height: 65px;
+  text-decoration: none;
+
+  background-color: #E2E5FF;
+  color: #003C72;
+  
+
+  pointer-events: auto;
+
+  /* FIX */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  padding: 0;
+
+  border: none;
+}
+
+.icon-text-container:focus{
+  color: #EA562E;
+}
+

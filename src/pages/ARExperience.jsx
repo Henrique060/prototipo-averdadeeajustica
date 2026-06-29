@@ -9,16 +9,22 @@ import './ARExperience.css';
 import VideoARExperience from '../videoar-experiences/VideoARExperience.jsx';
 import MindARFonteAgua from '../mindar-experiences/MindARFonteAgua.jsx';
 import MindARSaudade from '../mindar-experiences/MindARSaudade.jsx';
+import MindARTerramoto from '../mindar-experiences/MindARTerramoto.jsx'; 
+import MindARTerreiro2 from '../mindar-experiences/MindARTerreiro2.jsx';
+import MindARTerreiro1 from '../mindar-experiences/MindARTerreiro1.jsx';
 
 // 1. Create a registry map of your experiences
 const EXPERIENCES = {
   escadaria: MindAREscadaria,
+  terreiro1: MindARTerreiro1,
+  terreiro2: MindARTerreiro2,
   convite: MindARConvite,
   djoao: MindARDJoao,
   nsraestrela: MindARNossaSraEstrela,
   dmaria: VideoARExperience,
   fonteagua: MindARFonteAgua,
   saudade: MindARSaudade,
+  terramoto: MindARTerramoto,
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };

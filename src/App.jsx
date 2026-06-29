@@ -23,8 +23,9 @@ import ThesisProjectPage from './pages/ThesisProjectPage';
 import Catalogo from './pages/Catalogo';
 import VideoARExperience from './videoar-experiences/VideoARExperience';
 import FonteAgua from './pages/FonteAgua';
+import Terramoto from './pages/Terramoto';
+import QuadroTerreiroPaco2 from './pages/QuadroTerreiroPaco2';
 import './App.css'
-
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/busto-republica" element={<BustoRepublica />} />
         <Route path="/escadaria" element={<Escadaria />} />
         <Route path="/quadro-terreiro-paco" element={<QuadroTerreiroPaco />} />
+        <Route path="/quadro-terreiro-paco-2" element={<QuadroTerreiroPaco2 />} />
         <Route path="/djoao" element={<DJoao />} />
         <Route path="/descobrimentos" element={<Descobrimentos />} />
         <Route path="/soberania" element={<Soberania />} />
@@ -53,9 +55,8 @@ function App() {
         <Route path="/thesis-project-page" element={<ThesisProjectPage />} />
         <Route path="/video-ar-experience" element={<VideoARExperience />} />
         <Route path="/fonte-agua" element={<FonteAgua />} />
+        <Route path="/terramoto" element={<Terramoto />} />
         <Route path="/catalogo" element={<Catalogo />} />
-
-
       </Routes>
     </Router>
   );

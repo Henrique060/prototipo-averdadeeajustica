@@ -14,6 +14,7 @@ function QuadroTerreiroPaco() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-21.webp"
+      experienceId="terreiro1"
     />
   );
 }

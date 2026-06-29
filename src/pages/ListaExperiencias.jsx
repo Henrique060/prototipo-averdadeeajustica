@@ -22,13 +22,14 @@ const experiencias = [
       headerName: 'Sala 21 - Experiências',
 
       listOfItems: [
-        'Terreiro do Paço Militar',
         'Terreiro do Paço Civil',
+        'Terreiro do Paço Militar',
+        
       ],
 
       listOfURLs: [
         '/quadro-terreiro-paco',
-        '/quadro-terreiro-paco',
+        '/quadro-terreiro-paco-2',
       ],
     },
   },
@@ -63,7 +64,19 @@ const experiencias = [
     sala: 'Sala 23',
     titulo: 'Terramoto de 1755',
     image: '/images/sala23.webp',
-    url: '/quadro-escombros',
+    popup: {
+      headerName: 'Sala 23 - Terramoto de 1755',
+
+      listOfItems: [
+        'Nª Srª da Estrela',
+        'Terramoto',
+      ],
+
+      listOfURLs: [
+        '/quadro-escombros',
+        '/terramoto',
+      ],
+    },
   },
 
   {

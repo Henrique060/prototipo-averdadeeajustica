@@ -26,6 +26,8 @@ const NavBar = () => {
 
   };
 
+  
+
   const goBack = () => {
     if (currentIndex > 0) {
       navigate(routes[currentIndex - 1]);

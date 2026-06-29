@@ -13,7 +13,7 @@ import { GoHome } from "react-icons/go";
 import { VscDebugStart } from "react-icons/vsc";
 import { GrFormNextLink } from "react-icons/gr";
 import { GrFormPreviousLink } from "react-icons/gr";
-import './NavBar.css';
+import './NavBar2.css';
 
 const NavBarExperience_2 = () => {
 
@@ -23,8 +23,8 @@ const NavBarExperience_2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const routes = ["/escadaria", "/quadro-terreiro-paco", "/figura-convite", 
-                  "/djoao", "/quadro-escombros", "/gravura-marques",
+  const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
+                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
                   "/d-maria", "/lenco-saudade", "/busto-republica",
                   "/descobrimentos", "/soberania", "/jardim"
   ];
@@ -45,26 +45,13 @@ const NavBarExperience_2 = () => {
   };
 
   return (
-    <nav className="nav-container">
+    <nav className="nav-container-2">
 
       {/* Center Pill */}
-      <div className="main-pill">
+      <div className="main-pill-2">
         <NavLink to="/thesis-project-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <div className="icon-text-container">
             <GoHome size={18} />
-            <p className="ic-text">Projeto</p>
-          </div>
-        </NavLink>
-        <NavLink to="/tutorial" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-          <div className="icon-text-container">
-            <IoAlertCircleOutline size={18} />
-            <p className="ic-text">Tutorial</p>
-          </div>
-        </NavLink>
-        <NavLink to="/listaexperiencias" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-          <div className="icon-text-container">
-            <IoMapOutline size={18} />
-            <p className="ic-text">Salas</p>
           </div>
         </NavLink>
       </div>

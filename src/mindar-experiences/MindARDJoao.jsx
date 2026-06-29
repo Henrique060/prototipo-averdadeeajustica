@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function MindARDJoao({ onTap }) {
   const sceneRef = useRef(null);
@@ -7,18 +7,49 @@ export default function MindARDJoao({ onTap }) {
   const silverRef = useRef(null);
   const goldRef = useRef(null);
 
+  // Track whether the intro text sequence has finished
+  const [modelsVisible, setModelsVisible] = useState(false);
+  const [textPhase, setTextPhase] = useState('hidden'); // 'hidden' | 'text1-in' | 'text1-out' | 'text2-in' | 'text2-out' | 'done'
+
+  // Run the text intro sequence once the AR scene starts rendering
+  const runTextSequence = () => {
+    // Phase 1: fade in text 1
+    setTextPhase('text1-in');
+
+    setTimeout(() => {
+      // Phase 2: fade out text 1
+      setTextPhase('text1-out');
+    }, 2800);
+
+    setTimeout(() => {
+      // Phase 3: fade in text 2
+      setTextPhase('text2-in');
+    }, 3800);
+
+    setTimeout(() => {
+      // Phase 4: fade out text 2
+      setTextPhase('text2-out');
+    }, 6600);
+
+    setTimeout(() => {
+      // Phase 5: done — show models
+      setTextPhase('done');
+      setModelsVisible(true);
+    }, 7600);
+  };
+
   useEffect(() => {
     let canvasEl = null;
 
     const handleInteraction = (clientX, clientY) => {
+      if (!modelsVisible) return; // ignore taps during text sequence
       if (!sceneRef.current || !cameraRef.current) return;
-      
+
       const canvas = sceneRef.current.canvas;
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
 
-      // Normalised device coordinates
       const ndc = new window.THREE.Vector2(
         ((clientX - rect.left) / rect.width) * 2 - 1,
         -((clientY - rect.top) / rect.height) * 2 + 1
@@ -28,7 +59,6 @@ export default function MindARDJoao({ onTap }) {
       const raycaster = new window.THREE.Raycaster();
       raycaster.setFromCamera(ndc, threeCamera);
 
-      // Collect meshes inside components safely via their refs
       const meshesGem = [];
       const meshesSilver = [];
       const meshesGold = [];
@@ -43,7 +73,6 @@ export default function MindARDJoao({ onTap }) {
         goldRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesGold.push(obj); });
       }
 
-      // Safeguard against models not fully loaded yet
       if (meshesGem.length === 0 || meshesSilver.length === 0 || meshesGold.length === 0) return;
 
       const hitsGems = raycaster.intersectObjects(meshesGem, false);
@@ -78,14 +107,12 @@ export default function MindARDJoao({ onTap }) {
       }
     };
 
-    // Touch event wrapper
     const onTouchStart = (e) => {
       e.preventDefault();
       const t = e.touches[0];
       handleInteraction(t.clientX, t.clientY);
     };
 
-    // Click event wrapper
     const onClick = (e) => {
       handleInteraction(e.clientX, e.clientY);
     };
@@ -98,11 +125,11 @@ export default function MindARDJoao({ onTap }) {
       if (!sceneEl) return;
 
       const arSystem = sceneEl.systems["mindar-image-system"];
-      
+
       sceneEl.addEventListener('renderstart', () => {
         arSystem.start();
-        
-        // Once rendering starts, canvas is guaranteed to exist
+        runTextSequence();
+
         canvasEl = sceneEl.canvas;
         if (canvasEl) {
           canvasEl.addEventListener('touchstart', onTouchStart, { passive: false });
@@ -110,7 +137,6 @@ export default function MindARDJoao({ onTap }) {
         }
       });
 
-      // Pass event trigger upwards to parent architecture if present
       if (onTap) {
         sceneEl.addEventListener('click', onTap);
       }
@@ -118,7 +144,6 @@ export default function MindARDJoao({ onTap }) {
 
     loadScripts();
 
-    // Clean up event listeners and systems on unmount
     return () => {
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
       arSystem?.stop();
@@ -130,50 +155,123 @@ export default function MindARDJoao({ onTap }) {
     };
   }, [onTap]);
 
+  // Derive opacity and visibility from phase
+  const text1Opacity =
+    textPhase === 'text1-in' ? 1 :
+    textPhase === 'text1-out' ? 0 : 0;
+
+  const text2Opacity =
+    textPhase === 'text2-in' ? 1 :
+    textPhase === 'text2-out' ? 0 : 0;
+
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+
   return (
-    <a-scene
-      ref={sceneRef}
-      mindar-image={`imageTargetSrc: ${"/markers/dJoao-target.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
-      color-space="sRGB"
-      embedded
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
-      <a-assets>
-        <a-asset-item id="gem" src="/models/gema.glb"></a-asset-item>
-        <a-asset-item id="silver" src="/models/prata.glb"></a-asset-item>
-        <a-asset-item id="gold" src="/models/ouro.glb"></a-asset-item>
-      </a-assets>
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      {/* AR Scene */}
+      <a-scene
+        ref={sceneRef}
+        mindar-image={`imageTargetSrc: ${"/markers/dJoao-target.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        color-space="sRGB"
+        embedded
+        renderer="colorManagement: true, physicallyCorrectLights"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false"
+      >
+        <a-assets>
+          <a-asset-item id="gem" src="/models/gema.glb"></a-asset-item>
+          <a-asset-item id="silver" src="/models/prata.glb"></a-asset-item>
+          <a-asset-item id="gold" src="/models/ouro.glb"></a-asset-item>
+        </a-assets>
 
-      <a-camera ref={cameraRef} position="0 0 0" look-controls="enabled: false"></a-camera>
+        <a-camera ref={cameraRef} position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex:0">
-        <a-entity 
-          ref={gemRef} 
-          id="gem-entity" 
-          gltf-model="#gem" 
-          scale=".5 .5 .5" 
-          position="1 0 0"
-        ></a-entity>
-        
-        <a-entity 
-          ref={silverRef} 
-          id="silver-entity" 
-          gltf-model="#silver" 
-          scale=".5 .5 .5" 
-          position="0 1 0"
-        ></a-entity>
-        
-        <a-entity 
-          ref={goldRef} 
-          id="gold-entity" 
-          gltf-model="#gold" 
-          scale=".5 .5 .5" 
-          position="-1 0 0"
-        ></a-entity>
-      </a-entity>
-    </a-scene>
+        <a-entity mindar-image-target="targetIndex:0">
+          {/* Models are hidden via scale until text sequence finishes */}
+          <a-entity
+            ref={gemRef}
+            id="gem-entity"
+            gltf-model="#gem"
+            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
+            position="1 0 0"
+          ></a-entity>
+
+          <a-entity
+            ref={silverRef}
+            id="silver-entity"
+            gltf-model="#silver"
+            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
+            position="0 1 0"
+          ></a-entity>
+
+          <a-entity
+            ref={goldRef}
+            id="gold-entity"
+            gltf-model="#gold"
+            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
+            position="-1 0 0"
+          ></a-entity>
+        </a-entity>
+      </a-scene>
+
+      {/* Overlay text — rendered in HTML on top of the canvas */}
+      {textVisible && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        >
+          {/* Text 1 */}
+          <p
+            style={{
+              position: 'absolute',
+              margin: 0,
+              padding: '0 1.5rem',
+              textAlign: 'center',
+              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
+              fontSize: 'clamp(1.1rem, 4vw, 1.6rem)',
+              fontStyle: 'italic',
+              color: '#f5e9c8',
+              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
+              letterSpacing: '0.04em',
+              lineHeight: 1.5,
+              opacity: text1Opacity,
+              transition: 'opacity 900ms ease-in-out',
+              maxWidth: '80vw',
+            }}
+          >
+            Fecit potentiam in brachio suo
+          </p>
+
+          {/* Text 2 */}
+          <p
+            style={{
+              position: 'absolute',
+              margin: 0,
+              padding: '0 1.5rem',
+              textAlign: 'center',
+              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
+              fontSize: 'clamp(1rem, 3.5vw, 1.4rem)',
+              color: '#f0dfa8',
+              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
+              letterSpacing: '0.03em',
+              lineHeight: 1.6,
+              opacity: text2Opacity,
+              transition: 'opacity 900ms ease-in-out',
+              maxWidth: '80vw',
+            }}
+          >
+            Com o seu braço, a sua força era demonstrada
+          </p>
+        </div>
+      )}
+    </div>
   );
 }
 
