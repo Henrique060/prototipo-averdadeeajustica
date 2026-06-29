@@ -6,6 +6,9 @@ import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; // 👈 Imp
 import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; // 👈 Import it directly here
 import MindARNossaSraEstrela from '../mindar-experiences/MindARNossaSraEstrela.jsx';
 import './ARExperience.css';
+import VideoARExperience from '../videoar-experiences/VideoARExperience.jsx';
+import MindARFonteAgua from '../mindar-experiences/MindARFonteAgua.jsx';
+import MindARSaudade from '../mindar-experiences/MindARSaudade.jsx';
 
 // 1. Create a registry map of your experiences
 const EXPERIENCES = {
@@ -13,6 +16,9 @@ const EXPERIENCES = {
   convite: MindARConvite,
   djoao: MindARDJoao,
   nsraestrela: MindARNossaSraEstrela,
+  dmaria: VideoARExperience,
+  fonteagua: MindARFonteAgua,
+  saudade: MindARSaudade,
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };

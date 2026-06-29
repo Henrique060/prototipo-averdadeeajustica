@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function LencoSaudade() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/sufragio.webp"
+      imageSrc="/images/saudade.webp"
       imageAlt="Saudade e Felicidade"
       titleMain="Saudade e Felicidade"
       titleSide="
@@ -14,6 +14,8 @@ function LencoSaudade() {
         Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
+      mapImgSrc="/images/mapa-museu-26.webp"
+      experienceId="saudade"
     />
   );
 }

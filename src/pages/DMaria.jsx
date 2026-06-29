@@ -14,6 +14,7 @@ function DMaria() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-26.webp"
+      experienceId="dmaria"
     />
   );
 }

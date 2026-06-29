@@ -54,7 +54,7 @@ const experiencias = [
 
       listOfURLs: [
         '/djoao',
-        '/a-fonte-de-agua',
+        '/fonte-agua',
       ],
     },
   },

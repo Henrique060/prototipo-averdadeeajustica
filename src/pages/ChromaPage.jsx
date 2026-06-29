@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChromaKeyVideo from "../components/ChromaKeyTest";
+import ChromaKeyOverlay from '../components/ChromaKeyOverlay';
 import "./ChromaPage.css";
 
 function ChromaPage() {
@@ -13,7 +13,7 @@ function ChromaPage() {
         
         {/* Layer 1: Background Camera (Bottom) */}
         <div className="video-layer background-camera">
-          <ChromaKeyVideo
+          <ChromaKeyOverlay
             camera
             facingMode="environment"
             width={360}
@@ -25,7 +25,7 @@ function ChromaPage() {
         <div className="video-layer foreground-asset">
           {started && (
             <div className="video-frame">
-              <ChromaKeyVideo
+              <ChromaKeyOverlay
                 src="/videos/burocracia-ckey.mp4"
                 keyColor={{ r: 168, g: 25, b: 29 }}
                 tolerance={80}

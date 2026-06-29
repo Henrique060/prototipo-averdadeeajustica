@@ -21,6 +21,8 @@ import ARExperience from './pages/ARExperience';
 import ChromaPage from './pages/ChromaPage';
 import ThesisProjectPage from './pages/ThesisProjectPage';
 import Catalogo from './pages/Catalogo';
+import VideoARExperience from './videoar-experiences/VideoARExperience';
+import FonteAgua from './pages/FonteAgua';
 import './App.css'
 
 
@@ -49,6 +51,8 @@ function App() {
         <Route path="/ar-experience" element={<ARExperience />} />
         <Route path="/chroma-page" element={<ChromaPage />} />
         <Route path="/thesis-project-page" element={<ThesisProjectPage />} />
+        <Route path="/video-ar-experience" element={<VideoARExperience />} />
+        <Route path="/fonte-agua" element={<FonteAgua />} />
         <Route path="/catalogo" element={<Catalogo />} />
 
 
