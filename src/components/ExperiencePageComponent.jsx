@@ -9,7 +9,6 @@ import MapPopUpBtn from './MapPopUpBtn';
 import MapPopUp from './MapPopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
 
-// NOTE: MindARViewer import is removed from here since it's moved to the new page!
 
 function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId}) {
   const [showPopUp, setShowPopUp] = useState(false);

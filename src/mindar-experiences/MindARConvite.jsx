@@ -1,4 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
   const sceneRef = useRef(null);
@@ -6,6 +10,9 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
   const blitCanvasRef = useRef(null);
   const textureCanvasRef = useRef(null);
   const planeRef = useRef(null);
+
+  const [showPopUp, setShowPopUp] = useState(true);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -120,7 +127,20 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/salaconvite.webp"
+          description="
+          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
+          Mantenha a câmara apontada para observar a experiência na sua totalidade.
+          "/>
+          }
+      </div>
       {/* Hidden processing infrastructure */}
       <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />

@@ -1,4 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) {
   const sceneRef = useRef(null);
@@ -6,6 +10,8 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
   const blitCanvasRef = useRef(null);
   const textureCanvasRef = useRef(null);
   const planeRef = useRef(null);
+
+  const [showPopUp, setShowPopUp] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -120,7 +126,19 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/terramoto.webp"
+          description="
+         Procure nesta sala, onde se encontra o painel de azulejo demonstrado. 
+         Encontrando, aponte a câmara para o mesmo, de modo a observar a experiência."/>
+          }
+      </div>
       {/* Hidden processing infrastructure */}
       <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />

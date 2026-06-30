@@ -1,20 +1,45 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Add this
 import LogoHeader from '../components/LogoHeader.jsx';
 import NavBarExperience_2 from '../components/NavBarExperience_2.jsx';
 import MapPopUp from '../components/MapPopUp.jsx';
 import MapPopUpBtn from '../components/MapPopUpBtn.jsx';
 import { IoArrowBackOutline } from "react-icons/io5";
+import PopUp from '../components/PopUp.jsx';
 
 function Jardim() {
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+  const [popupData, setPopupData] = useState(null);
   const [showPopUp, setShowPopUp] = useState(false);
-  const navigate = useNavigate(); // Add hook instance
+
+  const mapImgSrc = "/images/mapa.webp";
+
+  const experiencePopup = {
+    headerName: 'Experiências no Jardim',
+    listOfItems: [
+      'Monumento à J-u-s-t-i-ç-a',
+      'Outras Experiências',
+    ],
+    listOfURLs: [
+      '/monumento',
+      '/catalogo',
+    ],
+  };
+
+  const handleExperienceClick = () => {
+    setPopupData(experiencePopup);
+    setIsPopUpVisible(true);
+  };
 
   return (
-     <div className="page-wrapper">
+    <div className="page-wrapper">
       <div className="header-container">
         <LogoHeader />
-        <MapPopUpBtn text="Salas" onClick={() => setShowPopUp(true)} />
+
+        <MapPopUpBtn
+          text="Salas"
+          onClick={() => setShowPopUp(true)}
+        />
+
         {showPopUp && (
           <MapPopUp
             headerName="Mapa de Salas"
@@ -23,33 +48,55 @@ function Jardim() {
           />
         )}
       </div>
-      
+
       <div className="quadro-container">
         <div className="title-wrapper">
           <div className="title-btn-wrapper">
-            <button className="title-btn-back-btn" onClick={() => window.history.back()}>
+            <button
+              className="title-btn-back-btn"
+              onClick={() => window.history.back()}
+            >
               <IoArrowBackOutline />
             </button>
-            <p className="title-side">{"Jardim"}</p>
+
+            <p className="title-side">Jardim</p>
           </div>
-          <p className="title-main">{"Lisboa no Jardim"}</p>
+
+          <p className="title-main">Lisboa no Jardim</p>
         </div>
-        
-        <img className="quadro-container-img" src="/images/jardim.webp" alt={"Jardim"} />
-        
+
+        <img
+          className="quadro-container-img"
+          src="/images/jardim.webp"
+          alt="Jardim"
+        />
+
         <div className="quadro-container-text-wrapper">
-          <p className="quadro-container-text">{"Lorem Ipsum"}</p>
+          <p className="quadro-container-text">Lorem Ipsum</p>
         </div>
-        
+
         <div className="quadro-container-button-wrapper">
-          {/* Replaced old local state button logic with navigation trigger */}
-          <button className="quadro-container-button" onClick={() => navigate("/")} >{"Monumento à Justiça"}</button>
-          <button className="quadro-container-button" onClick={() => navigate("/catalogo")}>{"Catálogo"}</button>
+          <button
+            className="quadro-container-button"
+            onClick={handleExperienceClick}
+          >
+            Selecionar Experiência
+          </button>
         </div>
       </div>
+
       <NavBarExperience_2 />
+
+      {isPopUpVisible && popupData && (
+        <PopUp
+          {...popupData}
+          onClose={() => {
+            setIsPopUpVisible(false);
+            setPopupData(null);
+          }}
+        />
+      )}
     </div>
-    
   );
 }
 

@@ -1,0 +1,21 @@
+.header-container-mindar{
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10000;
+  gap: 8px;
+  width: fit-content; /* shrinks container to only as wide as its children need */
+  justify-content: flex-start; /* explicitly override any inherited space-between */
+}
+
+.help-btn-mindar{
+  background-color: #E2E5FF;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  margin-right:25px;
+
+}

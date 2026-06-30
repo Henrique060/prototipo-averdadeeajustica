@@ -123,6 +123,7 @@
     text-align: left;             /* Explicitly forces left-alignment (no justification) */
     white-space: pre-wrap;        /* Keeps your manual line breaks / paragraph breaks intact */
     margin: 0;
+    font-synthesis: style;
 }
 
 /* Smooth Entrance Animations */

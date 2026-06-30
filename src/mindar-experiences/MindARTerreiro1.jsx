@@ -1,7 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARTerreiro1({ onTap }) {
   const sceneRef = useRef(null);
+
+  const [showPopUp, setShowPopUp] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -80,6 +86,20 @@ export default function MindARTerreiro1({ onTap }) {
   }, [onTap]);
 
   return (
+    <div>
+        <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/terreiropaco.webp"
+          description="
+          Aponte a câmara ao quadro demonstrado acima, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."/>
+          }
+      </div>
+    
     <a-scene
       ref={sceneRef}
       mindar-image={`imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
@@ -113,6 +133,7 @@ export default function MindARTerreiro1({ onTap }) {
         />
       </a-entity>
     </a-scene>
+    </div>
   );
 }
 

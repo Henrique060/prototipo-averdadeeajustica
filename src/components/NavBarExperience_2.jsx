@@ -49,9 +49,9 @@ const NavBarExperience_2 = () => {
 
       {/* Center Pill */}
       <div className="main-pill-2">
-        <NavLink to="/thesis-project-page" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/listaexperiencias" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <div className="icon-text-container">
-            <GoHome size={18} />
+            <IoMapOutline size={18} />
           </div>
         </NavLink>
       </div>
@@ -64,7 +64,7 @@ const NavBarExperience_2 = () => {
           style={{ color: currentIndex >= routes.length - 1 ? inactiveColor : btnActiveColor }}
         >
           <div className="icon-text-container">
-            <GrFormNextLink size={18} />
+            <GrFormNextLink size={24} />
           </div>
         </button>
       </div>

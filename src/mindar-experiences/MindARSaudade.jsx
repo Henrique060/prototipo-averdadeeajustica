@@ -1,4 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
   const sceneRef = useRef(null);
@@ -6,6 +10,8 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
   const blitCanvasRef = useRef(null);
   const textureCanvasRef = useRef(null);
   const planeRef = useRef(null);
+
+  const [showPopUp, setShowPopUp] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -120,7 +126,19 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/saudade.webp"
+          description="
+          Procure pelo lenço, demonstrado na imagem, usando a câmara do seu telemóvel.
+          Irá visualizar uma emocional despedida, mal encontre o lenço."/>
+          }
+      </div>
       {/* Hidden processing infrastructure */}
       <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />

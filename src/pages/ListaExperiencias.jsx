@@ -133,7 +133,7 @@ const experiencias = [
 
   {
     sala: 'Jardim',
-    titulo: 'Monumento à Justiça & Terreiro do Paço',
+    titulo: 'Lisboa no Jardim',
     image: '/images/jardim.webp',
     url: '/jardim',
   }

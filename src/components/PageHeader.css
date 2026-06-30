@@ -1,9 +1,8 @@
 .page-header {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    text-align: left;
-    padding: 2rem 0;
+    text-align: center;
     color: #122C42;
     font-size: 1.5rem;
-    padding: 0 0 20px  1.5rem;
+    padding: 1rem;
 }

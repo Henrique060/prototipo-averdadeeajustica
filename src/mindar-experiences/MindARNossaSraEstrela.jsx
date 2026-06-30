@@ -1,7 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARNossaSraEstrela({ onTap }) {
   const sceneRef = useRef(null);
+  const [showPopUp, setShowPopUp] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -49,6 +54,21 @@ export default function MindARNossaSraEstrela({ onTap }) {
   const sampleText = "A Nossa Senhora da Estrela:\nGraça oferecida por Leonardo Rodrigues, feita pós terramoto de 1750; Porque, faltando-lhe uma filha de 3 anos, invocando a adorada Senhora, achou depois de 7 horas nas ruínas da sua casa, com uma tão perigosa ferida na cabeça, atribuindo a sua vida à intervenção da Soberana Senhora.";
 
   return (
+    <div>
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/sala23.webp"
+          description="
+         Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo.
+         Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
+          }
+      </div>
+    
     <a-scene
       ref={sceneRef}
       mindar-image={`imageTargetSrc: ${"/markers/nsraestrela-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
@@ -87,6 +107,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
                 ></a-troika-text>
         </a-entity>
     </a-scene>
+    </div>
   );
 }
 

@@ -1,54 +1,67 @@
 import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 import LogoHeader from "../components/LogoHeader";
-import PopUp from "../components/PopUp";
+import ModelViewerPopUp from "../components/ModelViewerPopUp";
 import NavBarExperience_2 from "../components/NavBarExperience_2";
 import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
 
 
-function Catalogo() {
-    const [isPopUpVisible, setIsPopUpVisible] = useState(false);
-    const [popupData, setPopupData] = useState(null);
-
-    const experiencias = [
+const experiencias = [
   {
     sala: 'Terreiro do Paço',
     titulo: 'Portal para o Terreiro do Paço',
     image: '/images/portal-terreiro-1.jpeg',
-    url: '/escadaria',
+    popup: {
+      headerName: 'Alegoria a Sebastião',
+      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
+
+    },
   },
 
   {
     sala: 'Terreiro do Paço',
     titulo: 'Chafariz de Apolo',
     image: '/images/portal-terreiro-1.jpeg',
-    url: '/escadaria',
+    popup: {
+      headerName: 'Alegoria a Sebastião',
+      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
+
+    },
   },
 
   {
     sala: 'Alegoria a Sebastião',
     titulo: 'Teatro de Papel',
-    image: '/images/teatro-papel-1.jpeg',
-
+    image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
+      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
 
-      listOfItems: [
-        'Terreiro do Paço Militar',
-        'Terreiro do Paço Civil',
-      ],
-
-      listOfURLs: [
-        '/quadro-terreiro-paco',
-        '/quadro-terreiro-paco',
-      ],
     },
   }
 
   
 ];
 
+function Catalogo() {
+    const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+  const [popupData, setPopupData] = useState(null);
+
+  const handleExperienceClick = (exp) => {
+    // If this room has a popup
+    if (exp.popup) {
+      setPopupData(exp.popup);
+      setIsPopUpVisible(true);
+      return;
+    }
+
+    // Optional:
+    // if later you want direct navigation for normal rooms
+    if (exp.url) {
+      window.location.href = exp.url;
+    }
+  };
   return (
     <div className="page-wrapper">
         <LogoHeader />
@@ -107,7 +120,7 @@ function Catalogo() {
         </ul>
 
         {isPopUpVisible && popupData && (
-          <PopUp
+          <ModelViewerPopUp
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
           />

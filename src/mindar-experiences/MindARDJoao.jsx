@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import './MindAr.css';
 
 export default function MindARDJoao({ onTap }) {
   const sceneRef = useRef(null);
@@ -7,12 +11,20 @@ export default function MindARDJoao({ onTap }) {
   const silverRef = useRef(null);
   const goldRef = useRef(null);
 
+  const [showPopUp, setShowPopUp] = useState(true);
+
   // Track whether the intro text sequence has finished
   const [modelsVisible, setModelsVisible] = useState(false);
   const [textPhase, setTextPhase] = useState('hidden'); // 'hidden' | 'text1-in' | 'text1-out' | 'text2-in' | 'text2-out' | 'done'
 
-  // Run the text intro sequence once the AR scene starts rendering
+  // Guards against the intro text sequence running more than once
+  const hasRunSequence = useRef(false);
+
+  // Run the text intro sequence once — triggered after the popup closes for the first time
   const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
+
     // Phase 1: fade in text 1
     setTextPhase('text1-in');
 
@@ -36,6 +48,11 @@ export default function MindARDJoao({ onTap }) {
       setTextPhase('done');
       setModelsVisible(true);
     }, 7600);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    runTextSequence(); // no-op if it has already run once
   };
 
   useEffect(() => {
@@ -128,7 +145,6 @@ export default function MindARDJoao({ onTap }) {
 
       sceneEl.addEventListener('renderstart', () => {
         arSystem.start();
-        runTextSequence();
 
         canvasEl = sceneEl.canvas;
         if (canvasEl) {
@@ -168,6 +184,19 @@ export default function MindARDJoao({ onTap }) {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={handleClosePopUp}
+          imgSrc="/images/djoao.webp"
+          description="
+          Procure pelo quadro de D. João V.
+          Aponte a câmara e devolva a riqueza, ao famoso 'Magnânimo', que se encontra à sua volta."/>
+          }
+      </div>
       {/* AR Scene */}
       <a-scene
         ref={sceneRef}
@@ -191,7 +220,7 @@ export default function MindARDJoao({ onTap }) {
           <a-entity
             ref={gemRef}
             id="gem-entity"
-            gltf-model="#gem"
+            gltf-model="/models/gema.glb"
             scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
             position="1 0 0"
           ></a-entity>
@@ -199,7 +228,7 @@ export default function MindARDJoao({ onTap }) {
           <a-entity
             ref={silverRef}
             id="silver-entity"
-            gltf-model="#silver"
+            gltf-model="/models/prata.glb"
             scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
             position="0 1 0"
           ></a-entity>
@@ -207,7 +236,7 @@ export default function MindARDJoao({ onTap }) {
           <a-entity
             ref={goldRef}
             id="gold-entity"
-            gltf-model="#gold"
+            gltf-model="/models/ouro.glb"
             scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
             position="-1 0 0"
           ></a-entity>
@@ -235,7 +264,7 @@ export default function MindARDJoao({ onTap }) {
               padding: '0 1.5rem',
               textAlign: 'center',
               fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
-              fontSize: 'clamp(1.1rem, 4vw, 1.6rem)',
+              fontSize: 'clamp(2rem, 5vw, 2.5rem)',
               fontStyle: 'italic',
               color: '#f5e9c8',
               textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
@@ -257,7 +286,7 @@ export default function MindARDJoao({ onTap }) {
               padding: '0 1.5rem',
               textAlign: 'center',
               fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
-              fontSize: 'clamp(1rem, 3.5vw, 1.4rem)',
+              fontSize: 'clamp(2rem, 4vw, 2.5rem)',
               color: '#f0dfa8',
               textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
               letterSpacing: '0.03em',
