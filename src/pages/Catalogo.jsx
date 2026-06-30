@@ -14,7 +14,7 @@ const experiencias = [
     image: '/images/portal-terreiro-1.jpeg',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
+      modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
 
     },
   },
@@ -25,7 +25,7 @@ const experiencias = [
     image: '/images/portal-terreiro-1.jpeg',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
+      modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
 
     },
   },
@@ -36,7 +36,7 @@ const experiencias = [
     image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta.glb',
+      modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
 
     },
   }
