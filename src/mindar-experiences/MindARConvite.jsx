@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
-import './MindAr.css';
+import './MindAR.css';
 
 export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
   const sceneRef = useRef(null);
