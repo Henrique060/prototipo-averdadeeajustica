@@ -65,14 +65,21 @@ function Jardim() {
           <p className="title-main">Lisboa no Jardim</p>
         </div>
 
-        <img
-          className="quadro-container-img"
-          src="/images/jardim.webp"
-          alt="Jardim"
-        />
+        <div className="quadro-container-img-wrapper">
+          <img
+            className="quadro-container-img"
+            src="/images/jardim.webp"
+            alt="Jardim"
+          />
+        </div>
+        
 
         <div className="quadro-container-text-wrapper">
-          <p className="quadro-container-text">Lorem Ipsum</p>
+          <p className="quadro-container-text">
+            Texto que irá descrever a alegoria e experiência desejada.
+        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
+        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa.
+          </p>
         </div>
 
         <div className="quadro-container-button-wrapper">

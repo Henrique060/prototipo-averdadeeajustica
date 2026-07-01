@@ -5,16 +5,17 @@ import ModelViewerPopUp from "../components/ModelViewerPopUp";
 import NavBarExperience_2 from "../components/NavBarExperience_2";
 import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
+import './Catalogo.css';
 
 
 const experiencias = [
   {
     sala: 'Terreiro do Paço',
     titulo: 'Portal para o Terreiro do Paço',
-    image: '/images/portal-terreiro-1.jpeg',
+    image: '/images/arco-augusta.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
+      modelViewerSrc: '/models/portalTerreiroPaco-beta2.glb',
 
     },
   },
@@ -22,7 +23,7 @@ const experiencias = [
   {
     sala: 'Terreiro do Paço',
     titulo: 'Chafariz de Apolo',
-    image: '/images/portal-terreiro-1.jpeg',
+    image: '/images/apolo.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
       modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
@@ -80,7 +81,7 @@ function Catalogo() {
       <div className="experience-list-container">
 
         <div className="map-content-img">
-          <img src="/images/jardim.webp" alt="Map" />
+          <img className="map-content-img-inner-img" src="/images/jardim.webp" alt="Map" />
         </div>
 
         <div className="experience-list-text-container">

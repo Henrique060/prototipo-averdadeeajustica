@@ -51,7 +51,10 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           <p className="title-main">{titleMain}</p>
         </div>
         
-        <img className="quadro-container-img" src={imageSrc} alt={imageAlt} />
+        <div className="quadro-container-img-wrapper">
+          <img className="quadro-container-img" src={imageSrc} alt={imageAlt} />
+        </div>
+        
         
         <div className="quadro-container-text-wrapper">
           <p className="quadro-container-text">{description}</p>

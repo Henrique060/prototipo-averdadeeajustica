@@ -16,13 +16,13 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
     }, []);
 
     return (
-        <div className="pop-up-overlay" onClick={onClose}>
-            <div className="pop-up" onClick={(e) => e.stopPropagation()}>
-                <div className="pop-up-header">
+        <div className="mv-overlay" onClick={onClose}>
+            <div className="mv-popup" onClick={(e) => e.stopPropagation()}>
+                <div className="mv-header">
                     <h2>{headerName}</h2>
                     <button className="pop-up-close-btn" onClick={onClose}>Fechar</button>
                 </div>
-                <div className="learn-more-pop-up-content-img-div">
+                <div className="mv-viewer-wrapper">
                     {scriptLoaded ? (
                         <model-viewer
                             src={modelViewerSrc}
@@ -30,16 +30,22 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
                             camera-controls
                             touch-action="pan-y"
                             ar
+                            ar-modes="webxr scene-viewer quick-look"
                             camera-orbit="0deg 90deg 4m"
-                        ></model-viewer>
+                        >
+                            <button className="mv-ar-btn" slot="ar-button">
+                                Entre na experiência
+                            </button>
+                        </model-viewer>
                     ) : (
-                        <p>Carregando...</p>
-                        
+                        <div className="mv-loading">
+                            <p>Carregando...</p>
+                        </div>
                     )}
                 </div>
-                <button className="model-viewer-start-ar-btn" slot="ar-button">
-            Entre na experiência
-            </button>
+                {description && (
+                    <p className="mv-description">{description}</p>
+                )}
             </div>
         </div>
     );
