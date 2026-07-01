@@ -4,7 +4,7 @@ import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import './MindAR.css';
 
-export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) {
+export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mp4" }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
   const blitCanvasRef = useRef(null);
@@ -12,6 +12,14 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    // play is triggered by user gesture here — browser allows unmuted audio
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.log("Play error:", err));
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -39,7 +47,6 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         sceneEl.addEventListener('renderstart', startAR);
       }
 
-      // --- CHROMA KEY PROCESSING LOOP ---
       const videoEl = videoRef.current;
       if (!videoEl) return;
 
@@ -63,7 +70,6 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           textureCanvas.height = targetHeight;
         }
 
-        // 1. Process Chroma Key (Remove Green background)
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
         const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
         const data = imageData.data;
@@ -72,23 +78,13 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
-          // Alternative formula for smoother results
-            const targetR = 0, targetG = 177, targetB = 64; // The exact green color code of your screen
-            const distance = Math.sqrt(
-            Math.pow(r - targetR, 2) + 
-            Math.pow(g - targetG, 2) + 
-            Math.pow(b - targetB, 2)
-            );
-
-            if (distance < 120) { // Adjust '120' to find the sweet spot
-            data[i + 3] = 0;
-            }
+          if (g > 110 && r < 90 && b < 100) {
+            data[i + 3] = 0; 
+          }
         }
 
         textureCtx.putImageData(imageData, 0, 0);
 
-        // 2. Refresh the active A-Frame 3D dynamic texture context
         if (aPlane && aPlane.getObject3D('mesh')) {
           const material = aPlane.getObject3D('mesh').material;
           if (material && material.map) {
@@ -99,15 +95,10 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         callbackId = videoEl.requestVideoFrameCallback(processFrame);
       };
 
-      const handlePlay = () => {
+      // listen for play — triggered by handleClosePopUp instead of autoplay
+      videoEl.addEventListener('play', () => {
         callbackId = videoEl.requestVideoFrameCallback(processFrame);
-      };
-
-      videoEl.addEventListener('play', handlePlay);
-      
-      if (videoEl.paused) {
-        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
-      }
+      });
     };
 
     loadScripts();
@@ -130,17 +121,16 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
-        <LearnMorePopUp 
-          headerName={"Como interagir na experiência?"}
-          onClose={() => setShowPopUp(false)}
-          imgSrc="/images/terramoto.webp"
-          description="
-         Procure nesta sala, onde se encontra o painel de azulejo demonstrado. 
-         Encontrando, aponte a câmara para o mesmo, de modo a observar a experiência."/>
-          }
+          <LearnMorePopUp 
+            headerName={"Como interagir na experiência?"}
+            onClose={handleClosePopUp}  
+            imgSrc="/images/sala22.webp"
+            description="
+            Procure, com recurso à sua câmara, qual dos 4 quadros contém a experiência da Fonte de Água."/>
+        }
       </div>
-      {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
+
+      <video ref={videoRef} src={videoSrc} loop playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
@@ -154,17 +144,15 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         device-orientation-permission-ui="enabled: false"
       >
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
         <a-entity mindar-image-target="targetIndex:0">            
-            {/* Exactly centered, isolated chroma key video plane wrapper */}
-            <a-plane 
-              ref={planeRef}
-              src="#chromaTextureCanvas"
-              material="transparent: true; shader: flat;"
-              position="0 -0.1 0" 
-              width="1" 
-              height="1.5"
-            ></a-plane>
+          <a-plane 
+            ref={planeRef}
+            src="#chromaTextureCanvas"
+            material="transparent: true; shader: flat;"
+            position="0 0.2 0.05" 
+            width="2" 
+            height="1"
+          ></a-plane>
         </a-entity>
       </a-scene>
     </div>

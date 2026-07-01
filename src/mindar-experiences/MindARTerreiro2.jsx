@@ -165,36 +165,39 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
             
             <a-text
             value="Lorem Ipsum frase 1"
-            position="-0.2 0.2 0"
+            position="-0.5 0.4 0"
             scale=".5 .5 .5"
             align="center"
             color="#FFFFFF"
             width="2"
             side="double"
+            animation = "property: position; to: -0.5 0.4 0.2; easing:linear; dur: 5000; loop: false"
             billboard>
             </a-text>
 
             
             <a-text
             value="Lorem Ipsum frase 2"
-            position="-0.2 0 0"
+            position="-0.5 0.2 -0.1"
             scale=".5 .5 .5"
             align="center"
             color="#FFD700"
             width="2"
             side="double"
+            animation = "property: position; to: -0.5 0.2 0.3; easing:linear; dur: 5000; delay:4000; loop: false"
             billboard>
             </a-text>
 
            
             <a-text
             value="Lorem Ipsum frase 3"
-            position="-0.2 -0.2 0"
+            position="-0.5 0 -0.1"
             scale=".5 .5 .5"
             align="center"
             color="#00FFFF"
             width="2"
             side="double"
+            animation = "property: position; to: -0.5 0 0.4; easing:linear; dur: 5000 ;delay:7000; loop: false"
             billboard>
             </a-text>
 
@@ -203,9 +206,10 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0.15 -0.1 0" 
-              width=".3" 
-              height=".45"
+              position="0.1 0.1 0" 
+              width=".1" 
+              height=".15"
+              animation = "property: scale; to: 8 8 0; easing:linear; dur: 20000; ; loop: false"
             ></a-plane>
 
         </a-entity>

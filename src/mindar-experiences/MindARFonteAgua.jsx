@@ -13,6 +13,14 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
   const [showPopUp, setShowPopUp] = useState(true);
 
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    // play is triggered by user gesture here — browser allows unmuted audio
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.log("Play error:", err));
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
     let callbackId;
@@ -39,7 +47,6 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         sceneEl.addEventListener('renderstart', startAR);
       }
 
-      // --- CHROMA KEY PROCESSING LOOP ---
       const videoEl = videoRef.current;
       if (!videoEl) return;
 
@@ -63,7 +70,6 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           textureCanvas.height = targetHeight;
         }
 
-        // 1. Process Chroma Key (Remove Green background)
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
         const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
         const data = imageData.data;
@@ -72,8 +78,6 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
-          // Green Screen range filter
           if (g > 110 && r < 90 && b < 100) {
             data[i + 3] = 0; 
           }
@@ -81,7 +85,6 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
         textureCtx.putImageData(imageData, 0, 0);
 
-        // 2. Refresh the active A-Frame 3D dynamic texture context
         if (aPlane && aPlane.getObject3D('mesh')) {
           const material = aPlane.getObject3D('mesh').material;
           if (material && material.map) {
@@ -92,15 +95,10 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         callbackId = videoEl.requestVideoFrameCallback(processFrame);
       };
 
-      const handlePlay = () => {
+      // listen for play — triggered by handleClosePopUp instead of autoplay
+      videoEl.addEventListener('play', () => {
         callbackId = videoEl.requestVideoFrameCallback(processFrame);
-      };
-
-      videoEl.addEventListener('play', handlePlay);
-      
-      if (videoEl.paused) {
-        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
-      }
+      });
     };
 
     loadScripts();
@@ -123,16 +121,16 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
-        <LearnMorePopUp 
-          headerName={"Como interagir na experiência?"}
-          onClose={() => setShowPopUp(false)}
-          imgSrc="/images/sala22.webp"
-          description="
-          Procure, com recurso à sua câmara, qual dos 4 quadros contém a experiência da Fonte de Água."/>
-          }
+          <LearnMorePopUp 
+            headerName={"Como interagir na experiência?"}
+            onClose={handleClosePopUp}  
+            imgSrc="/images/sala22.webp"
+            description="
+            Procure, com recurso à sua câmara, qual dos 4 quadros contém a experiência da Fonte de Água."/>
+        }
       </div>
-      {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
+
+      <video ref={videoRef} src={videoSrc} loop playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
@@ -146,17 +144,15 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         device-orientation-permission-ui="enabled: false"
       >
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
         <a-entity mindar-image-target="targetIndex:0">            
-            {/* Exactly centered, isolated chroma key video plane wrapper */}
-            <a-plane 
-              ref={planeRef}
-              src="#chromaTextureCanvas"
-              material="transparent: true; shader: flat;"
-              position="0 0 0" 
-              width="1" 
-              height="1"
-            ></a-plane>
+          <a-plane 
+            ref={planeRef}
+            src="#chromaTextureCanvas"
+            material="transparent: true; shader: flat;"
+            position="0 0.35 0.05" 
+            width="1.8" 
+            height=".8"
+          ></a-plane>
         </a-entity>
       </a-scene>
     </div>

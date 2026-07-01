@@ -31,7 +31,7 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
                             touch-action="pan-y"
                             ar
                             ar-modes="webxr scene-viewer quick-look"
-                            camera-orbit="0deg 90deg 4m"
+                          
                         >
                             <button className="mv-ar-btn" slot="ar-button">
                                 Entre na experiência
