@@ -4,7 +4,7 @@ import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import './MindAR.css';
 
-export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mp4" }) {
+export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
   const blitCanvasRef = useRef(null);
