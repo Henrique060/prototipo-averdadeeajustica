@@ -94,9 +94,10 @@ export default function MindARTerreiro1({ onTap }) {
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={() => setShowPopUp(false)}
-          imgSrc="/images/terreiropaco.webp"
+          imgSrc="/images/sala21-2.webp"
           description="
-          Aponte a câmara ao quadro demonstrado acima, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."/>
+          Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
+          Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."/>
           }
       </div>
     

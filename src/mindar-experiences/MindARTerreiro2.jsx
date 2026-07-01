@@ -133,10 +133,11 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={() => setShowPopUp(false)}
-          imgSrc="/images/terreiro-militar.webp"
+          imgSrc="/images/sala21-2.webp"
           description={
                         <>
-                          Apontando a câmara a este quadro demonstrado acima, verá uma interpretação artística (<i>by Ana Fonseca</i>).
+                        Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
+                          Apontando a câmara ao quadro da direita, verá uma interpretação artística (<i>by Ana Fonseca</i>).
                           Observe as frases em conjunto com o vídeo, de modo a obter a experiência completa.
                         </>
                       }
