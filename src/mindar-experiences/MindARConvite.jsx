@@ -76,15 +76,27 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
           const b = data[i + 2];
           
           // Alternative formula for smoother results
-            const targetR = 0, targetG = 177, targetB = 64; // The exact green color code of your screen
+            const targetR = 164, targetG = 223, targetB = 52; // The exact green color code of your screen
+            const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+            
             const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + 
             Math.pow(g - targetG, 2) + 
             Math.pow(b - targetB, 2)
             );
 
-            if (distance < 120) { // Adjust '120' to find the sweet spot
+            const distance_2 = Math.sqrt(
+            Math.pow(r - targetR_2, 2) + 
+            Math.pow(g - targetG_2, 2) + 
+            Math.pow(b - targetB_2, 2)
+            );
+
+            if (distance < 70) { // Adjust '120' to find the sweet spot
             data[i + 3] = 0;
+            }
+
+            if (distance_2 < 130) {
+              data[i + 3] = 0;
             }
         }
 
@@ -164,9 +176,9 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0 0 0" 
+              position="0 1 0.05" 
               width="2" 
-              height="2"
+              height="3"
             ></a-plane>
         </a-entity>
       </a-scene>

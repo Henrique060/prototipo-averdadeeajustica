@@ -54,8 +54,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
     };
   }, [onTap]);
 
-  const sampleText = "A Nossa Senhora da Estrela:\nGraça oferecida por Leonardo Rodrigues, feita pós terramoto de 1750; Porque, faltando-lhe uma filha de 3 anos, invocando a adorada Senhora, achou depois de 7 horas nas ruínas da sua casa, com uma tão perigosa ferida na cabeça, atribuindo a sua vida à intervenção da Soberana Senhora.";
-
   return (
     <div>
       <div className="header-container-mindar">
@@ -81,33 +79,18 @@ export default function MindARNossaSraEstrela({ onTap }) {
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
+
+      <a-assets>
+        <img id="nsraestrela" src="/images/nsraestrela.webp"></img>
+      </a-assets>
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex:0">            
-            <a-plane 
-              id="text-background-panel"
-              color="#000000" 
-              opacity="1" 
-              width="1.0" 
-              height="1.0" 
-              position="0 0 0.05"
-              
-            ></a-plane>
-
-            {/* SWAPPED OUT <a-text> FOR <a-troika-text> */}
-            <a-troika-text 
-                id="text-overlay"
-                value={sampleText}
-                color="#FFFFFF"
-                align="center"
-                position="0 0 0.1" 
-                
-                /* Troika sizing configurations */
-                font-size="0.05"     
-                max-width="0.7"     
-                line-height="1.4"  
-                
-                ></a-troika-text>
+        <a-entity mindar-image-target="targetIndex:0">
+          <a-plane src="#nsraestrela"
+            position="0 1 0.05"
+            width="2"
+            height="3"
+          ></a-plane>
         </a-entity>
     </a-scene>
     </div>
