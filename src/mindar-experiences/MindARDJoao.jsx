@@ -9,7 +9,7 @@ export default function MindARDJoao({ onTap }) {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const gemRef = useRef(null);
-  const silverRef = useRef(null);
+  const coinRef = useRef(null);
   const goldRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
@@ -17,7 +17,18 @@ export default function MindARDJoao({ onTap }) {
 
   // Track whether the intro text sequence has finished
   const [modelsVisible, setModelsVisible] = useState(false);
+  const modelsVisibleRef = useRef(false); // mirrors modelsVisible so the tap handler always reads the live value
   const [textPhase, setTextPhase] = useState('hidden'); // 'hidden' | 'text1-in' | 'text1-out' | 'text2-in' | 'text2-out' | 'done'
+
+  // Track which models have been collected/moved, and whether the final text has shown
+  const collectedRef = useRef({ gem: false, coin: false, gold: false });
+  const finalTextTriggered = useRef(false); // guard so the final text only fires once
+  const [showFinalText, setShowFinalText] = useState(false);
+
+  // Keep modelsVisibleRef in sync with modelsVisible — fixes stale-closure bug in handleInteraction
+  useEffect(() => {
+    modelsVisibleRef.current = modelsVisible;
+  }, [modelsVisible]);
 
   // Guards against the intro text sequence running more than once
   const hasRunSequence = useRef(false);
@@ -61,7 +72,7 @@ export default function MindARDJoao({ onTap }) {
     let canvasEl = null;
 
     const handleInteraction = (clientX, clientY) => {
-      if (!modelsVisible) return; // ignore taps during text sequence
+      if (!modelsVisibleRef.current) return; // ignore taps during text sequence — reads LIVE value
       if (!sceneRef.current || !cameraRef.current) return;
 
       const canvas = sceneRef.current.canvas;
@@ -79,50 +90,63 @@ export default function MindARDJoao({ onTap }) {
       raycaster.setFromCamera(ndc, threeCamera);
 
       const meshesGem = [];
-      const meshesSilver = [];
+      const meshesCoin = [];
       const meshesGold = [];
 
       if (gemRef.current?.object3D) {
         gemRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesGem.push(obj); });
       }
-      if (silverRef.current?.object3D) {
-        silverRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesSilver.push(obj); });
+      if (coinRef.current?.object3D) {
+        coinRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesCoin.push(obj); });
       }
       if (goldRef.current?.object3D) {
         goldRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesGold.push(obj); });
       }
 
-      if (meshesGem.length === 0 || meshesSilver.length === 0 || meshesGold.length === 0) return;
+      if (meshesGem.length === 0 || meshesCoin.length === 0 || meshesGold.length === 0) return;
 
       const hitsGems = raycaster.intersectObjects(meshesGem, false);
-      const hitsSilvers = raycaster.intersectObjects(meshesSilver, false);
+      const hitsCoin = raycaster.intersectObjects(meshesCoin, false);
       const hitsGolds = raycaster.intersectObjects(meshesGold, false);
 
       if (hitsGems.length > 0 && gemRef.current) {
         gemRef.current.setAttribute('animation', {
           property: 'position',
-          to: '0 0.1 0',
+          to: '.5 0.1 0',
           dur: 1000,
           easing: 'easeInOutQuad'
         });
+        collectedRef.current.gem = true;
       }
 
-      if (hitsSilvers.length > 0 && silverRef.current) {
-        silverRef.current.setAttribute('animation', {
+      if (hitsCoin.length > 0 && coinRef.current) {
+        coinRef.current.setAttribute('animation', {
           property: 'position',
-          to: '0.15 0.3 0',
+          to: '-0.25 0 0',
           dur: 1000,
           easing: 'easeInOutQuad'
         });
+        collectedRef.current.coin = true;
       }
 
       if (hitsGolds.length > 0 && goldRef.current) {
         goldRef.current.setAttribute('animation', {
           property: 'position',
-          to: '-0.2 -0.3 0',
+          to: '0.3 -0.25 0',
           dur: 1000,
           easing: 'easeInOutQuad'
         });
+        collectedRef.current.gold = true;
+      }
+
+      // Check if all three models have now been collected
+      const { gem, coin, gold } = collectedRef.current;
+      if (gem && coin && gold && !finalTextTriggered.current) {
+        finalTextTriggered.current = true;
+        // wait for the move animation (1000ms) to finish before showing the final text
+        setTimeout(() => {
+          setShowFinalText(true);
+        }, 1000);
       }
     };
 
@@ -210,9 +234,9 @@ export default function MindARDJoao({ onTap }) {
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <a-asset-item id="gem" src="/models/gema.glb"></a-asset-item>
-          <a-asset-item id="silver" src="/models/prata.glb"></a-asset-item>
-          <a-asset-item id="gold" src="/models/ouro.glb"></a-asset-item>
+          <a-asset-item id="gem" src="/models/grupoJoias.glb"></a-asset-item>
+          <a-asset-item id="coin" src="/models/grupoMoedas.glb"></a-asset-item>
+          <a-asset-item id="gold" src="/models/grupoOuro.glb"></a-asset-item>
         </a-assets>
 
         <a-camera ref={cameraRef} position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -222,25 +246,28 @@ export default function MindARDJoao({ onTap }) {
           <a-entity
             ref={gemRef}
             id="gem-entity"
-            gltf-model="/models/gema.glb"
-            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
-            position="1 0 0"
+            gltf-model="/models/grupoJoias.glb"
+            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
+            rotation= "90 0 0"
+            position=".75 .75 0"
           ></a-entity>
 
           <a-entity
-            ref={silverRef}
-            id="silver-entity"
-            gltf-model="/models/prata.glb"
-            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
-            position="0 1 0"
+            ref={coinRef}
+            id="coin-entity"
+            gltf-model="/models/grupoMoedas.glb"
+            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
+            rotation= "90 0 0"
+            position="0 0 0"
           ></a-entity>
 
           <a-entity
             ref={goldRef}
             id="gold-entity"
-            gltf-model="/models/ouro.glb"
-            scale={modelsVisible ? ".5 .5 .5" : "0 0 0"}
-            position="-1 0 0"
+            gltf-model="/models/grupoOuro.glb"
+            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
+            rotation= "90 0 0"
+            position="-.5 0 0"
           ></a-entity>
         </a-entity>
       </a-scene>
@@ -299,6 +326,41 @@ export default function MindARDJoao({ onTap }) {
             }}
           >
             Com o seu braço, a sua força era demonstrada
+          </p>
+        </div>
+      )}
+
+      {/* Final text — shown once all three models have been collected/moved */}
+      {showFinalText && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              padding: '0 1.5rem',
+              textAlign: 'center',
+              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
+              fontSize: 'clamp(2rem, 4.5vw, 2.5rem)',
+              fontStyle: 'italic',
+              color: '#f5e9c8',
+              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
+              letterSpacing: '0.04em',
+              lineHeight: 1.5,
+              opacity: showFinalText ? 1 : 0,
+              transition: 'opacity 900ms ease-in-out',
+              maxWidth: '80vw',
+            }}
+          >
+            O Quinto do Ouro foi pago. Pode prosseguir...
           </p>
         </div>
       )}
