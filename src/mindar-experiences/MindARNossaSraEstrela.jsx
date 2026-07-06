@@ -72,7 +72,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
     
     <a-scene
       ref={sceneRef}
-      mindar-image={`imageTargetSrc: ${"/markers/nsraestrela-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+      mindar-image={`imageTargetSrc: ${"/markers/estrela.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
