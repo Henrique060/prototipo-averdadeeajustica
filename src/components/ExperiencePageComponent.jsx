@@ -12,8 +12,25 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId}) {
   const [showPopUp, setShowPopUp] = useState(false);
-  const navigate = useNavigate(); // Add hook instance
+  const navigate = useNavigate(); // hook instance
 
+  
+  //Navegação nas Routes para back btn
+  let inactiveColor = "#A0A0A0";
+  let btnActiveColor = "#003C72";
+  const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
+                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
+                  "/d-maria", "/lenco-saudade", "/busto-republica",
+                  "/descobrimentos", "/soberania", "/jardim"
+  ];
+  const currentIndex = routes.findIndex(r => location.pathname.endsWith(r));
+  const goBack = () => { //navegar back nas routes para back btn
+    if (currentIndex > 0) {
+      navigate(routes[currentIndex - 1]);
+    }
+  };
+
+  //Para conseguir identificar a experiência AR
   const handleStartExperience = () => {
     navigate('/ar-experience', {
       state: {
@@ -43,7 +60,9 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
       <div className="quadro-container">
         <div className="title-wrapper">
           <div className="title-btn-wrapper">
-            <button className="title-btn-back-btn" onClick={() => window.history.back()}>
+            <button className="title-btn-back-btn"
+                    onClick={goBack}
+                    style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
               <IoArrowBackOutline />
             </button>
             <p className="title-side">{titleSide}</p>

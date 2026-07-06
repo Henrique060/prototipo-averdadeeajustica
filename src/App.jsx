@@ -41,6 +41,7 @@ function SplashScreen({ onDone }) {
 }
 
 function App() {
+
   const [showSplash, setShowSplash] = useState(() => {
     return !sessionStorage.getItem('splashShown');
   });

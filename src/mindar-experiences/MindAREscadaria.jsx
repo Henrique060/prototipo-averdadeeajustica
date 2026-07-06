@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
+import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import './MindAR.css';
 
 export default function MindAREscadaria({ onTap }) {
   const sceneRef = useRef(null);
   const [showPopUp, setShowPopUp] = useState(true);
+
+  useMindARLifecycle(sceneRef);
 
 
 

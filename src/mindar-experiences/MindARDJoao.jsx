@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
+import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import './MindAR.css';
 
 export default function MindARDJoao({ onTap }) {
@@ -12,6 +13,7 @@ export default function MindARDJoao({ onTap }) {
   const goldRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
+  useMindARLifecycle(sceneRef);
 
   // Track whether the intro text sequence has finished
   const [modelsVisible, setModelsVisible] = useState(false);

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
+import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import './MindAR.css';
 
 export default function MindARTerreiro1({ onTap }) {
@@ -9,8 +10,11 @@ export default function MindARTerreiro1({ onTap }) {
 
   const [showPopUp, setShowPopUp] = useState(true);
 
+  useMindARLifecycle(sceneRef);
+
   useEffect(() => {
     let mounted = true;
+    let cleanupListeners = null;
 
     const init = async () => {
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
@@ -42,6 +46,10 @@ export default function MindARTerreiro1({ onTap }) {
       const video = scene.querySelector("#videoAsset");
       const videoPlane = scene.querySelector("#video");
 
+      // Manually kick off video loading — decoupled from a-scene/a-assets
+      // load gating, which is what was causing the 3000ms asset timeout.
+      video.load();
+
       const playVideo = async () => {
         try {
           video.currentTime = 0;
@@ -63,20 +71,23 @@ export default function MindARTerreiro1({ onTap }) {
       target.addEventListener("targetFound", playVideo);
       target.addEventListener("targetLost", pauseVideo);
 
-      return () => {
+      cleanupListeners = () => {
         target.removeEventListener("targetFound", playVideo);
         target.removeEventListener("targetLost", pauseVideo);
+        if (onTap) {
+          scene.removeEventListener("click", onTap);
+        }
       };
     };
 
-    const cleanupPromise = init();
+    init();
 
     return () => {
       mounted = false;
 
-      cleanupPromise.then((cleanup) => {
-        if (cleanup) cleanup();
-      });
+      if (cleanupListeners) {
+        cleanupListeners();
+      }
 
       const system = sceneRef.current?.systems["mindar-image-system"];
       if (system?.started) {
@@ -87,30 +98,30 @@ export default function MindARTerreiro1({ onTap }) {
 
   return (
     <div>
-        <div className="header-container-mindar">
-        <LogoHeader/>
-        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
-        {showPopUp && 
-        <LearnMorePopUp 
-          headerName={"Como interagir na experiência?"}
-          onClose={() => setShowPopUp(false)}
-          imgSrc="/images/sala21-2.webp"
-          description="
+      <div className="header-container-mindar">
+        <LogoHeader />
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)} />
+        {showPopUp &&
+          <LearnMorePopUp
+            headerName={"Como interagir na experiência?"}
+            onClose={() => setShowPopUp(false)}
+            imgSrc="/images/sala21-2.webp"
+            description="
           Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
-          Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."/>
-          }
+          Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
+          />
+        }
       </div>
-    
-    <a-scene
-      ref={sceneRef}
-      mindar-image={`imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
-      color-space="sRGB"
-      embedded
-      renderer="colorManagement: true; physicallyCorrectLights: true"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
-      <a-assets>
+
+      <a-scene
+        ref={sceneRef}
+        mindar-image={`imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        color-space="sRGB"
+        embedded
+        renderer="colorManagement: true; physicallyCorrectLights: true"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false"
+      >
         <video
           id="videoAsset"
           src="/videos/terreiro-video.mp4"
@@ -118,22 +129,21 @@ export default function MindARTerreiro1({ onTap }) {
           muted
           playsInline
           webkit-playsinline="true"
-          crossOrigin="anonymous"
+          style={{ display: "none" }}
         />
-      </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false" />
+        <a-camera position="0 0 0" look-controls="enabled: false" />
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-video
-          id="video"
-          src="#videoAsset"
-          position="0 0 0.15"
-          width="1.5"
-          height="1"
-        />
-      </a-entity>
-    </a-scene>
+        <a-entity mindar-image-target="targetIndex: 0">
+          <a-video
+            id="video"
+            src="#videoAsset"
+            position="0 0 0.15"
+            width="1.5"
+            height="1"
+          />
+        </a-entity>
+      </a-scene>
     </div>
   );
 }
