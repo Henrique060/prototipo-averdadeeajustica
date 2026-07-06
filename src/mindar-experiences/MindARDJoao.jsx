@@ -360,7 +360,7 @@ export default function MindARDJoao({ onTap }) {
               maxWidth: '80vw',
             }}
           >
-            O Quinto do Ouro foi pago. Pode prosseguir...
+            O Quinto do Ouro e dos Diamantes foi pago. Pode prosseguir...
           </p>
         </div>
       )}
