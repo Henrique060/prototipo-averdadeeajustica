@@ -11,20 +11,33 @@ export default function MindAREscadaria({ onTap }) {
 
   useMindARLifecycle(sceneRef);
 
-
-
   useEffect(() => {
+    let isMounted = true;
+
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
 
-      const sceneEl = sceneRef.current;
-      const arSystem = sceneEl.systems["mindar-image-system"];
-      sceneEl.addEventListener('renderstart', () => {
-        arSystem.start();
-      });
+      if (!isMounted) return;
 
-      // Optional tap interaction
+      const sceneEl = sceneRef.current;
+      if (!sceneEl) return;
+
+      // Safe initialization wrapper
+      const startAR = () => {
+        const arSystem = sceneEl.systems["mindar-image-system"];
+        if (arSystem && !arSystem.started) {
+          arSystem.start();
+        }
+      };
+
+      // Safeguard: check if scene is already booted up, otherwise listen for it
+      if (sceneEl.hasLoaded || sceneEl.renderStarted) {
+        startAR();
+      } else {
+        sceneEl.addEventListener('renderstart', startAR, { once: true });
+      }
+
       if (onTap) {
         sceneEl.addEventListener('click', onTap);
       }
@@ -33,13 +46,19 @@ export default function MindAREscadaria({ onTap }) {
     loadScripts();
 
     return () => {
+      isMounted = false;
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
-      arSystem?.stop();
+      if (arSystem?.started) {
+        arSystem.stop();
+      }
+      if (onTap && sceneRef.current) {
+        sceneRef.current.removeEventListener('click', onTap);
+      }
     };
-  }, []);
+  }, [onTap]);
 
   return (
-    <div>
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
@@ -56,10 +75,10 @@ export default function MindAREscadaria({ onTap }) {
     
     <a-scene
       ref={sceneRef}
-      mindar-image={`imageTargetSrc: ${"/markers/entrada-markers.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+      mindar-image="imageTargetSrc: /markers/entrada-markers.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
       color-space="sRGB"
       embedded
-      renderer="colorManagement: true, physicallyCorrectLights"
+      renderer="colorManagement: true;" 
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
@@ -70,15 +89,19 @@ export default function MindAREscadaria({ onTap }) {
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex:0">
-            <a-gltf-model id="arrow-left-entity-0" src="#arrow-left"  scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-image-target="targetIndex:1">
-            <a-gltf-model id="arrow-left-entity-1" src="#arrow-left"  scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
-        </a-entity>
-        <a-entity mindar-image-target="targetIndex:2">
-            <a-gltf-model id="arrow-right-entity-0" src="#arrow-right"  scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
-        </a-entity>
+      {/* Added lighting so GLTF models aren't pitch black */}
+      <a-light type="ambient" intensity="1.5"></a-light>
+      <a-light type="directional" position="1 1 1" intensity="1"></a-light>
+
+      <a-entity mindar-image-target="targetIndex:0">
+          <a-gltf-model id="arrow-left-entity-0" src="#arrow-left" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex:1">
+          <a-gltf-model id="arrow-left-entity-1" src="#arrow-left" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
+      </a-entity>
+      <a-entity mindar-image-target="targetIndex:2">
+          <a-gltf-model id="arrow-right-entity-0" src="#arrow-right" scale="1 1 1" position="0 0 0.1" rotation="90 0 0"></a-gltf-model>
+      </a-entity>
     </a-scene>
     </div>
   );

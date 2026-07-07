@@ -169,11 +169,11 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
             
             <a-text
             value="Lorem Ipsum frase 1"
-            position="-0.3 0.4 0"
+            position="-0.2 0.4 0"
             scale=".5 .5 .5"
             align="center"
             color="#FFFFFF"
-            width="2"
+            width="3"
             side="double"
             animation = "property: position; to: -0.5 0.4 0.2; easing:linear; dur: 5000; loop: false"
             billboard>
@@ -182,11 +182,11 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
             
             <a-text
             value="Lorem Ipsum frase 2"
-            position="-0.3 0.2 -0.1"
+            position="-0.2 0.2 -0.1"
             scale=".5 .5 .5"
             align="center"
             color="#FFD700"
-            width="2"
+            width="3"
             side="double"
             animation = "property: position; to: -0.5 0.2 0.3; easing:linear; dur: 5000; delay:4000; loop: false"
             billboard>
@@ -195,11 +195,11 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
            
             <a-text
             value="Lorem Ipsum frase 3"
-            position="-0.3 0 -0.1"
+            position="-0.2 0 -0.1"
             scale=".5 .5 .5"
             align="center"
             color="#00FFFF"
-            width="2"
+            width="3"
             side="double"
             animation = "property: position; to: -0.5 0 0.4; easing:linear; dur: 5000 ;delay:7000; loop: false"
             billboard>

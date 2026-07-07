@@ -7,6 +7,8 @@ import './MindAR.css';
 
 export default function MindARTerreiro1({ onTap }) {
   const sceneRef = useRef(null);
+  const videoRef = useRef(null);
+  const videoPlaneRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
 
@@ -15,17 +17,23 @@ export default function MindARTerreiro1({ onTap }) {
   useEffect(() => {
     let mounted = true;
     let cleanupListeners = null;
+    let animationFrameId = null;
 
     const init = async () => {
+      // 1. Ensure scripts are fully appended and executed
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
       await loadScript("https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js");
 
       if (!mounted) return;
 
       const scene = sceneRef.current;
-      if (!scene) return;
+      const video = videoRef.current;
+      const videoPlane = videoPlaneRef.current;
+      
+      if (!scene || !video || !videoPlane) return;
 
-      const start = () => {
+      // 2. Safely initialize and start MindAR System
+      const startAR = () => {
         const system = scene.systems["mindar-image-system"];
         if (system && !system.started) {
           system.start();
@@ -33,41 +41,52 @@ export default function MindARTerreiro1({ onTap }) {
       };
 
       if (scene.hasLoaded || scene.renderStarted) {
-        start();
+        startAR();
       } else {
-        scene.addEventListener("renderstart", start, { once: true });
+        scene.addEventListener("renderstart", startAR, { once: true });
       }
 
       if (onTap) {
         scene.addEventListener("click", onTap);
       }
 
+      // 3. Find the Target Entity
       const target = scene.querySelector("[mindar-image-target]");
-      const video = scene.querySelector("#videoAsset");
-      const videoPlane = scene.querySelector("#video");
 
-      // Manually kick off video loading — decoupled from a-scene/a-assets
-      // load gating, which is what was causing the 3000ms asset timeout.
+      // Pre-load the HTML5 video layer explicitly
       video.load();
+
+      // Continuous loop running while target is found to sync the video data onto the WebGL mesh
+      const syncVideoTexture = () => {
+        if (!mounted) return;
+        
+        const mesh = videoPlane.getObject3D("mesh");
+        if (mesh?.material?.map) {
+          mesh.material.map.needsUpdate = true;
+        }
+        animationFrameId = requestAnimationFrame(syncVideoTexture);
+      };
 
       const playVideo = async () => {
         try {
           video.currentTime = 0;
           await video.play();
-
-          const mesh = videoPlane.getObject3D("mesh");
-          if (mesh?.material?.map) {
-            mesh.material.map.needsUpdate = true;
-          }
+          
+          // Start the frame update loop
+          syncVideoTexture();
         } catch (e) {
-          console.error(e);
+          console.error("Video play interrupted or delayed by browser auto-play policy:", e);
         }
       };
 
       const pauseVideo = () => {
         video.pause();
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
       };
 
+      // 4. Attach event hooks securely
       target.addEventListener("targetFound", playVideo);
       target.addEventListener("targetLost", pauseVideo);
 
@@ -76,6 +95,9 @@ export default function MindARTerreiro1({ onTap }) {
         target.removeEventListener("targetLost", pauseVideo);
         if (onTap) {
           scene.removeEventListener("click", onTap);
+        }
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
         }
       };
     };
@@ -97,7 +119,7 @@ export default function MindARTerreiro1({ onTap }) {
   }, [onTap]);
 
   return (
-    <div>
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
         <LogoHeader />
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)} />
@@ -115,30 +137,36 @@ export default function MindARTerreiro1({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
         color-space="sRGB"
         embedded
         renderer="colorManagement: true; physicallyCorrectLights: true"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false"
       >
-        <video
-          id="videoAsset"
-          src="/videos/terreiro-video.mp4"
-          preload="auto"
-          muted
-          playsInline
-          webkit-playsinline="true"
-          style={{ display: "none" }}
-        />
+        {/* Fixed: Assets nested cleanly inside <a-assets> so A-Frame populates internal texture references */}
+        <a-assets>
+          <video
+            ref={videoRef}
+            id="videoAsset"
+            src="/videos/terreiro-video.mp4"
+            preload="auto"
+            muted
+            loop
+            playsInline
+            webkit-playsinline="true"
+            style={{ display: "none" }}
+          />
+        </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false" />
 
         <a-entity mindar-image-target="targetIndex: 0">
           <a-video
+            ref={videoPlaneRef}
             id="video"
             src="#videoAsset"
-            position="0 0 0.15"
+            position="0 0.5 0"
             width="1.5"
             height="1"
           />

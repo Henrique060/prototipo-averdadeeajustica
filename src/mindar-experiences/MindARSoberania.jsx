@@ -1,0 +1,199 @@
+import React, { useEffect, useRef, useState } from 'react';
+import LearnMorePopUp from '../components/LearnMorePopUp';
+import HelpPopUpBtn from '../components/HelpPopUpBtn';
+import LogoHeader from '../components/LogoHeader';
+import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import './MindAR.css';
+
+export default function MindARSoberania({ videoSrc = "/videos/soberania-prototype-video.mov" }) {
+  const sceneRef = useRef(null);
+  const videoRef = useRef(null);
+  const blitCanvasRef = useRef(null);
+  const textureCanvasRef = useRef(null);
+  const planeRef = useRef(null);
+
+  const [showPopUp, setShowPopUp] = useState(true);
+
+  useMindARLifecycle(sceneRef);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    // play is triggered by user gesture here — browser allows unmuted audio
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.log("Play error:", err));
+    }
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    let callbackId;
+
+    const loadScripts = async () => {
+      await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
+
+      if (!isMounted) return;
+
+      const sceneEl = sceneRef.current;
+      if (!sceneEl) return;
+
+      const startAR = () => {
+        const arSystem = sceneEl.systems["mindar-image-system"];
+        if (arSystem && !arSystem.started) {
+          arSystem.start();
+        }
+      };
+
+      if (sceneEl.hasLoaded || sceneEl.renderStarted) {
+        startAR();
+      } else {
+        sceneEl.addEventListener('renderstart', startAR);
+      }
+
+      const videoEl = videoRef.current;
+      if (!videoEl) return;
+
+      const processFrame = (now, metadata) => {
+        const blitCanvas = blitCanvasRef.current;
+        const textureCanvas = textureCanvasRef.current;
+        const aPlane = planeRef.current;
+        
+        if (!blitCanvas || !textureCanvas || !videoEl) return;
+
+        const blitCtx = blitCanvas.getContext('2d');
+        const textureCtx = textureCanvas.getContext('2d');
+
+        const targetWidth = 480; 
+        const targetHeight = targetWidth * (metadata.height / metadata.width);
+
+        if (blitCanvas.width !== targetWidth) {
+          blitCanvas.width = targetWidth;
+          blitCanvas.height = targetHeight;
+          textureCanvas.width = targetWidth;
+          textureCanvas.height = targetHeight;
+        }
+
+        blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
+        const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+
+            // Primary chroma green
+            const targetR = 164;
+            const targetG = 223;
+            const targetB = 52;
+
+            // Secondary darker green
+            const targetR2 = 47;
+            const targetG2 = 184;
+            const targetB2 = 83;
+
+            const distance = Math.sqrt(
+                Math.pow(r - targetR, 2) +
+                Math.pow(g - targetG, 2) +
+                Math.pow(b - targetB, 2)
+            );
+
+            const distance2 = Math.sqrt(
+                Math.pow(r - targetR2, 2) +
+                Math.pow(g - targetG2, 2) +
+                Math.pow(b - targetB2, 2)
+            );
+
+            if (distance < 70 || distance2 < 130) {
+                data[i + 3] = 0;
+                }
+            }
+
+        textureCtx.putImageData(imageData, 0, 0);
+
+        if (aPlane && aPlane.getObject3D('mesh')) {
+          const material = aPlane.getObject3D('mesh').material;
+          if (material && material.map) {
+            material.map.needsUpdate = true;
+          }
+        }
+
+        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+      };
+
+      // listen for play — triggered by handleClosePopUp instead of autoplay
+      videoEl.addEventListener('play', () => {
+        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+      });
+    };
+
+    loadScripts();
+
+    return () => {
+      isMounted = false;
+      if (videoRef.current && callbackId) {
+        videoRef.current.cancelVideoFrameCallback(callbackId);
+      }
+      const arSystem = sceneRef.current?.systems["mindar-image-system"];
+      if (arSystem?.started) {
+        arSystem.stop();
+      }
+    };
+  }, [videoSrc]);
+
+  return (
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <div className="header-container-mindar">
+        <LogoHeader/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        {showPopUp && 
+          <LearnMorePopUp 
+            headerName={"Como interagir na experiência?"}
+            onClose={handleClosePopUp}  
+            imgSrc="/images/sala22.webp"
+            description="
+            Procure, com recurso à sua câmara, qual dos 4 quadros contém a experiência da Fonte de Água."/>
+        }
+      </div>
+
+      <video ref={videoRef} src={videoSrc} loop playsInline style={{ display: 'none' }} />
+      <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
+      <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
+
+      <a-scene
+        ref={sceneRef}
+        mindar-image={`imageTargetSrc: ${"/markers/soberania-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        color-space="sRGB"
+        embedded
+        renderer="colorManagement: true, physicallyCorrectLights"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false"
+      >
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        <a-entity mindar-image-target="targetIndex:0">            
+          <a-plane 
+            ref={planeRef}
+            src="#chromaTextureCanvas"
+            material="transparent: true; shader: flat;"
+            position="0 -1 0.05" 
+            width="4" 
+            height="8"
+          ></a-plane>
+        </a-entity>
+      </a-scene>
+    </div>
+  );
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve(); return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}

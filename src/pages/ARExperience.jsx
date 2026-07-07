@@ -12,6 +12,7 @@ import MindARSaudade from '../mindar-experiences/MindARSaudade.jsx';
 import MindARTerramoto from '../mindar-experiences/MindARTerramoto.jsx'; 
 import MindARTerreiro2 from '../mindar-experiences/MindARTerreiro2.jsx';
 import MindARTerreiro1 from '../mindar-experiences/MindARTerreiro1.jsx';
+import MindARSoberania from '../mindar-experiences/MindARSoberania.jsx';
 
 // 1. Create a registry map of your experiences
 const EXPERIENCES = {
@@ -25,6 +26,7 @@ const EXPERIENCES = {
   fonteagua: MindARFonteAgua,
   saudade: MindARSaudade,
   terramoto: MindARTerramoto,
+  soberania: MindARSoberania,
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };
