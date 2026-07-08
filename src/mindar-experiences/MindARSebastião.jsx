@@ -100,7 +100,7 @@ export default function MindARSebastião({ onTap }) {
              src="#sebastiao"
              position="0 0 -0.05"
              scale="0.05 0.05 0.05"
-             rotation="90 0 0"
+             rotation="0 0 0"
             ></a-gltf-model>
       </a-entity>
       </a-scene>
