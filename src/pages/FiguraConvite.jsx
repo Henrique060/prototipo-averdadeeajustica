@@ -9,9 +9,14 @@ function FiguraConvite() {
       imageAlt="Sala Convite"
       titleMain="Figuras de Convite"
       titleSide="Sala de Convite"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="A convite do poder,
+                    é pesada engrenagem.
+                    Sem monumentos,
+                    sem celebrações,
+                    músculo da mão que julga.
+                    Ainda hoje conhecemos
+                    a sua encapsulada descendência.
+                    "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-convite.webp"

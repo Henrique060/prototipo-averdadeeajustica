@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IoArrowBackOutline } from "react-icons/io5";
+import { IoArrowForwardOutline } from "react-icons/io5";
 import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx'; // 👈 Import it directly here
 import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; // 👈 Import it directly here
 import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; // 👈 Import it directly here
@@ -13,6 +13,7 @@ import MindARTerramoto from '../mindar-experiences/MindARTerramoto.jsx';
 import MindARTerreiro2 from '../mindar-experiences/MindARTerreiro2.jsx';
 import MindARTerreiro1 from '../mindar-experiences/MindARTerreiro1.jsx';
 import MindARSoberania from '../mindar-experiences/MindARSoberania.jsx';
+import MindARSebastião from '../mindar-experiences/MindARSebastião.jsx';
 
 // 1. Create a registry map of your experiences
 const EXPERIENCES = {
@@ -27,6 +28,7 @@ const EXPERIENCES = {
   saudade: MindARSaudade,
   terramoto: MindARTerramoto,
   soberania: MindARSoberania,
+  sebastiao: MindARSebastião
   // Add more entries here later as you grow:
   // sala_azul: MindARSalaAzul, 
 };
@@ -45,10 +47,20 @@ function ARExperience() {
   // 3. Resolve the actual component based on the key
   const TargetComponent = EXPERIENCES[experienceId];
 
+  // navegar em frente
+  const currentExperienceIndex = Object.keys(EXPERIENCES).indexOf(experienceId);
+  const nextIndex = (currentExperienceIndex + 1) % Object.keys(EXPERIENCES).length;
+  const nextExperienceId = Object.keys(EXPERIENCES)[nextIndex];
+
+  const handleNext = () => {
+      // Navigate to the same component structure, but updating the state ID
+      navigate('/ar-experience', { state: { experienceId: nextExperienceId } });
+    };
+
   return (
     <div className="ar-experience-page">
-      <button className="ar-back-btn" onClick={() => navigate(-1)}>
-        <IoArrowBackOutline /> Voltar
+      <button className="ar-back-btn" onClick={handleNext}>
+        <IoArrowForwardOutline /> Próxima Experiência
       </button>
       <div className="ar-viewer-container">
         {/* 4. Render dynamically if found, or gracefully handle an empty state */}

@@ -24,6 +24,8 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
 
+      await loadScript('https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js');
+
       if (!isMounted) return;
 
       const sceneEl = sceneRef.current;
@@ -167,6 +169,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
               position="0 -0.1 0" 
               width="1" 
               height="2"
+              look-at="[camera]"
             ></a-plane>
         </a-entity>
       </a-scene>

@@ -23,6 +23,7 @@ export default function MindARTerreiro1({ onTap }) {
       // 1. Ensure scripts are fully appended and executed
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
       await loadScript("https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js");
+      await loadScript('https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js');
 
       if (!mounted) return;
 
@@ -169,6 +170,7 @@ export default function MindARTerreiro1({ onTap }) {
             position="0 0.5 0"
             width="1.5"
             height="1"
+            look-at="[camera]"
           />
         </a-entity>
       </a-scene>

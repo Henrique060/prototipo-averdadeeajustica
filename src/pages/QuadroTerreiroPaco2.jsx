@@ -8,9 +8,20 @@ function QuadroTerreiroPaco2() {
       imageAlt="Quadro Terreiro Paco Militar"
       titleMain="Terreiro do Paço (cont.)"
       titleSide="Sala 21 - Cidade no séc. XVII"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="A praça,
+                    ópera do poder.
+                    Constrói e comemora,
+                    também de forma efémera,
+                    os seus ritos,
+                    os seus tratados,
+                    ... endeusa pessoas.
+                    Bom seria que cada um de nós
+                    pudesse edificar monumentos efémeros:
+                    os arcos dos nossos triunfos,
+                    os obeliscos dos valores e amores,
+                    celebrar a nossa vida
+                    na monumentalidade humana.
+                    "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-21.webp"    
