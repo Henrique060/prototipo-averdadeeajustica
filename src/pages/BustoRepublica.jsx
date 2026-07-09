@@ -14,6 +14,7 @@ function BustoRepublica() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-27.webp"
+      experienceId="bustorepublica"
     />
   );
 }

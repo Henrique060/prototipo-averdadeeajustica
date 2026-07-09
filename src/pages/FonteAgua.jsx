@@ -4,7 +4,7 @@ import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 function FonteAgua() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/fonteagua.webp"
+      imageSrc="/images/chafariz-rato.webp"
       imageAlt="Fonte"
       titleMain="Fonte de Água"
       titleSide="Sala 22 - Cidade Joanina"

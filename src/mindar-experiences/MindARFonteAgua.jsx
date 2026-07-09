@@ -127,9 +127,9 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           <LearnMorePopUp 
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUp}  
-            imgSrc="/images/sala22.webp"
+            imgSrc="/images/chafariz-rato.webp"
             description="
-            Procure, com recurso à sua câmara, qual dos 4 quadros contém a experiência da Fonte de Água."/>
+            Procure, com recurso à sua câmara, pelo quadro que reflete o Chafariz do Rato, como demonstra a figura. Aponte a câmara ao quadro e visualize o vídeo."/>
         }
       </div>
 
@@ -139,7 +139,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/fonte-agua-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/fonte-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"

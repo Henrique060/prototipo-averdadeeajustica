@@ -3,13 +3,23 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import IntroTextSequence from '../components/IntroTextSequence';
 import './MindAR.css';
 
 export default function MindARSebastião({ onTap }) {
   const sceneRef = useRef(null);
   const [showPopUp, setShowPopUp] = useState(true);
 
+  // Intro AR Text variable handlers for models and intro visibility
+  const [isIntroActive, setIsIntroActive] = useState(false);
+  const [modelsVisible, setModelsVisible] = useState(false);
+
   useMindARLifecycle(sceneRef);
+
+  const handleClosePopUP = () => {
+    setShowPopUp(false);
+    setIsIntroActive(true);
+  }
 
   useEffect(() => {
     let isMounted = true;
@@ -71,13 +81,20 @@ export default function MindARSebastião({ onTap }) {
         {showPopUp &&
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
-            onClose={() => setShowPopUp(false)}
+            onClose={handleClosePopUP}
             imgSrc="/images/sala23.webp"
             description="
             Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo.
             Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
         }
       </div>
+
+      <IntroTextSequence
+        text1="Vir neque silendus neque dicendus sine cura"
+        text2="Um homem sobre o qual não se deve permanecer em silêncio, nem falar sem pensar"
+        isActive={isIntroActive}
+        onSequenceComplete={() => setModelsVisible(true)}
+      />
 
       <a-scene
         ref={sceneRef}
@@ -99,7 +116,7 @@ export default function MindARSebastião({ onTap }) {
             <a-gltf-model
              src="#sebastiao"
              position="0 0 -0.05"
-             scale="0.05 0.05 0.05"
+             scale={modelsVisible? "0.05 0.05 0.05" : "0 0 0"}
              rotation="0 0 0"
             ></a-gltf-model>
       </a-entity>

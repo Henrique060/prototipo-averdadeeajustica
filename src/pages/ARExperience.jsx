@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { use } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowForwardOutline } from "react-icons/io5";
-import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx'; // 👈 Import it directly here
-import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; // 👈 Import it directly here
-import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; // 👈 Import it directly here
+import MindAREscadaria from '../mindar-experiences/MindAREscadaria.jsx'; 
+import MindARConvite from '../mindar-experiences/MindARConvite.jsx'; 
+import MindARDJoao from '../mindar-experiences/MindARDJoao.jsx'; 
 import MindARNossaSraEstrela from '../mindar-experiences/MindARNossaSraEstrela.jsx';
 import './ARExperience.css';
 import VideoARExperience from '../videoar-experiences/VideoARExperience.jsx';
@@ -14,8 +15,9 @@ import MindARTerreiro2 from '../mindar-experiences/MindARTerreiro2.jsx';
 import MindARTerreiro1 from '../mindar-experiences/MindARTerreiro1.jsx';
 import MindARSoberania from '../mindar-experiences/MindARSoberania.jsx';
 import MindARSebastião from '../mindar-experiences/MindARSebastião.jsx';
+import MindARBustoRepublica from '../mindar-experiences/MindARBustoRepublica.jsx';
 
-// 1. Create a registry map of your experiences
+// 1. Create a registry map of your experiences (Fine to keep outside)
 const EXPERIENCES = {
   escadaria: MindAREscadaria,
   terreiro1: MindARTerreiro1,
@@ -28,12 +30,22 @@ const EXPERIENCES = {
   saudade: MindARSaudade,
   terramoto: MindARTerramoto,
   soberania: MindARSoberania,
-  sebastiao: MindARSebastião
-  // Add more entries here later as you grow:
-  // sala_azul: MindARSalaAzul, 
+  sebastiao: MindARSebastião,
+  bustorepublica: MindARBustoRepublica,
 };
 
 function ARExperience() {
+  // 👇 FIXED: Moved Hooks inside the component function
+  const [showBtn, setShowBtn] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBtn(true); // Explicitly set to true after 10s
+    }, 10000);
+
+    return () => clearTimeout(timer); // Cleanup timer if user leaves early
+  }, []); // Empty dependency array ensures this runs once on mount
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,9 +71,11 @@ function ARExperience() {
 
   return (
     <div className="ar-experience-page">
-      <button className="ar-back-btn" onClick={handleNext}>
-        <IoArrowForwardOutline /> Próxima Experiência
-      </button>
+      {showBtn && (
+        <button className="ar-back-btn" onClick={handleNext}>
+          <IoArrowForwardOutline /> Próxima Experiência
+        </button>
+      )}
       <div className="ar-viewer-container">
         {/* 4. Render dynamically if found, or gracefully handle an empty state */}
         {TargetComponent ? (
