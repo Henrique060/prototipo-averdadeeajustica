@@ -30,7 +30,7 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
                             camera-controls
                             touch-action="pan-y"
                             ar
-                            ar-modes="webxr scene-viewer quick-look"
+                            ar-modes="scene-viewer quick-look"
                           
                         >
                             <button className="mv-ar-btn" slot="ar-button">
