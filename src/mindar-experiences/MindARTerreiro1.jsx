@@ -3,6 +3,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from "../components/BackButton";
 import './MindAR.css';
 
 export default function MindARTerreiro1({ onTap }) {
@@ -133,6 +134,7 @@ export default function MindARTerreiro1({ onTap }) {
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader />
         <HelpPopUpBtn
           className="help-btn-mindar"
@@ -176,7 +178,7 @@ export default function MindARTerreiro1({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+        mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
         color-space="sRGB"
         embedded
         renderer="colorManagement: true; physicallyCorrectLights: true"

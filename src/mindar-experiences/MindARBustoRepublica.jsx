@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
-import './MindAR.css';
+import BackButton from "../components/BackButton";
+import './MindARBusto.css';
 
 export default function MindARBustoRepublica({ onTap }) {
   const sceneRef = useRef(null);
@@ -85,55 +86,57 @@ export default function MindARBustoRepublica({ onTap }) {
   }, [onTap]);
 
   return (
-    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-      <div className="header-container-mindar">
-        <LogoHeader />
-        <HelpPopUpBtn
-          className="help-btn-mindar"
-          onClick={() => setShowPopUp(true)}
-        />
+    <div >
+      {/* Keep your header OUTSIDE the flipped wrapper so text reads correctly */}
+            <div className="header-container-mindar">
+            <BackButton />
+            <LogoHeader />
+            <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)} />
+            {showPopUp && (
+                <LearnMorePopUp
+                headerName={"Como interagir na experiência?"}
+                onClose={() => setShowPopUp(false)}
+                imgSrc="/images/sala21-2.webp"
+                description="Aponte a câmara para o seu rosto para ver a interação com o busto."
+                />
+            )}
+            </div>
 
-        {showPopUp && (
-          <LearnMorePopUp
-            headerName={"Como interagir na experiência?"}
-            onClose={() => setShowPopUp(false)}
-            imgSrc="/images/sala21-2.webp"
-            description="Aponte a câmara para o seu rosto para ver a interação com o busto."
-          />
-        )}
-      </div>
+            {/* NEW: Flipped wrapper container solely for the AR tracking view */}
+            <div className="ar-viewport-wrapper">
+            <a-scene 
+  ref={sceneRef}
+  mindar-face 
+  embedded 
+  color-space="sRGB" 
+  renderer="colorManagement: true, physicallyCorrectLights" 
+  vr-mode-ui="enabled: false" 
+  device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <a-asset-item id="bustoRepublica" src="/models/busto-republica.glb"></a-asset-item>
+  </a-assets>
 
-      <a-scene 
-        ref={sceneRef} // IMPORTANT: Added ref here so React can find the scene
-        mindar-face 
-        embedded 
-        color-space="sRGB" 
-        renderer="colorManagement: true, physicallyCorrectLights" 
-        vr-mode-ui="enabled: false" 
-        device-orientation-permission-ui="enabled: false"
+  <a-camera active="false" position="0 0 0"></a-camera>
+
+  {/* MindAR tracks this target anchor */}
+  <a-entity mindar-face-target="anchorIndex:168">
+    
+    {/* NEW: Neutral wrapper entity used strictly to flip the horizontal axis */}
+    <a-entity scale="-1 1 1" rotation="0 0 0">
+      
+      <a-gltf-model
+        src="#bustoRepublica"
+        position="0 0.3 0"
+        scale="2.5 1.5 2.5" 
       >
-        <a-assets>
-          <a-asset-item id="bustoRepublica" src="/models/busto-republica.glb"></a-asset-item>
-        </a-assets>
+      </a-gltf-model> 
+      
+    </a-entity>
 
-        {/* In face tracking, active camera should normally stay active="false" as MindAR controls it */}
-        <a-camera active="false" position="0 0 0"></a-camera>
-        
-        <a-entity mindar-face-target="anchorIndex:168">
-
-
-             <a-gltf-model
-                src="#bustoRepublica"
-                position="0 0.3 0"
-                scale="2.5 1.5 2.5">
-                </a-gltf-model> 
-
-           
-
-
-
-        </a-entity>
-      </a-scene>
+  </a-entity>
+</a-scene>
+        </div>
     </div>
   );
 }

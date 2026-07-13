@@ -3,6 +3,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from '../components/BackButton';
 import './MindAR.css';
 
 export default function MindARSoberania({ videoSrc = "/videos/soberania-prototype-video.mov" }) {
@@ -144,6 +145,7 @@ export default function MindARSoberania({ videoSrc = "/videos/soberania-prototyp
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 

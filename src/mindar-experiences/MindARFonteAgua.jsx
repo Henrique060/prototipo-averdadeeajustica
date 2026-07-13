@@ -3,6 +3,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from '../components/BackButton';
 import './MindAR.css';
 
 export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.mp4" }) {
@@ -14,19 +15,32 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
   const [showPopUp, setShowPopUp] = useState(true);
 
-  useMindARLifecycle(sceneRef);
+  const [isVideoOver, setIsVideoOver] = useState(false);
 
-  const handleClosePopUp = () => {
-    setShowPopUp(false);
-    // play is triggered by user gesture here — browser allows unmuted audio
-    if (videoRef.current) {
-      videoRef.current.play().catch(err => console.log("Play error:", err));
-    }
-  };
+  useMindARLifecycle(sceneRef);
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
+    
+    // --- CHANGES START HERE ---
+    // 1. Keep a reference to the element at the top level of useEffect
+    const videoEl = videoRef.current; 
+
+    // 2. Define the frame loop handler up here so it can reference processFrame safely
+    const processFrameRef = { current: null };
+
+    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
+    const handlePlay = () => {
+      if (videoEl && processFrameRef.current) {
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+      }
+    };
+
+    const handleEnded = () => {
+      setIsVideoOver(true);
+    };
+    // --- CHANGES END HERE ---
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
@@ -50,10 +64,11 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         sceneEl.addEventListener('renderstart', startAR);
       }
 
-      const videoEl = videoRef.current;
+      // --- CHROMA KEY PROCESSING LOOP ---
       if (!videoEl) return;
 
-      const processFrame = (now, metadata) => {
+      // Assign our actual processing logic to the lifted reference
+      processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
         const aPlane = planeRef.current;
@@ -81,9 +96,19 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          if (g > 110 && r < 90 && b < 100) {
-            data[i + 3] = 0; 
-          }
+          
+          const targetR = 164, targetG = 223, targetB = 52; 
+          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+          
+          const distance = Math.sqrt(
+            Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
+          );
+          const distance_2 = Math.sqrt(
+            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
+          );
+
+          if (distance < 70) data[i + 3] = 0;
+          if (distance_2 < 130) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(imageData, 0, 0);
@@ -95,22 +120,30 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           }
         }
 
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
-      // listen for play — triggered by handleClosePopUp instead of autoplay
-      videoEl.addEventListener('play', () => {
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
-      });
+      // Attaching the listeners we declared above
+      videoEl.addEventListener('play', handlePlay);
+      videoEl.addEventListener('ended', handleEnded);
+      
+      if (videoEl.paused) {
+        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
+      }
     };
 
     loadScripts();
 
+    // Now this cleanup return function works flawlessly without throwing an error!
     return () => {
       isMounted = false;
-      if (videoRef.current && callbackId) {
-        videoRef.current.cancelVideoFrameCallback(callbackId);
+      if (videoEl && callbackId) {
+        videoEl.cancelVideoFrameCallback(callbackId);
       }
+
+      videoEl?.removeEventListener('play', handlePlay);
+      videoEl?.removeEventListener('ended', handleEnded);
+
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
       if (arSystem?.started) {
         arSystem.stop();
@@ -121,25 +154,59 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
-          <LearnMorePopUp 
-            headerName={"Como interagir na experiência?"}
-            onClose={handleClosePopUp}  
-            imgSrc="/images/chafariz-rato.webp"
-            description="
-            Procure, com recurso à sua câmara, pelo quadro que reflete o Chafariz do Rato, como demonstra a figura. Aponte a câmara ao quadro e visualize o vídeo."/>
-        }
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={() => setShowPopUp(false)}
+          imgSrc="/images/salaconvite.webp"
+          description="
+          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
+          Mantenha a câmara apontada para observar a experiência na sua totalidade.
+          "/>
+          }
       </div>
-
-      <video ref={videoRef} src={videoSrc} loop playsInline style={{ display: 'none' }} />
+      {/* Hidden processing infrastructure */}
+      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
+      {isVideoOver && (
+      <div className="video-overlay">
+        <button
+          onClick={() => {
+            const video = videoRef.current;
+            video.currentTime = 0;
+            setIsVideoOver(false);
+            video.play();
+          }}
+          style={{
+            position: "absolute",
+            bottom: "50%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            padding: "14px 28px",
+            border: "none",
+            borderRadius: "14px",
+            background: "#EA562E",
+            color: "#E4D7C4",
+            fontSize: "1rem",
+            fontWeight: 600,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+          }}
+        >
+          Reiniciar Experiência
+        </button>
+      </div>
+    )}
+
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/fonte-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/fonte-marker.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
@@ -147,15 +214,17 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         device-orientation-permission-ui="enabled: false"
       >
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
         <a-entity mindar-image-target="targetIndex:0">            
-          <a-plane 
-            ref={planeRef}
-            src="#chromaTextureCanvas"
-            material="transparent: true; shader: flat;"
-            position="0 0.35 0.05" 
-            width="1.8" 
-            height=".8"
-          ></a-plane>
+            {/* Exactly centered, isolated chroma key video plane wrapper */}
+            <a-plane 
+              ref={planeRef}
+              src="#chromaTextureCanvas"
+              material="transparent: true; shader: flat;"
+              position="0 0.25 0.05" 
+              width="1.5" 
+              height="1.5"
+            ></a-plane>
         </a-entity>
       </a-scene>
     </div>

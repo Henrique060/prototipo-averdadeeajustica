@@ -3,6 +3,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from '../components/BackButton';
 import './MindAR.css';
 
 export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
@@ -13,11 +14,33 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
+
+  const [isVideoOver, setIsVideoOver] = useState(false);
+
   useMindARLifecycle(sceneRef);
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
+    
+    // --- CHANGES START HERE ---
+    // 1. Keep a reference to the element at the top level of useEffect
+    const videoEl = videoRef.current; 
+
+    // 2. Define the frame loop handler up here so it can reference processFrame safely
+    const processFrameRef = { current: null };
+
+    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
+    const handlePlay = () => {
+      if (videoEl && processFrameRef.current) {
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+      }
+    };
+
+    const handleEnded = () => {
+      setIsVideoOver(true);
+    };
+    // --- CHANGES END HERE ---
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
@@ -42,10 +65,10 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
       }
 
       // --- CHROMA KEY PROCESSING LOOP ---
-      const videoEl = videoRef.current;
       if (!videoEl) return;
 
-      const processFrame = (now, metadata) => {
+      // Assign our actual processing logic to the lifted reference
+      processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
         const aPlane = planeRef.current;
@@ -65,7 +88,6 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
           textureCanvas.height = targetHeight;
         }
 
-        // 1. Process Chroma Key (Remove Green background)
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
         const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
         const data = imageData.data;
@@ -75,34 +97,22 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
           const g = data[i + 1];
           const b = data[i + 2];
           
-          // Alternative formula for smoother results
-            const targetR = 164, targetG = 223, targetB = 52; // The exact green color code of your screen
-            const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
-            
-            const distance = Math.sqrt(
-            Math.pow(r - targetR, 2) + 
-            Math.pow(g - targetG, 2) + 
-            Math.pow(b - targetB, 2)
-            );
+          const targetR = 164, targetG = 223, targetB = 52; 
+          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+          
+          const distance = Math.sqrt(
+            Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
+          );
+          const distance_2 = Math.sqrt(
+            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
+          );
 
-            const distance_2 = Math.sqrt(
-            Math.pow(r - targetR_2, 2) + 
-            Math.pow(g - targetG_2, 2) + 
-            Math.pow(b - targetB_2, 2)
-            );
-
-            if (distance < 70) { // Adjust '120' to find the sweet spot
-            data[i + 3] = 0;
-            }
-
-            if (distance_2 < 130) {
-              data[i + 3] = 0;
-            }
+          if (distance < 70) data[i + 3] = 0;
+          if (distance_2 < 130) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(imageData, 0, 0);
 
-        // 2. Refresh the active A-Frame 3D dynamic texture context
         if (aPlane && aPlane.getObject3D('mesh')) {
           const material = aPlane.getObject3D('mesh').material;
           if (material && material.map) {
@@ -110,14 +120,12 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
           }
         }
 
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
-      const handlePlay = () => {
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
-      };
-
+      // Attaching the listeners we declared above
       videoEl.addEventListener('play', handlePlay);
+      videoEl.addEventListener('ended', handleEnded);
       
       if (videoEl.paused) {
         videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
@@ -126,11 +134,16 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
 
     loadScripts();
 
+    // Now this cleanup return function works flawlessly without throwing an error!
     return () => {
       isMounted = false;
-      if (videoRef.current && callbackId) {
-        videoRef.current.cancelVideoFrameCallback(callbackId);
+      if (videoEl && callbackId) {
+        videoEl.cancelVideoFrameCallback(callbackId);
       }
+
+      videoEl?.removeEventListener('play', handlePlay);
+      videoEl?.removeEventListener('ended', handleEnded);
+
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
       if (arSystem?.started) {
         arSystem.stop();
@@ -141,6 +154,7 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
@@ -155,13 +169,44 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
           }
       </div>
       {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
+      {isVideoOver && (
+      <div className="video-overlay">
+        <button
+          onClick={() => {
+            const video = videoRef.current;
+            video.currentTime = 0;
+            setIsVideoOver(false);
+            video.play();
+          }}
+          style={{
+            position: "absolute",
+            bottom: "50%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            padding: "14px 28px",
+            border: "none",
+            borderRadius: "14px",
+            background: "#EA562E",
+            color: "#E4D7C4",
+            fontSize: "1rem",
+            fontWeight: 600,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+          }}
+        >
+          Reiniciar Experiência
+        </button>
+      </div>
+    )}
+
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/convite-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/convite-marker.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"

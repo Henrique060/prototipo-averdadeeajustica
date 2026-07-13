@@ -3,186 +3,230 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from '../components/BackButton';
 import './MindAR.css';
 
 export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) {
   const sceneRef = useRef(null);
-    const videoRef = useRef(null);
-    const blitCanvasRef = useRef(null);
-    const textureCanvasRef = useRef(null);
-    const planeRef = useRef(null);
+  const videoRef = useRef(null);
+  const blitCanvasRef = useRef(null);
+  const textureCanvasRef = useRef(null);
+  const planeRef = useRef(null);
 
+  const [showPopUp, setShowPopUp] = useState(true);
 
+  const [isVideoOver, setIsVideoOver] = useState(false);
 
-    const [showPopUp, setShowPopUp] = useState(true);
+  useMindARLifecycle(sceneRef);
 
-    useMindARLifecycle(sceneRef);
+  useEffect(() => {
+    let isMounted = true;
+    let callbackId;
+    
+    // --- CHANGES START HERE ---
+    // 1. Keep a reference to the element at the top level of useEffect
+    const videoEl = videoRef.current; 
 
-    useEffect(() => {
-        let isMounted = true;
-        let callbackId;
-    
-        const loadScripts = async () => {
-          await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
-          await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
-          await loadScript('https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js');
+    // 2. Define the frame loop handler up here so it can reference processFrame safely
+    const processFrameRef = { current: null };
 
-    
-          if (!isMounted) return;
-    
-          const sceneEl = sceneRef.current;
-          if (!sceneEl) return;
-    
-          const startAR = () => {
-            const arSystem = sceneEl.systems["mindar-image-system"];
-            if (arSystem && !arSystem.started) {
-              arSystem.start();
-            }
-          };
-    
-          if (sceneEl.hasLoaded || sceneEl.renderStarted) {
-            startAR();
-          } else {
-            sceneEl.addEventListener('renderstart', startAR);
-          }
-    
-          // --- CHROMA KEY PROCESSING LOOP ---
-          const videoEl = videoRef.current;
-          if (!videoEl) return;
-    
-          const processFrame = (now, metadata) => {
-            const blitCanvas = blitCanvasRef.current;
-            const textureCanvas = textureCanvasRef.current;
-            const aPlane = planeRef.current;
-            
-            if (!blitCanvas || !textureCanvas || !videoEl) return;
-    
-            const blitCtx = blitCanvas.getContext('2d');
-            const textureCtx = textureCanvas.getContext('2d');
-    
-            const targetWidth = 480; 
-            const targetHeight = targetWidth * (metadata.height / metadata.width);
-    
-            if (blitCanvas.width !== targetWidth) {
-              blitCanvas.width = targetWidth;
-              blitCanvas.height = targetHeight;
-              textureCanvas.width = targetWidth;
-              textureCanvas.height = targetHeight;
-            }
-    
-            // 1. Process Chroma Key (Remove Green background)
-            blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
-            const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
-            const data = imageData.data;
-    
-            for (let i = 0; i < data.length; i += 4) {
-              const r = data[i];
-              const g = data[i + 1];
-              const b = data[i + 2];
-              
-              // Alternative formula for smoother results
-                const targetR = 0, targetG = 177, targetB = 64; // The exact green color code of your screen
-                const distance = Math.sqrt(
-                Math.pow(r - targetR, 2) + 
-                Math.pow(g - targetG, 2) + 
-                Math.pow(b - targetB, 2)
-                );
-    
-                if (distance < 120) { // Adjust '120' to find the sweet spot
-                data[i + 3] = 0;
-                }
-            }
-    
-            textureCtx.putImageData(imageData, 0, 0);
-    
-            // 2. Refresh the active A-Frame 3D dynamic texture context
-            if (aPlane && aPlane.getObject3D('mesh')) {
-              const material = aPlane.getObject3D('mesh').material;
-              if (material && material.map) {
-                material.map.needsUpdate = true;
-              }
-            }
-    
-            callbackId = videoEl.requestVideoFrameCallback(processFrame);
-          };
-    
-          const handlePlay = () => {
-            callbackId = videoEl.requestVideoFrameCallback(processFrame);
-          };
-    
-          videoEl.addEventListener('play', handlePlay);
+    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
+    const handlePlay = () => {
+      if (videoEl && processFrameRef.current) {
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+      }
+    };
+
+    const handleEnded = () => {
+      setIsVideoOver(true);
+    };
+    // --- CHANGES END HERE ---
+
+    const loadScripts = async () => {
+      await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
+
+      if (!isMounted) return;
+
+      const sceneEl = sceneRef.current;
+      if (!sceneEl) return;
+
+      const startAR = () => {
+        const arSystem = sceneEl.systems["mindar-image-system"];
+        if (arSystem && !arSystem.started) {
+          arSystem.start();
+        }
+      };
+
+      if (sceneEl.hasLoaded || sceneEl.renderStarted) {
+        startAR();
+      } else {
+        sceneEl.addEventListener('renderstart', startAR);
+      }
+
+      // --- CHROMA KEY PROCESSING LOOP ---
+      if (!videoEl) return;
+
+      // Assign our actual processing logic to the lifted reference
+      processFrameRef.current = (now, metadata) => {
+        const blitCanvas = blitCanvasRef.current;
+        const textureCanvas = textureCanvasRef.current;
+        const aPlane = planeRef.current;
+        
+        if (!blitCanvas || !textureCanvas || !videoEl) return;
+
+        const blitCtx = blitCanvas.getContext('2d');
+        const textureCtx = textureCanvas.getContext('2d');
+
+        const targetWidth = 480; 
+        const targetHeight = targetWidth * (metadata.height / metadata.width);
+
+        if (blitCanvas.width !== targetWidth) {
+          blitCanvas.width = targetWidth;
+          blitCanvas.height = targetHeight;
+          textureCanvas.width = targetWidth;
+          textureCanvas.height = targetHeight;
+        }
+
+        blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
+        const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
           
-          if (videoEl.paused) {
-            videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
+          const targetR = 164, targetG = 223, targetB = 52; 
+          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+          
+          const distance = Math.sqrt(
+            Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
+          );
+          const distance_2 = Math.sqrt(
+            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
+          );
+
+          if (distance < 70) data[i + 3] = 0;
+          if (distance_2 < 130) data[i + 3] = 0;
+        }
+
+        textureCtx.putImageData(imageData, 0, 0);
+
+        if (aPlane && aPlane.getObject3D('mesh')) {
+          const material = aPlane.getObject3D('mesh').material;
+          if (material && material.map) {
+            material.map.needsUpdate = true;
           }
-        };
-    
-        loadScripts();
-    
-        return () => {
-          isMounted = false;
-          if (videoRef.current && callbackId) {
-            videoRef.current.cancelVideoFrameCallback(callbackId);
-          }
-          const arSystem = sceneRef.current?.systems["mindar-image-system"];
-          if (arSystem?.started) {
-            arSystem.stop();
-          }
-        };
-      }, [videoSrc]);
+        }
+
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+      };
+
+      // Attaching the listeners we declared above
+      videoEl.addEventListener('play', handlePlay);
+      videoEl.addEventListener('ended', handleEnded);
+      
+      if (videoEl.paused) {
+        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
+      }
+    };
+
+    loadScripts();
+
+    // Now this cleanup return function works flawlessly without throwing an error!
+    return () => {
+      isMounted = false;
+      if (videoEl && callbackId) {
+        videoEl.cancelVideoFrameCallback(callbackId);
+      }
+
+      videoEl?.removeEventListener('play', handlePlay);
+      videoEl?.removeEventListener('ended', handleEnded);
+
+      const arSystem = sceneRef.current?.systems["mindar-image-system"];
+      if (arSystem?.started) {
+        arSystem.stop();
+      }
+    };
+  }, [videoSrc]);
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={() => setShowPopUp(false)}
-          imgSrc="/images/sala21-2.webp"
-          description={
-                        <>
-                        Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
-                          Apontando a câmara ao quadro da direita, verá uma interpretação artística (<i>by Ana Fonseca</i>).
-                          Observe as frases em conjunto com o vídeo, de modo a obter a experiência completa.
-                        </>
-                      }
-          />
+          imgSrc="/images/salaconvite.webp"
+          description="
+          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
+          Mantenha a câmara apontada para observar a experiência na sua totalidade.
+          "/>
           }
       </div>
-
       {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} loop muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
+      {isVideoOver && (
+      <div className="video-overlay">
+        <button
+          onClick={() => {
+            const video = videoRef.current;
+            video.currentTime = 0;
+            setIsVideoOver(false);
+            video.play();
+          }}
+          style={{
+            position: "absolute",
+            bottom: "50%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            padding: "14px 28px",
+            border: "none",
+            borderRadius: "14px",
+            background: "#EA562E",
+            color: "#E4D7C4",
+            fontSize: "1rem",
+            fontWeight: 600,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+          }}
+        >
+          Reiniciar Experiência
+        </button>
+      </div>
+    )}
+
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false"
       >
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex: 0">
-
+        <a-entity mindar-image-target="targetIndex:0">            
+            {/* Exactly centered, isolated chroma key video plane wrapper */}
             <a-plane 
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0.1 0.1 0" 
-              width=".1" 
-              height=".15"
-              animation = "property: scale; to: 9 9 0; easing:linear; dur: 30000; ; loop: false"
-              look-at="[camera]"
+              position="0 0 0.05" 
+              width="1.5" 
+              height="2"
             ></a-plane>
-
         </a-entity>
-    </a-scene>
+      </a-scene>
     </div>
   );
 }

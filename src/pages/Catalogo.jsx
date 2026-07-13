@@ -15,7 +15,7 @@ const experiencias = [
     image: '/images/arco-augusta.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/portalTerreiroPaco-beta3.glb',
+      modelViewerSrc: '/models/portalTerreiro.glb',
 
     },
   },
@@ -26,7 +26,7 @@ const experiencias = [
     image: '/images/apolo.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta2.glb',
+      modelViewerSrc: '/models/teatro-de-papel-beta3.glb',
 
     },
   },

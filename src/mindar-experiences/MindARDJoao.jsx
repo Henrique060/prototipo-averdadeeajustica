@@ -3,6 +3,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import HelpPopUpBtn from '../components/HelpPopUpBtn';
 import LogoHeader from '../components/LogoHeader';
 import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
+import BackButton from '../components/BackButton';
 import './MindAR.css';
 
 export default function MindARDJoao({ onTap }) {
@@ -211,6 +212,7 @@ export default function MindARDJoao({ onTap }) {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div className="header-container-mindar">
+        <BackButton />
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
