@@ -6,6 +6,7 @@
     margin: 2rem auto;
     padding: 0 1rem;
     padding-bottom: 50px;
+    animation: fade 0.5s ease-in;
 }
 
 .project-container-image-author-row {
@@ -15,11 +16,12 @@
 }
 
 .project-container-image img {
-    width: 100%;
+    width: 80%;
     height: auto;
     display: block;
+    margin: auto;
     border-radius: 14px;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -62,4 +64,33 @@
 
 .project-container-learn-more:hover {
     background-color: #da4c24;
+}
+
+.project-topnav{
+    background-color: #19283E;
+    border-radius: 14px;
+    margin: 1rem auto;
+    box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.project-topnav a{
+    color: #E4D7C4;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 1rem;
+    
+}
+
+.project-topnav a.active {
+    color: #EA562E !important;
+}
+
+.project-description{
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    display: block;
+    margin: auto;
 }

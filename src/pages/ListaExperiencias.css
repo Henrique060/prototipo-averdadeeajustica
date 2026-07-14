@@ -127,3 +127,11 @@
     font-size: 0.95rem;
   }
 }
+
+
+
+
+.experience-list-container{
+  animation: fade 0.5s ease-in ;
+}
+

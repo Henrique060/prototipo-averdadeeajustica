@@ -164,6 +164,7 @@ const ListaExperiencias = () => {
       <PageHeader title="Salas com Experiências" />
       <NavBar />
 
+      
       <div className="experience-list-container">
 
         <div className="map-content-img">

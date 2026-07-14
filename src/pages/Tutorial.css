@@ -69,3 +69,7 @@ h3 {
 .tutorial-image-items{
     mask-image: linear-gradient(to left, transparent 0%, #EA562E 20%, #EA562E 80%, transparent 100%);
 }
+
+.tutorial-wrapper{
+  animation: fade 0.5s ease-in ;
+}

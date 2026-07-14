@@ -13,6 +13,7 @@ function Tutorial() {
       <LogoHeader />
       <PageHeader title="Como funcionam as experiências?" />
 
+      <div className="tutorial-wrapper">
       <h3 className="tutorial-description">
         Deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
         <br />
@@ -78,8 +79,9 @@ function Tutorial() {
        
 
       </div>
-
+    </div>
       <NavBar />
+      
     </div>
   );
 }
