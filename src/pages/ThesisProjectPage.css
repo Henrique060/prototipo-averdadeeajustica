@@ -24,6 +24,7 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
 }
 
 .project-container-author {
