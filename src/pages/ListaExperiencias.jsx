@@ -164,7 +164,7 @@ const ListaExperiencias = () => {
       <PageHeader title="Salas com Experiências" />
       <NavBar />
 
-      
+
       <div className="experience-list-container">
 
         <div className="map-content-img">
@@ -172,7 +172,7 @@ const ListaExperiencias = () => {
         </div>
 
         <div className="experience-list-text-container">
-          <p className="experiencie-list-text">
+          <p className="experience-list-text">
             Selecione abaixo a sala em que se encontra. Poderá, após aceder a uma das salas abaixo, seguir a ordem natural das experiências.
           </p>
         </div>

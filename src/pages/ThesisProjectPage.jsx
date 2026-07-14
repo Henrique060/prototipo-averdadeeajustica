@@ -48,7 +48,7 @@ function ThesisProjectPage() {
         
         <NavBar />
 
-        <PageHeader title={<span>A Verdade e a J-u-s-t-i-ç-a & <br />WebAR Experiences for Museums</span>} />
+        <PageHeader title={<span>A Verdade e a J-u-s-t-i-ç-a <br/> & <br />WebAR Experiences for Museums</span>} />
 
         <div className="project-topnav">
             <a href="#tese"
