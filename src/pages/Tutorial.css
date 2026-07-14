@@ -73,3 +73,9 @@ h3 {
 .tutorial-wrapper{
   animation: fade 0.5s ease-in ;
 }
+
+.project-container-learn-more{
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+}

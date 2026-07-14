@@ -18,13 +18,15 @@ function Tutorial() {
         Deverá fazer, somente, uso do seu telemóvel para observar as experiências em ação.
         <br />
         Para tal, <b>deverá permitir o acesso à câmara e ao microfone</b>, quando pedido.
+        <br />
+        Sinta-se livre para se aproximar das experiências e observar de diferentes perspetivas.
       </h3>
 
       <div className="tutorial-container">
 
         {/* Row 1: Quadros */}
         <div className="tutorial-title">
-          <p>Experiências com <b>Quadros</b></p>
+          <p>Experiências com <b>Imagens</b></p>
         </div>
         <div className="tutorial-row">
           <div className="tutorial-image">
@@ -42,10 +44,12 @@ function Tutorial() {
         </div>
         {activePopUp === 'quadros' && (
           <LearnMorePopUp
-            headerName="Experiências com Quadros"
+            headerName="Experiências com Imagens"
             onClose={() => setActivePopUp(null)}
             imgSrc="/images/terreiropaco.webp"
-            description="lorem ipsum"
+            description="Ao iniciar a experiência, siga as instruções que aparecem no ecrã.
+            Dirija-se ao quadro ou imagem, respetiva à experiência, aponte a câmara do telemóvel e observe a experiência na sua totalidade.
+            Por vezes, surgirão botões com sugestões de interação. Toque e observe as mudanças no cenário."
           />
         )}
 
@@ -69,10 +73,12 @@ function Tutorial() {
         </div>
         {activePopUp === 'pecas' && (
           <LearnMorePopUp
-            headerName="Experiências com Peças"
+            headerName="Experiências Tridimensionais"
             onClose={() => setActivePopUp(null)}
             imgSrc="/images/soberania.webp"
-            description="lorem ipsum"
+            description="Estas experiências diferenciam-se das anteriores pelo facto de não precisarem de ter um telemóvel a apontar para um quadro ou imagem, continuamente.
+            Seguindo as instruções no ecrã, aponte a câmara para o chão, de modo a digitalizar o ambiente à sua volta.
+            O modelo tridimensional irá aparecer à sua frente, podendo observá-lo, rodar, aumentar ou diminuir, de modo a compreendê-lo em maior detalhe."
           />
         )}
 

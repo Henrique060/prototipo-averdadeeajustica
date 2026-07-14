@@ -45,6 +45,7 @@
   font-synthesis: style;
   font-style: italic;
   animation: fade 1s;
+  margin: auto;
 }
 
 .quadro-container-button-wrapper{
