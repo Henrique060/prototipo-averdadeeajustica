@@ -25,6 +25,7 @@ import VideoARExperience from './videoar-experiences/VideoARExperience';
 import FonteAgua from './pages/FonteAgua';
 import Terramoto from './pages/Terramoto';
 import QuadroTerreiroPaco2 from './pages/QuadroTerreiroPaco2';
+import Monumento from './pages/Monumento';
 import './App.css';
 
 function SplashScreen({ onDone }) {
@@ -81,6 +82,7 @@ function App() {
             <Route path="/fonte-agua" element={<FonteAgua />} />
             <Route path="/terramoto" element={<Terramoto />} />
             <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/monumento" element={<Monumento />} />
           </Routes>
         </Router>
       )}

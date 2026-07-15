@@ -35,14 +35,8 @@ export default function MindAREscadaria({
 
     const sceneEl = sceneRef.current;
 
-    const onTargetFound = (e) => {
-      const targetIndex = e.detail.targetIndex;
-      detectedTargetsRef.current[targetIndex] = true;
+    
 
-      if (targetIndex === 3) {
-        setShowFinalText(true);
-      }
-    };
 
     const onTargetLost = () => {};
 
@@ -68,9 +62,6 @@ export default function MindAREscadaria({
         sceneEl.addEventListener("renderstart", startAR, { once: true });
       }
 
-      sceneEl.addEventListener("targetFound", onTargetFound);
-      sceneEl.addEventListener("targetLost", onTargetLost);
-
       if (onTap) {
         sceneEl.addEventListener("click", onTap);
       }
@@ -85,7 +76,7 @@ export default function MindAREscadaria({
         const textureCanvas = textureCanvasRef.current;
         const plane = planeRef.current;
 
-        if (!blitCanvas || !textureCanvas || !videoEl) return;
+        if (!blitCanvas || !textureCanvas || !videoRef) return;
 
         const blitCtx = blitCanvas.getContext("2d");
         const textureCtx = textureCanvas.getContext("2d");
@@ -173,14 +164,7 @@ export default function MindAREscadaria({
         arSystem.stop();
       }
 
-      if (sceneEl) {
-        sceneEl.removeEventListener("targetFound", onTargetFound);
-        sceneEl.removeEventListener("targetLost", onTargetLost);
-
-        if (onTap) {
-          sceneEl.removeEventListener("click", onTap);
-        }
-      }
+  
     };
   }, [onTap, videoSrc]);
 
@@ -225,7 +209,7 @@ export default function MindAREscadaria({
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/escadaria-target.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+        mindar-image="imageTargetSrc: /markers/escadaria-target2.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
         color-space="sRGB"
         embedded
         renderer="colorManagement: true;"
@@ -234,6 +218,11 @@ export default function MindAREscadaria({
       >
         <a-assets>
           <img
+            id="miratecnica"
+            src="/images/miratecnica.png"
+            crossOrigin='anonymous'
+          />
+          <img
             id="arrow-left-1"
             src="/images/arrow-left.webp"
             crossOrigin="anonymous"
@@ -241,6 +230,11 @@ export default function MindAREscadaria({
           <img
             id="arrow-left-2"
             src="/images/arrow-left-2.webp"
+            crossOrigin="anonymous"
+          />
+          <img
+            id="arrow-end"
+            src="/images/arrow-end.png"
             crossOrigin="anonymous"
           />
         </a-assets>
@@ -252,6 +246,16 @@ export default function MindAREscadaria({
 
         <a-entity mindar-image-target="targetIndex:0">
           <a-plane
+            src="#miratecnica"
+            position="0 0.2 0.01"
+            width="2"
+            height="2"
+            transparent="true"
+          ></a-plane>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex:1">
+          <a-plane
             src="#arrow-left-1"
             position="0 0.5 0.01"
             width="2"
@@ -261,7 +265,7 @@ export default function MindAREscadaria({
           ></a-plane>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex:1">
+        <a-entity mindar-image-target="targetIndex:2">
           <a-plane
             src="#arrow-left-2"
             position="0 0.5 0.01"
@@ -272,7 +276,7 @@ export default function MindAREscadaria({
           ></a-plane>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex:2">
+        <a-entity mindar-image-target="targetIndex:3">
           <a-plane
             ref={planeRef}
             src="#chromaTextureCanvas"
@@ -284,9 +288,9 @@ export default function MindAREscadaria({
           ></a-plane>
         </a-entity>
 
-        <a-entity mindar-image-target="targetIndex:3">
+        <a-entity mindar-image-target="targetIndex:4">
           <a-plane
-            src="#arrow-left-1"
+            src="#arrow-end"
             position="0 0.5 0.01"
             width="2"
             height="2"
