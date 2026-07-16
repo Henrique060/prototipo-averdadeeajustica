@@ -4,39 +4,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(10, 17, 28, 0.75); /* Deepened for better contrast and focus */
-    backdrop-filter: blur(8px); /* Soft blur on the background for a modern overlay feel */
+    background: rgba(10, 17, 28, 0.75);
+    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     padding: 1.5rem;
-    z-index: 1000;
+    z-index: 9999;
     animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pop-up {
     position: relative;
     width: 100%;
-    max-width: 700px; /* Slightly crisper max-width */
-    max-height: 85vh;
+    max-width: 700px;
+    max-height: 75vh; /* Reduced max-height for a shorter pop-up */
+    max-height: calc(80dvh - 3rem); /* Modern dynamic viewport height, adjusted to be shorter */
     overflow-y: auto;
-    background: linear-gradient(145deg, #19283E, #131F31); /* Subtle gradient for depth */
-    border-radius: 24px; /* More modern, softer rounded corners */
+    -webkit-overflow-scrolling: touch;
+    background: linear-gradient(145deg, #19283E, #131F31);
+    border-radius: 24px;
     border: 1px solid rgba(226, 229, 255, 0.08);
     box-shadow: 
         0 4px 30px rgba(0, 0, 0, 0.2),
         0 24px 60px rgba(0, 0, 0, 0.4),
-        inset 0 1px 1px rgba(255, 255, 255, 0.05); /* Crisp inner glow */
-    padding: 2rem; /* Enhanced padding for better breathing room */
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     box-sizing: border-box;
-    
-    /* Animation for smooth entrance */
     animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    
-    /* Custom Scrollbar Styling */
     scrollbar-width: thin;
     scrollbar-color: rgba(226, 229, 255, 0.2) transparent;
 }
 
-/* Custom Scrollbar for Webkit browsers */
 .pop-up::-webkit-scrollbar {
     width: 6px;
 }
@@ -47,25 +45,25 @@
 
 .pop-up-header {
     position: sticky;
-    top: -2rem; /* Matches the new top padding of .pop-up to stick perfectly */
-    margin: -2rem -2rem 1.75rem -2rem; /* Bleeds into the padding seamlessly */
+    top: -2rem;
+    margin: -2rem -2rem 1.75rem -2rem;
     padding: 1.5rem 2rem;
     z-index: 10;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures header text and button sit perfectly on opposite sides */
-
-    background: rgba(25, 40, 62, 0.8);
+    justify-content: space-between;
+    background: rgba(25, 40, 62, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(226, 229, 255, 0.08);
+    border-radius: 24px 24px 0 0;
 }
 
 .pop-up-header h2 {
     font-size: 1.35rem;
     font-weight: 600;
-    color: #FFFFFF; /* High contrast white */
-    letter-spacing: -0.01em; /* Modern tight tracking */
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
     margin: 0;
 }
 
@@ -96,7 +94,7 @@
 
 .learn-more-pop-up-content-img-div {
     aspect-ratio: 1 / 1;
-    border-radius: 14px; /* Match the softer aesthetic */
+    border-radius: 14px;
     overflow: hidden;
     margin-bottom: 1.75rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -114,33 +112,29 @@
     transition: transform 0.5s ease;
 }
 
-
-
-
-
-.learn-more-pop-up-content-description-text-header{
+.learn-more-pop-up-content-description-text-header {
     color: #C2C7F0; 
     font-size: 1.25rem;
-    line-height: 1.7;             /* Slightly increased line height for paragraph readability */
-    text-align: left;             /* Explicitly forces left-alignment (no justification) */        /* Keeps your manual line breaks / paragraph breaks intact */
+    line-height: 1.7;
+    text-align: left;
     margin: auto;
     font-weight: 800;
     font-synthesis: style;
     padding-top: 20px;
+    white-space: pre-line;
 }
-
 
 .learn-more-pop-up-content-description-text {
     color: #C2C7F0; 
     font-size: 1.15rem;
-    line-height: 1.7;             /* Slightly increased line height for paragraph readability */
-    text-align: left;             /* Explicitly forces left-alignment (no justification) */        /* Keeps your manual line breaks / paragraph breaks intact */
+    line-height: 1.7;
+    text-align: left;
     margin: 0;
     font-weight: 500;
     font-synthesis: style;
+    white-space: pre-line;
 }
 
-/* Smooth Entrance Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -154,5 +148,46 @@
     to { 
         opacity: 1; 
         transform: scale(1) translateY(0); 
+    }
+}
+
+@media (max-width: 768px) {
+    .pop-up-overlay {
+        padding: 1rem;
+    }
+
+    .pop-up {
+        max-height: 75vh;
+        max-height: calc(80dvh - 2rem); /* Noticeably shorter on mobile to avoid UI overlaps */
+        padding: 1.25rem;
+        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        border-radius: 20px;
+    }
+
+    .pop-up-header {
+        top: -1.25rem;
+        margin: -1.25rem -1.25rem 1.25rem -1.25rem;
+        padding: 1rem 1.25rem;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .pop-up-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .learn-more-pop-up-content-img-div {
+        max-width: 160px;
+        min-width: 120px;
+        margin-bottom: 1.25rem;
+    }
+
+    .learn-more-pop-up-content-description-text-header {
+        font-size: 1.1rem;
+        padding-top: 10px;
+    }
+
+    .learn-more-pop-up-content-description-text {
+        font-size: 1rem;
+        line-height: 1.6;
     }
 }

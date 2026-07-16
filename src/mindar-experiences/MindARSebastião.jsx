@@ -100,7 +100,7 @@ export default function MindARSebastião({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/alegoria-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+        mindar-image="imageTargetSrc: /markers/alegoria-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; filterMinCF:0.0001; filterBeta:0.001;"
         color-space="sRGB"
         embedded
         renderer="colorManagement: true;" // Fixed comma syntax bug

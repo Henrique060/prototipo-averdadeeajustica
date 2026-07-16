@@ -14,54 +14,62 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
-
   const [isVideoOver, setIsVideoOver] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [textPhase, setTextPhase] = useState('hidden'); 
+  const hasRunSequence = useRef(false);
 
   useMindARLifecycle(sceneRef);
 
-  const [textPhase, setTextPhase] = useState('hidden'); 
-    const hasRunSequence = useRef(false);
-  
-    const runTextSequence = () => {
-      if (hasRunSequence.current) return;
-      hasRunSequence.current = true;
-  
-      setTextPhase('text1-in');
-  
-      setTimeout(() => {
-        setTextPhase('text1-out');
-      }, 8000);
-  
-      setTimeout(() => {
-        setTextPhase('text2-in');
-      }, 9500);
-  
-      setTimeout(() => {
-        setTextPhase('text2-out');
-      }, 17500);
-  
-      setTimeout(() => {
-        setTextPhase('done');
-      }, 19500);
-    };
-  
-    const handleClosePopUp = () => {
-      setShowPopUp(false);
-      runTextSequence(); 
-    };
+  const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
+
+    setTextPhase('text1-in');
+
+    setTimeout(() => {
+      setTextPhase('text1-out');
+    }, 8000);
+
+    setTimeout(() => {
+      setTextPhase('text2-in');
+    }, 9500);
+
+    setTimeout(() => {
+      setTextPhase('text2-out');
+    }, 17500);
+
+    setTimeout(() => {
+      setTextPhase('done');
+      setIsVideoPlaying(true); 
+    }, 19500);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    
+    if (videoRef.current) {
+      videoRef.current.play().then(() => {
+        videoRef.current.pause();
+      }).catch(err => console.log("Video unlock failed:", err));
+    }
+    
+    runTextSequence(); 
+  };
+
+  useEffect(() => {
+    if (isVideoPlaying && videoRef.current) {
+      videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
+    }
+  }, [isVideoPlaying]);
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
     
-    // --- CHANGES START HERE ---
-    // 1. Keep a reference to the element at the top level of useEffect
     const videoEl = videoRef.current; 
-
-    // 2. Define the frame loop handler up here so it can reference processFrame safely
     const processFrameRef = { current: null };
 
-    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
     const handlePlay = () => {
       if (videoEl && processFrameRef.current) {
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
@@ -71,7 +79,6 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     const handleEnded = () => {
       setIsVideoOver(true);
     };
-    // --- CHANGES END HERE ---
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
@@ -95,10 +102,8 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         sceneEl.addEventListener('renderstart', startAR);
       }
 
-      // --- CHROMA KEY PROCESSING LOOP ---
       if (!videoEl) return;
 
-      // Assign our actual processing logic to the lifted reference
       processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
@@ -154,18 +159,12 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
-      // Attaching the listeners we declared above
       videoEl.addEventListener('play', handlePlay);
       videoEl.addEventListener('ended', handleEnded);
-      
-      if (videoEl.paused) {
-        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
-      }
     };
 
     loadScripts();
 
-    // Now this cleanup return function works flawlessly without throwing an error!
     return () => {
       isMounted = false;
       if (videoEl && callbackId) {
@@ -203,7 +202,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
           "/>
           }
       </div>
-      {/* Hidden processing infrastructure */}
+      
       <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
@@ -219,7 +218,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
               planeEl.setAttribute('scale', '0.0001 0.0001 0.0001');
               planeEl.removeAttribute('animation');
 
-              setTimeout(() => { //timeout para deixar que o browser registe a remoção e adição
+              setTimeout(() => { 
                 planeEl.setAttribute('animation', {
                   property: 'scale',
                   to:'2 2 2',
@@ -266,7 +265,6 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">            
-            {/* Exactly centered, isolated chroma key video plane wrapper */}
             <a-plane 
               ref={planeRef}
               src="#chromaTextureCanvas"
@@ -275,7 +273,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
               width="1.5" 
               height="2"
               scale="0.0001 0.0001 0.0001"
-              animation="property: scale; to: 2 2 2; dur:27000; easing:linear; loop: false"
+              {...(isVideoPlaying ? { animation: "property: scale; to: 2 2 2; dur:27000; easing:linear; loop: false" } : {})}
             ></a-plane>
         </a-entity>
       </a-scene>

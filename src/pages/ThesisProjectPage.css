@@ -16,14 +16,12 @@
 }
 
 .project-container-image img {
-    width: 80%;
+    width: 60%;
     height: auto;
     display: block;
     margin: auto;
     border-radius: 14px;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     max-width: 300px;
 }
 
@@ -67,31 +65,111 @@
     background-color: #da4c24;
 }
 
-.project-topnav{
+.project-topnav {
     background-color: #19283E;
     border-radius: 14px;
     margin: 1rem auto;
     box-shadow: 0 2px 5px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    width: fit-content;
 }
 
-.project-topnav a{
+.project-topnav a {
     color: #E4D7C4;
     text-decoration: none;
     padding: 10px 20px;
     display: inline-block;
     font-size: 1rem;
-    
 }
 
 .project-topnav a.active {
     color: #EA562E !important;
 }
 
-.project-description{
-    font-size: 1.1rem;
+.project-description {
+    font-size: 1.25rem;
     font-weight: 700;
     text-align: center;
     padding: 10px;
     display: block;
     margin: auto;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.team-member-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    align-self: flex-start;
+}
+
+.team-member.reverse .team-member-header {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+.team-member-name {
+    font-size: 1rem;
+    color: #19283E;
+    font-weight: 600;
+    margin: 0;
+}
+
+.team-member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.team-member p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    text-align: justify;
+    margin: 0;
+}
+
+.acknowledgments-section {
+    margin-top: 3rem;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    padding-top: 2.5rem;
+}
+
+.acknowledgments-section h4 {
+    font-size: 1.2rem;
+    color: #19283E;
+    margin-bottom: 1rem;
+}
+
+.acknowledgments-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.acknowledgments-images {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.acknowledgments-images img {
+    width: 100px;
+    height: 100px;
+    border-radius: 14px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

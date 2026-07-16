@@ -50,7 +50,7 @@ const experiencias = [
 
       listOfItems: [
         'D. João V - A Riqueza',
-        'A fonte de água',
+        'A Fonte de Água',
       ],
 
       listOfURLs: [
@@ -94,13 +94,13 @@ const experiencias = [
       headerName: 'Sala 26 - Cidade no tempo de D. Maria I / Guerra Peninsular',
 
       listOfItems: [
-        'Quadro de D. Maria I',
         'Saudade e Felicidade',
+        'O Retorno',
       ],
 
       listOfURLs: [
-        '/d-maria',
         '/lenco-saudade',
+        '/o-retorno',
       ],
     },
   },
@@ -116,19 +116,7 @@ const experiencias = [
     sala: 'Salas 28',
     titulo: 'Estado Novo (1933 - 1974)',
     image: '/images/sala28.webp',
-    popup: {
-      headerName: 'Sala 28 - Estado Novo',
-
-      listOfItems: [
-        'Monumento Descobrimentos',
-        'Estátua Soberania',
-      ],
-
-      listOfURLs: [
-        '/descobrimentos',
-        '/soberania',
-      ],
-    },
+    url: '/soberania',
   },
 
   {

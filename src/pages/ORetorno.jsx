@@ -1,12 +1,12 @@
 import React from 'react';
 import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 
-function DMaria() {
+function ORetorno() {
   return (
     <ExperiencePageComponent
-      imageSrc="/images/dmaria.webp"
-      imageAlt="D.Maria I"
-      titleMain="D. Maria I"
+      imageSrc="/images/lenco-retorno.webp"
+      imageAlt="O Retorno"
+      titleMain="O Retorno"
       titleSide="Sala 26 - Cidade no tempo de D. Maria I"
       description="Texto que irá descrever a alegoria e experiência desejada.
         Deverá também este texto descrever ligeiramente o que se quer que o user faça.
@@ -14,9 +14,9 @@ function DMaria() {
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-26.webp"
-      experienceId="dmaria"
+      experienceId="oretorno"
     />
   );
 }
 
-export default DMaria;
+export default ORetorno;

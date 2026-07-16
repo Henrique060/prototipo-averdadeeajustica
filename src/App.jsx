@@ -11,7 +11,7 @@ import FiguraConvite from './pages/FiguraConvite';
 import Escadaria from './pages/Escadaria';
 import QuadroEscombros from './pages/QuadroEscombros';
 import GravuraMarques from './pages/GravuraMarques';
-import DMaria from './pages/DMaria';
+import ORetorno from './pages/ORetorno';
 import LencoSaudade from './pages/LencoSaudade';
 import BustoRepublica from './pages/BustoRepublica';
 import Descobrimentos from './pages/Descobrimentos';
@@ -65,7 +65,7 @@ function App() {
             <Route path="/figura-convite" element={<FiguraConvite />} />
             <Route path="/quadro-escombros" element={<QuadroEscombros />} />
             <Route path="/gravura-marques" element={<GravuraMarques />} />
-            <Route path="/d-maria" element={<DMaria />} />
+            <Route path="/o-retorno" element={<ORetorno />} />
             <Route path="/lenco-saudade" element={<LencoSaudade />} />
             <Route path="/busto-republica" element={<BustoRepublica />} />
             <Route path="/escadaria" element={<Escadaria />} />

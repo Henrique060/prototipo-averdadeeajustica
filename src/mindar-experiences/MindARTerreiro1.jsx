@@ -14,8 +14,6 @@ export default function MindARTerreiro1({ onTap }) {
   const [showPopUp, setShowPopUp] = useState(true);
   const [targetVisible, setTargetVisible] = useState(false);
 
-  
-
   const playVideoRef = useRef(() => {});
   const pauseVideoRef = useRef(() => {});
 

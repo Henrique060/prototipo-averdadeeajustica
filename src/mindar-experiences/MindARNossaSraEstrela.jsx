@@ -18,9 +18,38 @@ export default function MindARNossaSraEstrela({ onTap }) {
 
   useMindARLifecycle(sceneRef);
 
-  const handleClosePopUp = () => {
-    setShowPopUp(false);
-  };
+  const [textPhase, setTextPhase] = useState('hidden'); 
+      const hasRunSequence = useRef(false);
+    
+      const runTextSequence = () => {
+        if (hasRunSequence.current) return;
+        hasRunSequence.current = true;
+    
+        setTextPhase('text1-in');
+    
+        setTimeout(() => {
+          setTextPhase('text1-out');
+        }, 4000);
+    
+        setTimeout(() => {
+          setTextPhase('text2-in');
+        }, 5200);
+    
+        setTimeout(() => {
+          setTextPhase('text2-out');
+        }, 8500);
+    
+        setTimeout(() => {
+          setTextPhase('done');
+        }, 9500);
+      };
+    
+      const handleClosePopUp = () => {
+        setShowPopUp(false);
+        runTextSequence(); 
+      };
+
+
 
   useEffect(() => {
     let isMounted = true;
@@ -88,6 +117,10 @@ export default function MindARNossaSraEstrela({ onTap }) {
       }
     };
   }, [onTap]);
+
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
@@ -158,6 +191,17 @@ export default function MindARNossaSraEstrela({ onTap }) {
           ></a-plane>
         </a-entity>
       </a-scene>
+
+      {textVisible && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Estrela
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Tradução??
+          </p>
+        </div>
+      )}
     </div>
   );
 }

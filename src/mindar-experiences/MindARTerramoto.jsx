@@ -17,7 +17,54 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
 
   const [isVideoOver, setIsVideoOver] = useState(false);
 
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  
+
   useMindARLifecycle(sceneRef);
+
+  const [textPhase, setTextPhase] = useState('hidden'); 
+      const hasRunSequence = useRef(false);
+    
+      const runTextSequence = () => {
+        if (hasRunSequence.current) return;
+        hasRunSequence.current = true;
+    
+        setTextPhase('text1-in');
+    
+        setTimeout(() => {
+          setTextPhase('text1-out');
+        }, 4000);
+    
+        setTimeout(() => {
+          setTextPhase('text2-in');
+        }, 5200);
+    
+        setTimeout(() => {
+          setTextPhase('text2-out');
+        }, 8500);
+    
+        setTimeout(() => {
+          setTextPhase('done');
+          setIsVideoPlaying(true);
+        }, 9500);
+      };
+    
+      const handleClosePopUp = () => {
+        setShowPopUp(false);
+        if(videoRef.current){
+          videoRef.current.play().then(() =>{
+            videoRef.current.pause();
+          }).catch(err=>console.log("Video unlock failed:", err));
+    }
+        runTextSequence(); 
+      };
+
+  //use effect para o video começar
+  useEffect(() => {
+    if(isVideoPlaying && videoRef.current){
+      videoRef.current.play().catch(err=>console.error("Delayed play fialed:",err));
+    }
+  },[isVideoPlaying]);
 
   useEffect(() => {
     let isMounted = true;
@@ -127,9 +174,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       videoEl.addEventListener('play', handlePlay);
       videoEl.addEventListener('ended', handleEnded);
       
-      if (videoEl.paused) {
-        videoEl.play().catch(err => console.log("Awaiting manual user interaction trigger context", err));
-      }
+      
     };
 
     loadScripts();
@@ -151,6 +196,10 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
     };
   }, [videoSrc]);
 
+    const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
@@ -160,7 +209,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         {showPopUp && 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
-          onClose={() => setShowPopUp(false)}
+          onClose={handleClosePopUp}
           imgSrc="/images/salaconvite.webp"
           description="
           Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
@@ -222,11 +271,21 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
               position="0 0 0.05" 
-              width="1.5" 
-              height="2"
+              {...(isVideoPlaying ? { width: "1.5", height: "2" } : { width: "0.0001", height: "0.0001" })}
             ></a-plane>
         </a-entity>
       </a-scene>
+
+      {textVisible && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Tremor
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Gente cadê meu oculos
+          </p>
+        </div>
+      )}
     </div>
   );
 }

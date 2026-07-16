@@ -20,8 +20,8 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
   let btnActiveColor = "#003C72";
   const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
                   "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
-                  "/d-maria", "/lenco-saudade", "/busto-republica",
-                  "/descobrimentos", "/soberania", "/jardim"
+                   "/lenco-saudade", "/o-retorno", "/busto-republica",
+                  "/soberania", "/jardim"
   ];
   const currentIndex = routes.findIndex(r => location.pathname.endsWith(r));
   const goBack = () => { //navegar back nas routes para back btn

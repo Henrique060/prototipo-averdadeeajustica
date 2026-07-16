@@ -25,8 +25,8 @@ const NavBarExperience_2 = () => {
 
   const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
                   "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
-                  "/d-maria", "/lenco-saudade", "/busto-republica",
-                  "/descobrimentos", "/soberania", "/jardim"
+                   "/lenco-saudade", "/o-retorno", "/busto-republica",
+                  "/soberania", "/jardim"
   ];
 
   //const currentIndex = routes.indexOf(location.pathname);

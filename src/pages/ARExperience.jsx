@@ -25,7 +25,7 @@ const EXPERIENCES = {
   convite: MindARConvite,
   djoao: MindARDJoao,
   nsraestrela: MindARNossaSraEstrela,
-  dmaria: VideoARExperience,
+  oretorno: VideoARExperience,
   fonteagua: MindARFonteAgua,
   saudade: MindARSaudade,
   terramoto: MindARTerramoto,

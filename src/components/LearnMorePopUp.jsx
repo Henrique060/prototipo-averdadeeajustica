@@ -3,7 +3,7 @@ import './LearnMorePopUp.css';
 import { IoCloseOutline } from "react-icons/io5";
 
 
-function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
+function LearnMorePopUp({ headerName, onClose, imgSrc, description, descriptionHeader="Leia atentamente..."}) {
   return (
     <div className="pop-up-overlay" onClick={onClose}>
       <div className="pop-up" onClick={(e) => e.stopPropagation()}>
@@ -14,7 +14,7 @@ function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
         <div className="learn-more-pop-up-content-img-div">
           <img src={imgSrc} alt="Map" />
         </div>
-        <p className="learn-more-pop-up-content-description-text-header">Leia atentamente...</p>
+        <p className="learn-more-pop-up-content-description-text-header">{descriptionHeader}</p>
         <br/>
         <p className="learn-more-pop-up-content-description-text">{description}</p>
       </div>

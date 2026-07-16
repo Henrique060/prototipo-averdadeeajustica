@@ -10,6 +10,37 @@ export default function MindARBustoRepublica({ onTap }) {
   const [showPopUp, setShowPopUp] = useState(true);
   const [targetVisible, setTargetVisible] = useState(false);
 
+  const [textPhase, setTextPhase] = useState('hidden'); 
+      const hasRunSequence = useRef(false);
+    
+      const runTextSequence = () => {
+        if (hasRunSequence.current) return;
+        hasRunSequence.current = true;
+    
+        setTextPhase('text1-in');
+    
+        setTimeout(() => {
+          setTextPhase('text1-out');
+        }, 4000);
+    
+        setTimeout(() => {
+          setTextPhase('text2-in');
+        }, 5200);
+    
+        setTimeout(() => {
+          setTextPhase('text2-out');
+        }, 8500);
+    
+        setTimeout(() => {
+          setTextPhase('done');
+        }, 9500);
+      };
+
+const handleClosePopUp = () => {
+      setShowPopUp(false);
+      runTextSequence(); 
+    };
+
   useEffect(() => {
     let mounted = true;
     let cleanupListeners = null;
@@ -85,6 +116,11 @@ export default function MindARBustoRepublica({ onTap }) {
     };
   }, [onTap]);
 
+
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+
   return (
     <div >
       {/* Keep your header OUTSIDE the flipped wrapper so text reads correctly */}
@@ -95,7 +131,7 @@ export default function MindARBustoRepublica({ onTap }) {
             {showPopUp && (
                 <LearnMorePopUp
                 headerName={"Como interagir na experiência?"}
-                onClose={() => setShowPopUp(false)}
+                onClose={handleClosePopUp}
                 imgSrc="/images/sala21-2.webp"
                 description="Aponte a câmara para o seu rosto para ver a interação com o busto."
                 />
@@ -136,6 +172,17 @@ export default function MindARBustoRepublica({ onTap }) {
 
   </a-entity>
 </a-scene>
+
+{textVisible && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Cabeça
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Republicas
+          </p>
+        </div>
+      )}
         </div>
     </div>
   );
