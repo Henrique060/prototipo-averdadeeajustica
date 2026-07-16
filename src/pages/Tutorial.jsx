@@ -46,7 +46,7 @@ function Tutorial() {
           <LearnMorePopUp
             headerName="Experiências com Imagens"
             onClose={() => setActivePopUp(null)}
-            imgSrc="/images/terreiropaco.webp"
+            imgSrc="/images/markerlesstutorial.webp"
             description="Ao iniciar a experiência, siga as instruções que aparecem no ecrã.
             Dirija-se ao quadro ou imagem, respetiva à experiência, aponte a câmara do telemóvel e observe a experiência na sua totalidade.
             Por vezes, surgirão botões com sugestões de interação. Toque e observe as mudanças no cenário."
@@ -75,7 +75,7 @@ function Tutorial() {
           <LearnMorePopUp
             headerName="Experiências Tridimensionais"
             onClose={() => setActivePopUp(null)}
-            imgSrc="/images/soberania.webp"
+            imgSrc="/images/modelviewertutorial.webp"
             description="Estas experiências diferenciam-se das anteriores pelo facto de não precisarem de ter um telemóvel a apontar para um quadro ou imagem, continuamente.
             Seguindo as instruções no ecrã, aponte a câmara para o chão, de modo a digitalizar o ambiente à sua volta.
             O modelo tridimensional irá aparecer à sua frente, podendo observá-lo, rodar, aumentar ou diminuir, de modo a compreendê-lo em maior detalhe."

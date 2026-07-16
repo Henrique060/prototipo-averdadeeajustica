@@ -19,6 +19,37 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
 
   useMindARLifecycle(sceneRef);
 
+  const [textPhase, setTextPhase] = useState('hidden'); 
+    const hasRunSequence = useRef(false);
+  
+    const runTextSequence = () => {
+      if (hasRunSequence.current) return;
+      hasRunSequence.current = true;
+  
+      setTextPhase('text1-in');
+  
+      setTimeout(() => {
+        setTextPhase('text1-out');
+      }, 8000);
+  
+      setTimeout(() => {
+        setTextPhase('text2-in');
+      }, 9500);
+  
+      setTimeout(() => {
+        setTextPhase('text2-out');
+      }, 17500);
+  
+      setTimeout(() => {
+        setTextPhase('done');
+      }, 19500);
+    };
+  
+    const handleClosePopUp = () => {
+      setShowPopUp(false);
+      runTextSequence(); 
+    };
+
   useEffect(() => {
     let isMounted = true;
     let callbackId;
@@ -151,6 +182,10 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     };
   }, [videoSrc]);
 
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
@@ -160,7 +195,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         {showPopUp && 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
-          onClose={() => setShowPopUp(false)}
+          onClose={handleClosePopUp}
           imgSrc="/images/salaconvite.webp"
           description="
           Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
@@ -179,6 +214,21 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
           onClick={() => {
             const video = videoRef.current;
             video.currentTime = 0;
+            const planeEl = planeRef.current;
+            if(planeEl){
+              planeEl.setAttribute('scale', '0.0001 0.0001 0.0001');
+              planeEl.removeAttribute('animation');
+
+              setTimeout(() => { //timeout para deixar que o browser registe a remoção e adição
+                planeEl.setAttribute('animation', {
+                  property: 'scale',
+                  to:'2 2 2',
+                  dur: '27000',
+                  easing: 'linear',
+                  loop: false
+                });
+              })
+            }
             setIsVideoOver(false);
             video.play();
           }}
@@ -224,9 +274,33 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
               position="0 0 0.05" 
               width="1.5" 
               height="2"
+              scale="0.0001 0.0001 0.0001"
+              animation="property: scale; to: 2 2 2; dur:27000; easing:linear; loop: false"
             ></a-plane>
         </a-entity>
       </a-scene>
+
+      {textVisible && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            A praça,
+            ópera do poder.
+            Constrói e comemora,
+            também de forma efémera,
+            os seus ritos,
+            os seus tratados,
+            ... endeusa pessoas.
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Bom seria que cada um de nós
+            pudesse edificar monumentos efémeros:
+            os arcos dos nossos triunfos,
+            os obeliscos dos valores e amores,
+            celebrar a nossa vida
+            na monumentalidade humana.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -221,9 +221,9 @@ export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0 1 0.05" 
-              width="2" 
-              height="3"
+              position="0 0.5 0.05" 
+              width="1.25" 
+              height="2.25"
             ></a-plane>
         </a-entity>
       </a-scene>

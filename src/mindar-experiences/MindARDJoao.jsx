@@ -53,20 +53,20 @@ export default function MindARDJoao({ onTap }) {
 
     setTimeout(() => {
       setTextPhase('text1-out');
-    }, 2800);
+    }, 7000);
 
     setTimeout(() => {
       setTextPhase('text2-in');
-    }, 3800);
+    }, 8000);
 
     setTimeout(() => {
       setTextPhase('text2-out');
-    }, 6600);
+    }, 17500);
 
     setTimeout(() => {
       setTextPhase('done');
       setModelsVisible(true);
-    }, 7600);
+    }, 20000);
   };
 
   const handleClosePopUp = () => {
@@ -361,11 +361,20 @@ export default function MindARDJoao({ onTap }) {
 
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 900ms ease-in-out', maxWidth: '80vw' }}>
-            Fecit potentiam in brachio suo
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Magnífico,
+            magnânimo.
+            Um braço que se vê
+            e o outro se esconde.
+            (Para que a Justiça ao Sólio real se incline;)
           </p>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 900ms ease-in-out', maxWidth: '80vw' }}>
-            Com o seu braço, a sua força era demonstrada
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Rei de grandes obras,
+            grande cultura...
+            (E a quem a Fama a Eternidade une)
+            O seu próprio bem consome:
+            e qual seria
+            o néctar que o sacia?
           </p>
         </div>
       )}

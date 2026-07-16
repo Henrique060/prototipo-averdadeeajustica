@@ -6,6 +6,12 @@ import HeroButton from '../components/HeroButton';
 function Home() {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isTutorialPopped, setTutorialPopped] = useState(false);
+
+  const handleToggleTutorialPopUp = (e) =>{
+    e.stopPropagation();
+    setTutorialPopped(!isTutorialPopped);
+  };
 
   const handleToggleMenu = (e) => {
     e.stopPropagation();
@@ -31,7 +37,11 @@ function Home() {
           <HeroButton onClick={handleToggleMenu} label="Entrar" className="hero-btn" />
           
           <div className={`popup-menu ${isOpen ? 'open' : ''}`} id="popupMenu">
-            <a className="btn-iniciar" href="/escadaria">Iniciar</a>
+            <a className="btn-iniciar" onClick={handleToggleTutorialPopUp}>Iniciar</a>
+              <div className={`popup-menu ${isTutorialPopped ? 'open' : ''}`} id="popupMenu">
+                <a className="btn-sobre" href="/tutorial">Ver Tutorial</a>
+                <a className="btn-sobre" href="/escadaria">Iniciar sem Tutorial</a>
+              </div>
             <a className="btn-sobre" href="/thesis-project-page">Sobre</a>
           </div>
         </div>
@@ -55,9 +65,6 @@ function Home() {
             Se estiver a utilizar um tablet, coloque na orientação vertical
           </p>
 
-          <button className="hero-btn" onClick={handleToggleMenu}>
-            Entrar
-          </button>
           
         </div>
 

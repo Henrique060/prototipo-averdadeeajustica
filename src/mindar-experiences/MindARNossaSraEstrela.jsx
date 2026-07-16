@@ -148,7 +148,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
         <a-entity mindar-image-target="targetIndex:0">
           <a-plane 
             src="#nsraestrela"
-            position="0 0.5 0.05"
+            position="0 0.2 0.01"
             rotation="0 0 0"
             /* Scale reacts to React state dynamically */
             scale={isTranslated ? "1.5 1.5 1.5" : "0 0 0"}

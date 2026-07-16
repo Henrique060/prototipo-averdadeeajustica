@@ -14,6 +14,8 @@ function LearnMorePopUp({ headerName, onClose, imgSrc, description}) {
         <div className="learn-more-pop-up-content-img-div">
           <img src={imgSrc} alt="Map" />
         </div>
+        <p className="learn-more-pop-up-content-description-text-header">Leia atentamente...</p>
+        <br/>
         <p className="learn-more-pop-up-content-description-text">{description}</p>
       </div>
     </div>

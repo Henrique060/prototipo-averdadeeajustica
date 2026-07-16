@@ -209,7 +209,17 @@ export default function MindAREscadaria({
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/escadaria-target2.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+        mindar-image="
+          imageTargetSrc: /markers/escadaria-target2.mind; 
+          autoStart: false; 
+          uiLoading: no; 
+          uiError: no; 
+          uiScanning: no;
+          filterMinCF: 0.1; 
+          filterBeta: 10;
+          warmupTolerance: 1;
+          missTolerance: 3;
+        "
         color-space="sRGB"
         embedded
         renderer="colorManagement: true;"
@@ -221,6 +231,7 @@ export default function MindAREscadaria({
             id="miratecnica"
             src="/images/miratecnica.png"
             crossOrigin='anonymous'
+            look-at="[camera]"
           />
           <img
             id="arrow-left-1"

@@ -14,15 +14,50 @@ export default function MindARTerreiro1({ onTap }) {
   const [showPopUp, setShowPopUp] = useState(true);
   const [targetVisible, setTargetVisible] = useState(false);
 
+  
+
   const playVideoRef = useRef(() => {});
   const pauseVideoRef = useRef(() => {});
 
   useMindARLifecycle(sceneRef);
 
+  const [textPhase, setTextPhase] = useState('hidden'); 
+  const hasRunSequence = useRef(false);
+
+  const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
+
+    setTextPhase('text1-in');
+
+    setTimeout(() => {
+      setTextPhase('text1-out');
+    }, 5000);
+
+    setTimeout(() => {
+      setTextPhase('text2-in');
+    }, 7000);
+
+    setTimeout(() => {
+      setTextPhase('text2-out');
+    }, 12000);
+
+    setTimeout(() => {
+      setTextPhase('done');
+    }, 14000);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    runTextSequence(); 
+  };
+
   useEffect(() => {
     let mounted = true;
     let cleanupListeners = null;
     let animationFrameId = null;
+
+    
 
     const init = async () => {
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
@@ -131,6 +166,10 @@ export default function MindARTerreiro1({ onTap }) {
     };
   }, [onTap]);
 
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
       <div className="header-container-mindar">
@@ -144,7 +183,7 @@ export default function MindARTerreiro1({ onTap }) {
         {showPopUp && (
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
-            onClose={() => setShowPopUp(false)}
+            onClose={handleClosePopUp}
             imgSrc="/images/sala21-2.webp"
             description="
           Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
@@ -158,16 +197,16 @@ export default function MindARTerreiro1({ onTap }) {
           onClick={() => playVideoRef.current()}
           style={{
             position: "absolute",
-            bottom: "2rem",
+            bottom: "4rem",
             left: "50%",
             transform: "translateX(-50%)",
             zIndex: 1000,
             padding: "14px 28px",
             border: "none",
             borderRadius: "999px",
-            background: "#ffffff",
-            color: "#000",
-            fontSize: "1rem",
+            background: "#EA562E",
+            color: "#E4D8C4",
+            fontSize: "1.25rem",
             fontWeight: 600,
             cursor: "pointer",
           }}
@@ -205,13 +244,30 @@ export default function MindARTerreiro1({ onTap }) {
           <a-video
             ref={videoPlaneRef}
             src="#videoAsset"
-            position="0 0.5 0"
+            position="0 0.1 0.01"
             width="1.5"
             height="1"
             look-at="[camera]"
           />
         </a-entity>
       </a-scene>
+
+      {textVisible && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            A praça,
+            um palco majestoso
+            banhado pelo Tejo.
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+            Alegoria viva e vivida da cidade:
+            do que a cidade foi,
+            do que quiseram que ela fosse.
+            Mas de quem é ela?
+          </p>
+        </div>
+      )}
+      
     </div>
   );
 }
