@@ -9,56 +9,61 @@ import './MindAR.css';
 export default function MindARDJoao({ onTap }) {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
-  const gemRef = useRef(null);
-  const coinRef = useRef(null);
-  const goldRef = useRef(null);
+  
+  const barrasOuroRef = useRef(null);
+  const brincosRef = useRef(null);
+  const cetroRef = useRef(null);
+  const colarRef = useRef(null);
+  const coroaRef = useRef(null);
+  const faixaMagnanimoRef = useRef(null);
+  const moedasOuroRef = useRef(null);
+  const tesouroRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
   useMindARLifecycle(sceneRef);
 
-  // Track whether the intro text sequence has finished
   const [modelsVisible, setModelsVisible] = useState(false);
-  const modelsVisibleRef = useRef(false); // mirrors modelsVisible so the tap handler always reads the live value
-  const [textPhase, setTextPhase] = useState('hidden'); // 'hidden' | 'text1-in' | 'text1-out' | 'text2-in' | 'text2-out' | 'done'
+  const modelsVisibleRef = useRef(false); 
+  const [textPhase, setTextPhase] = useState('hidden'); 
 
-  // Track which models have been collected/moved, and whether the final text has shown
-  const collectedRef = useRef({ gem: false, coin: false, gold: false });
-  const finalTextTriggered = useRef(false); // guard so the final text only fires once
+  const collectedRef = useRef({
+    barrasouro: false,
+    brincos: false,
+    cetro: false,
+    colar: false,
+    coroa: false,
+    faixamagnanimo: false,
+    moedasouro: false,
+    tesouro: false,
+  });
+  const finalTextTriggered = useRef(false); 
   const [showFinalText, setShowFinalText] = useState(false);
 
-  // Keep modelsVisibleRef in sync with modelsVisible — fixes stale-closure bug in handleInteraction
   useEffect(() => {
     modelsVisibleRef.current = modelsVisible;
   }, [modelsVisible]);
 
-  // Guards against the intro text sequence running more than once
   const hasRunSequence = useRef(false);
 
-  // Run the text intro sequence once — triggered after the popup closes for the first time
   const runTextSequence = () => {
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
-    // Phase 1: fade in text 1
     setTextPhase('text1-in');
 
     setTimeout(() => {
-      // Phase 2: fade out text 1
       setTextPhase('text1-out');
     }, 2800);
 
     setTimeout(() => {
-      // Phase 3: fade in text 2
       setTextPhase('text2-in');
     }, 3800);
 
     setTimeout(() => {
-      // Phase 4: fade out text 2
       setTextPhase('text2-out');
     }, 6600);
 
     setTimeout(() => {
-      // Phase 5: done — show models
       setTextPhase('done');
       setModelsVisible(true);
     }, 7600);
@@ -66,14 +71,24 @@ export default function MindARDJoao({ onTap }) {
 
   const handleClosePopUp = () => {
     setShowPopUp(false);
-    runTextSequence(); // no-op if it has already run once
+    runTextSequence(); 
   };
 
+  // 1. Separate Effect: Handle Tap listener additions cleanly without breaking the core system
+  useEffect(() => {
+    const sceneEl = sceneRef.current;
+    if (sceneEl && onTap) {
+      sceneEl.addEventListener('click', onTap);
+      return () => sceneEl.removeEventListener('click', onTap);
+    }
+  }, [onTap]);
+
+  // 2. Core Effect: Handles MindAR loading and Canvas lifecycle safely
   useEffect(() => {
     let canvasEl = null;
 
     const handleInteraction = (clientX, clientY) => {
-      if (!modelsVisibleRef.current) return; // ignore taps during text sequence — reads LIVE value
+      if (!modelsVisibleRef.current) return; 
       if (!sceneRef.current || !cameraRef.current) return;
 
       const canvas = sceneRef.current.canvas;
@@ -90,64 +105,89 @@ export default function MindARDJoao({ onTap }) {
       const raycaster = new window.THREE.Raycaster();
       raycaster.setFromCamera(ndc, threeCamera);
 
-      const meshesGem = [];
-      const meshesCoin = [];
-      const meshesGold = [];
+      const meshesBarrasOuro = [];
+      const meshesBrincos = [];
+      const meshesCetro = [];
+      const meshesColar = [];
+      const meshesCoroa = [];
+      const meshesFaixaMagnanimo = [];
+      const meshesMoedasOuro = [];
+      const meshesTesouro = [];
 
-      if (gemRef.current?.object3D) {
-        gemRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesGem.push(obj); });
+      if (barrasOuroRef.current?.object3D) {
+        barrasOuroRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesBarrasOuro.push(obj); });
       }
-      if (coinRef.current?.object3D) {
-        coinRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesCoin.push(obj); });
+      if (brincosRef.current?.object3D) {
+        brincosRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesBrincos.push(obj); });
       }
-      if (goldRef.current?.object3D) {
-        goldRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesGold.push(obj); });
+      if (cetroRef.current?.object3D) {
+        cetroRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesCetro.push(obj); });
       }
-
-      if (meshesGem.length === 0 || meshesCoin.length === 0 || meshesGold.length === 0) return;
-
-      const hitsGems = raycaster.intersectObjects(meshesGem, false);
-      const hitsCoin = raycaster.intersectObjects(meshesCoin, false);
-      const hitsGolds = raycaster.intersectObjects(meshesGold, false);
-
-      if (hitsGems.length > 0 && gemRef.current) {
-        gemRef.current.setAttribute('animation', {
-          property: 'position',
-          to: '.5 0.1 0',
-          dur: 1000,
-          easing: 'easeInOutQuad'
-        });
-        collectedRef.current.gem = true;
+      if (colarRef.current?.object3D) {
+        colarRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesColar.push(obj); });
       }
-
-      if (hitsCoin.length > 0 && coinRef.current) {
-        coinRef.current.setAttribute('animation', {
-          property: 'position',
-          to: '-0.25 0 0',
-          dur: 1000,
-          easing: 'easeInOutQuad'
-        });
-        collectedRef.current.coin = true;
+      if (coroaRef.current?.object3D) {
+        coroaRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesCoroa.push(obj); });
+      }
+      if (faixaMagnanimoRef.current?.object3D) {
+        faixaMagnanimoRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesFaixaMagnanimo.push(obj); });
+      }
+      if (moedasOuroRef.current?.object3D) {
+        moedasOuroRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesMoedasOuro.push(obj); });
+      }
+      if (tesouroRef.current?.object3D) {
+        tesouroRef.current.object3D.traverse(obj => { if (obj.isMesh) meshesTesouro.push(obj); });
       }
 
-      if (hitsGolds.length > 0 && goldRef.current) {
-        goldRef.current.setAttribute('animation', {
-          property: 'position',
-          to: '0.3 -0.25 0',
-          dur: 1000,
-          easing: 'easeInOutQuad'
-        });
-        collectedRef.current.gold = true;
+      const hitsBarrasOuro = raycaster.intersectObjects(meshesBarrasOuro, false);
+      const hitsBrincos = raycaster.intersectObjects(meshesBrincos, false);
+      const hitsCetro = raycaster.intersectObjects(meshesCetro, false);
+      const hitsColar = raycaster.intersectObjects(meshesColar, false);
+      const hitsCoroa = raycaster.intersectObjects(meshesCoroa, false);
+      const hitsFaixaMagnanimo = raycaster.intersectObjects(meshesFaixaMagnanimo, false);
+      const hitsMoedasOuro = raycaster.intersectObjects(meshesMoedasOuro, false);
+      const hitsTesouro = raycaster.intersectObjects(meshesTesouro, false);
+
+      const animProps = { property: 'position', to: '0 0 0', dur: 1000, easing: 'easeInOutQuad' };
+
+      if (hitsBarrasOuro.length > 0 && barrasOuroRef.current) {
+        barrasOuroRef.current.setAttribute('animation', animProps);
+        collectedRef.current.barrasouro = true;
+      }
+      if (hitsBrincos.length > 0 && brincosRef.current) {
+        brincosRef.current.setAttribute('animation', animProps);
+        collectedRef.current.brincos = true; // Fixed
+      }
+      if (hitsCetro.length > 0 && cetroRef.current) {
+        cetroRef.current.setAttribute('animation', animProps);
+        collectedRef.current.cetro = true; // Fixed
+      }
+      if (hitsColar.length > 0 && colarRef.current) {
+        colarRef.current.setAttribute('animation', animProps);
+        collectedRef.current.colar = true; // Fixed
+      }
+      if (hitsCoroa.length > 0 && coroaRef.current) {
+        coroaRef.current.setAttribute('animation', animProps);
+        collectedRef.current.coroa = true; // Fixed
+      }
+      if (hitsFaixaMagnanimo.length > 0 && faixaMagnanimoRef.current) {
+        faixaMagnanimoRef.current.setAttribute('animation', animProps);
+        collectedRef.current.faixamagnanimo = true; // Fixed
+      }
+      if (hitsMoedasOuro.length > 0 && moedasOuroRef.current) {
+        moedasOuroRef.current.setAttribute('animation', animProps);
+        collectedRef.current.moedasouro = true; // Fixed
+      }
+      if (hitsTesouro.length > 0 && tesouroRef.current) {
+        tesouroRef.current.setAttribute('animation', animProps);
+        collectedRef.current.tesouro = true; // Fixed
       }
 
-      // Check if all three models have now been collected
-      const { gem, coin, gold } = collectedRef.current;
-      if (gem && coin && gold && !finalTextTriggered.current) {
+      const { barrasouro, brincos, cetro, colar, coroa, faixamagnanimo, moedasouro, tesouro } = collectedRef.current;
+
+      if (barrasouro && brincos && cetro && colar && coroa && faixamagnanimo && moedasouro && tesouro && !finalTextTriggered.current) {
         finalTextTriggered.current = true;
-        // wait for the move animation (1000ms) to finish before showing the final text
-        setTimeout(() => {
-          setShowFinalText(true);
-        }, 1000);
+        setTimeout(() => { setShowFinalText(true); }, 1000);
       }
     };
 
@@ -168,20 +208,24 @@ export default function MindARDJoao({ onTap }) {
       const sceneEl = sceneRef.current;
       if (!sceneEl) return;
 
-      const arSystem = sceneEl.systems["mindar-image-system"];
-
-      sceneEl.addEventListener('renderstart', () => {
-        arSystem.start();
-
+      const setupCanvasEvents = () => {
         canvasEl = sceneEl.canvas;
         if (canvasEl) {
           canvasEl.addEventListener('touchstart', onTouchStart, { passive: false });
           canvasEl.addEventListener('click', onClick);
         }
-      });
+      };
 
-      if (onTap) {
-        sceneEl.addEventListener('click', onTap);
+      const arSystem = sceneEl.systems["mindar-image-system"];
+      
+      if (sceneEl.hasLoaded) {
+        arSystem.start();
+        setupCanvasEvents();
+      } else {
+        sceneEl.addEventListener('renderstart', () => {
+          arSystem.start();
+          setupCanvasEvents();
+        });
       }
     };
 
@@ -196,17 +240,10 @@ export default function MindARDJoao({ onTap }) {
         canvasEl.removeEventListener('click', onClick);
       }
     };
-  }, [onTap]);
+  }, []); // Empty dependency array keeps it stable and stops camera feed crashes
 
-  // Derive opacity and visibility from phase
-  const text1Opacity =
-    textPhase === 'text1-in' ? 1 :
-    textPhase === 'text1-out' ? 0 : 0;
-
-  const text2Opacity =
-    textPhase === 'text2-in' ? 1 :
-    textPhase === 'text2-out' ? 0 : 0;
-
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
@@ -216,152 +253,126 @@ export default function MindARDJoao({ onTap }) {
         <LogoHeader/>
         <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
-        <LearnMorePopUp 
-          headerName={"Como interagir na experiência?"}
-          onClose={handleClosePopUp}
-          imgSrc="/images/djoao.webp"
-          description="
-          Procure pelo quadro de D. João V.
-          Aponte a câmara e devolva a riqueza, ao famoso 'Magnânimo', que se encontra à sua volta."/>
-          }
+          <LearnMorePopUp 
+            headerName={"Como interagir na experiência?"}
+            onClose={handleClosePopUp}
+            imgSrc="/images/djoao.webp"
+            description="Procure pelo quadro de D. João V. Aponte a câmara e devolva a riqueza, ao famoso 'Magnânimo', que se encontra à sua volta."
+          />
+        }
       </div>
-      {/* AR Scene */}
+
       <a-scene
         ref={sceneRef}
         mindar-image={`imageTargetSrc: ${"/markers/dJoao-target.mind"}; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
-        renderer="colorManagement: true, physicallyCorrectLights"
+        renderer="colorManagement: true"
         vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <a-asset-item id="gem" src="/models/grupoJoias.glb"></a-asset-item>
-          <a-asset-item id="coin" src="/models/grupoMoedas.glb"></a-asset-item>
-          <a-asset-item id="gold" src="/models/grupoOuro.glb"></a-asset-item>
+          <a-asset-item id="barrasouro" src="/models/barrasouro.glb"></a-asset-item>
+          <a-asset-item id="brincos" src="/models/brincos.glb"></a-asset-item>
+          <a-asset-item id="cetro" src="/models/cetro.glb"></a-asset-item>
+          <a-asset-item id="colar" src="/models/colar.glb"></a-asset-item>
+          <a-asset-item id="coroa" src="/models/coroa.glb"></a-asset-item>
+          <a-asset-item id="faixamagnanimo" src="/models/faixamagnanimo.glb"></a-asset-item>
+          <a-asset-item id="moedasouro" src="/models/moedasouro.glb"></a-asset-item>
+          <a-asset-item id="tesouro" src="/models/tesouro.glb"></a-asset-item>
         </a-assets>
 
         <a-camera ref={cameraRef} position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">
-          {/* Models are hidden via scale until text sequence finishes */}
           <a-entity
-            ref={gemRef}
-            id="gem-entity"
-            gltf-model="/models/grupoJoias.glb"
-            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
-            rotation= "90 0 0"
-            position=".75 .75 0"
+            ref={barrasOuroRef}
+            id="barrasouro-entity"
+            gltf-model="/models/barrasouro.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0.2 0.1 0.01"
           ></a-entity>
 
           <a-entity
-            ref={coinRef}
-            id="coin-entity"
-            gltf-model="/models/grupoMoedas.glb"
-            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
-            rotation= "90 0 0"
-            position="0 0 0"
+            ref={brincosRef}
+            id="brincos-entity"
+            gltf-model="/models/brincos.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0.3 0.25 0.01"
           ></a-entity>
 
           <a-entity
-            ref={goldRef}
-            id="gold-entity"
-            gltf-model="/models/grupoOuro.glb"
-            scale={modelsVisible ? ".1 .1 .1" : "0 0 0"}
-            rotation= "90 0 0"
-            position="-.5 0 0"
+            ref={cetroRef}
+            id="cetro-entity"
+            gltf-model="/models/cetro.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="-0.15 -0.25 0.01"
+          ></a-entity>
+
+          <a-entity
+            ref={colarRef}
+            id="colar-entity"
+            gltf-model="/models/colar.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0.3 0-.2 0.01"
+          ></a-entity>
+
+          <a-entity
+            ref={coroaRef}
+            id="coroa-entity"
+            gltf-model="/models/coroa.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0.2 -0.2 0.01"
+          ></a-entity>
+
+          <a-entity
+            ref={faixaMagnanimoRef}
+            id="faixamagnanimo-entity"
+            gltf-model="/models/faixamagnanimo.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0 -0.25 0.01"
+          ></a-entity>
+
+          <a-entity
+            ref={moedasOuroRef}
+            id="moedasouro-entity"
+            gltf-model="/models/moedasouro.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="0.2 0 0.01"
+          ></a-entity>
+
+          <a-entity
+            ref={tesouroRef}
+            id="tesouro-entity"
+            gltf-model="/models/tesouro.glb"
+            scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
+            rotation="180 90 90"
+            position="-0.3 0 0.01"
           ></a-entity>
         </a-entity>
       </a-scene>
 
-      {/* Overlay text — rendered in HTML on top of the canvas */}
       {textVisible && (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            zIndex: 10,
-          }}
-        >
-          {/* Text 1 */}
-          <p
-            style={{
-              position: 'absolute',
-              margin: 0,
-              padding: '0 1.5rem',
-              textAlign: 'center',
-              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
-              fontSize: 'clamp(2rem, 5vw, 2.5rem)',
-              fontStyle: 'italic',
-              color: '#f5e9c8',
-              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
-              letterSpacing: '0.04em',
-              lineHeight: 1.5,
-              opacity: text1Opacity,
-              transition: 'opacity 900ms ease-in-out',
-              maxWidth: '80vw',
-            }}
-          >
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 900ms ease-in-out', maxWidth: '80vw' }}>
             Fecit potentiam in brachio suo
           </p>
-
-          {/* Text 2 */}
-          <p
-            style={{
-              position: 'absolute',
-              margin: 0,
-              padding: '0 1.5rem',
-              textAlign: 'center',
-              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
-              fontSize: 'clamp(2rem, 4vw, 2.5rem)',
-              color: '#f0dfa8',
-              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
-              letterSpacing: '0.03em',
-              lineHeight: 1.6,
-              opacity: text2Opacity,
-              transition: 'opacity 900ms ease-in-out',
-              maxWidth: '80vw',
-            }}
-          >
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 900ms ease-in-out', maxWidth: '80vw' }}>
             Com o seu braço, a sua força era demonstrada
           </p>
         </div>
       )}
 
-      {/* Final text — shown once all three models have been collected/moved */}
       {showFinalText && (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            zIndex: 10,
-          }}
-        >
-          <p
-            style={{
-              margin: 0,
-              padding: '0 1.5rem',
-              textAlign: 'center',
-              fontFamily: "'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif",
-              fontSize: 'clamp(2rem, 4.5vw, 2.5rem)',
-              fontStyle: 'italic',
-              color: '#f5e9c8',
-              textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 40px rgba(0,0,0,0.6)',
-              letterSpacing: '0.04em',
-              lineHeight: 1.5,
-              opacity: showFinalText ? 1 : 0,
-              transition: 'opacity 900ms ease-in-out',
-              maxWidth: '80vw',
-            }}
-          >
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          <p style={{ margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4.5vw, 2.5rem)', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: showFinalText ? 1 : 0, transition: 'opacity 900ms ease-in-out', maxWidth: '80vw' }}>
             O Quinto do Ouro e dos Diamantes foi pago. Pode prosseguir...
           </p>
         </div>
