@@ -34,7 +34,9 @@ const NavBarExperience_2 = () => {
 
   const goNext = () => {
     if (currentIndex < routes.length - 1) {
-      navigate(routes[currentIndex + 1]);
+      navigate(routes[currentIndex + 1], {
+        state:{nextRoute: routes[currentIndex + 2]}
+      });
     }
   };
 
