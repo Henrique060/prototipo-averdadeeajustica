@@ -26,7 +26,10 @@ import FonteAgua from './pages/FonteAgua';
 import Terramoto from './pages/Terramoto';
 import QuadroTerreiroPaco2 from './pages/QuadroTerreiroPaco2';
 import Monumento from './pages/Monumento';
+import MonumentoQuestionario from './pages/MonumentoQuestionario';
+import FinalPage from './pages/FinalPage';
 import './App.css';
+
 
 function SplashScreen({ onDone }) {
   useEffect(() => {
@@ -83,6 +86,8 @@ function App() {
             <Route path="/terramoto" element={<Terramoto />} />
             <Route path="/catalogo" element={<Catalogo />} />
             <Route path="/monumento" element={<Monumento />} />
+            <Route path="/monumento-questionario" element={<MonumentoQuestionario />} />
+            <Route path="/final-page" element={<FinalPage />} />
           </Routes>
         </Router>
       )}

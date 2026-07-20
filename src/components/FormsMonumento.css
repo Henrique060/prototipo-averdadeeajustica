@@ -1,0 +1,33 @@
+.forms-img-wrapper{
+    margin: auto;
+    max-width: 300px;
+    color: white;
+    border-radius: 14px;
+    width: 80%;
+    padding: 10px;
+}
+
+.forms-img{
+    border-radius: 14px;
+    width: 80%;
+    margin: auto;
+}
+
+
+.btn-continue-form{
+    margin: auto;
+    display: block;
+    background-color: #EA562E;
+    color: #E4D8C4;
+
+}
+
+.question{
+    font-weight: 500;
+    font-size: 1.15rem;
+}
+
+.options-containr{
+    font-size: 1rem;
+}
+

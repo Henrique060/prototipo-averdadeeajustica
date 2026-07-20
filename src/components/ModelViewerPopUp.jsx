@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import './ModelViewerPopUp.css';
 
-function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) {
+function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, arButtonEnabled = true}) {
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
@@ -31,11 +31,14 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
                             touch-action="pan-y"
                             ar
                             ar-modes="scene-viewer quick-look"
-                          
                         >
+                        
+                        {arButtonEnabled && (
                             <button className="mv-ar-btn" slot="ar-button">
                                 Entre na experiência
                             </button>
+                        )}
+                            
                         </model-viewer>
                     ) : (
                         <div className="mv-loading">
@@ -46,6 +49,17 @@ function ModelViewerPopUp({ headerName, onClose, modelViewerSrc, description }) 
                 {description && (
                     <p className="mv-description">{description}</p>
                 )}
+                
+                {/* NEW: Button to proceed to the next form / page */}
+                <div className="mv-footer" style={{ marginTop: '20px', textAlign: 'center' }}>
+                    <button 
+                        className="mv-proceed-btn" 
+                        onClick={onProceed}
+                        style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
+                    >
+                        Sim, pretendo continuar
+                    </button>
+                </div>
             </div>
         </div>
     );
