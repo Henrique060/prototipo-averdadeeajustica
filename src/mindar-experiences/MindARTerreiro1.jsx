@@ -9,13 +9,13 @@ import './MindAR.css';
 export default function MindARTerreiro1({ onTap }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
-  const videoPlaneRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
-  const [targetVisible, setTargetVisible] = useState(false);
-
-  const playVideoRef = useRef(() => {});
-  const pauseVideoRef = useRef(() => {});
+  
+  const [buttonVisible, setButtonVisible] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [hasWatched, setHasWatched] = useState(false);
+  const [isTargetFound, setIsTargetFound] = useState(false);
 
   useMindARLifecycle(sceneRef);
 
@@ -53,22 +53,15 @@ export default function MindARTerreiro1({ onTap }) {
   useEffect(() => {
     let mounted = true;
     let cleanupListeners = null;
-    let animationFrameId = null;
-
-    
 
     const init = async () => {
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
       await loadScript("https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js");
-      await loadScript("https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js");
 
       if (!mounted) return;
 
       const scene = sceneRef.current;
-      const video = videoRef.current;
-      const videoPlane = videoPlaneRef.current;
-
-      if (!scene || !video || !videoPlane) return;
+      if (!scene) return;
 
       const startAR = () => {
         const system = scene.systems["mindar-image-system"];
@@ -89,48 +82,17 @@ export default function MindARTerreiro1({ onTap }) {
 
       const target = scene.querySelector("[mindar-image-target]");
 
-      video.load();
-
-      const syncVideoTexture = () => {
-        if (!mounted) return;
-
-        const mesh = videoPlane.getObject3D("mesh");
-        if (mesh?.material?.map) {
-          mesh.material.map.needsUpdate = true;
-        }
-
-        animationFrameId = requestAnimationFrame(syncVideoTexture);
-      };
-
-      const playVideo = async () => {
-        try {
-          video.currentTime = 0;
-          await video.play();
-          syncVideoTexture();
-        } catch (e) {
-          console.error(e);
-        }
-      };
-
-      const pauseVideo = () => {
-        video.pause();
-
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = null;
-        }
-      };
-
-      playVideoRef.current = playVideo;
-      pauseVideoRef.current = pauseVideo;
-
       const handleTargetFound = () => {
-        setTargetVisible(true);
+        setIsTargetFound(true);
+        setButtonVisible(true);
       };
 
       const handleTargetLost = () => {
-        setTargetVisible(false);
-        pauseVideo();
+        setIsTargetFound(false);
+        setButtonVisible((prev) => {
+          if (hasWatched) return true;
+          return false;
+        });
       };
 
       target.addEventListener("targetFound", handleTargetFound);
@@ -142,10 +104,6 @@ export default function MindARTerreiro1({ onTap }) {
 
         if (onTap) {
           scene.removeEventListener("click", onTap);
-        }
-
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
         }
       };
     };
@@ -162,111 +120,228 @@ export default function MindARTerreiro1({ onTap }) {
         system.stop();
       }
     };
-  }, [onTap]);
+  }, [onTap, hasWatched]);
 
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
-  return (
-    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-      <div className="header-container-mindar">
-        <BackButton />
-        <LogoHeader />
-        <HelpPopUpBtn
-          className="help-btn-mindar"
-          onClick={() => setShowPopUp(true)}
-        />
+  // --- Video Controls ---
+  const startVideo = () => {
+    setIsVideoPlaying(true);
+    setButtonVisible(false);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(e => console.error("Video play failed", e));
+    }
+  };
 
-        {showPopUp && (
-          <LearnMorePopUp
-            headerName={"Como interagir na experiência?"}
-            onClose={handleClosePopUp}
-            imgSrc="/images/sala21-2.webp"
-            description="
-          Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
-          Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
+  const stopVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsVideoPlaying(false);
+    setHasWatched(true);
+    setButtonVisible(true);
+  };
+
+  return (
+    <>
+      <style>
+        {`
+          .video-overlay-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+          }
+
+          .landscape-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+          }
+
+          .close-video-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 2010;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          /* Warning overlay is hidden by default (Landscape) */
+          .orientation-warning {
+            display: none; 
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2020;
+            color: #E4D8C4;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            font-family: "'Palatino Linotype', Georgia, serif";
+          }
+
+          .phone-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            animation: rotatePhone 2.5s infinite ease-in-out;
+            color: #EA562E;
+          }
+
+          @keyframes rotatePhone {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-90deg); }
+            100% { transform: rotate(-90deg); }
+          }
+
+          /* Show warning ONLY when holding device vertically */
+          @media screen and (orientation: portrait) {
+            .orientation-warning {
+              display: flex; 
+            }
+          }
+        `}
+      </style>
+
+      <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+        <div className="header-container-mindar">
+          <BackButton />
+          <LogoHeader />
+          <HelpPopUpBtn
+            className="help-btn-mindar"
+            onClick={() => setShowPopUp(true)}
           />
+
+          {showPopUp && (
+            <LearnMorePopUp
+              headerName={"Como interagir na experiência?"}
+              onClose={handleClosePopUp}
+              imgSrc="/images/sala21-2.webp"
+              description="
+            Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
+            Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
+            />
+          )}
+        </div>
+
+        {buttonVisible && !isVideoPlaying && (
+          <button
+            onClick={startVideo}
+            style={{
+              position: "absolute",
+              bottom: "4rem",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 1000,
+              padding: "14px 28px",
+              border: "none",
+              borderRadius: "999px",
+              background: "#EA562E",
+              color: "#E4D8C4",
+              fontSize: "1.25rem",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            {hasWatched ? "Ver novamente" : "Veja o vídeo"}
+          </button>
+        )}
+
+        {/* 2D Video Overlay */}
+        {isVideoPlaying && (
+          <div className="video-overlay-wrapper">
+            
+            {/* The Orientation Warning Overlay */}
+            <div className="orientation-warning">
+              <svg className="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+              <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "600" }}>Rode o seu telemóvel</h2>
+              <p style={{ marginTop: "1rem", fontSize: "1.1rem", lineHeight: "1.4" }}>
+                Coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro.
+              </p>
+              
+              {/* Fallback button so they aren't trapped if sensor fails */}
+              <button 
+                onClick={stopVideo} 
+                style={{
+                  marginTop: "2rem",
+                  padding: "10px 20px",
+                  background: "transparent",
+                  border: "1px solid #E4D8C4",
+                  color: "#E4D8C4",
+                  borderRadius: "999px",
+                  cursor: "pointer"
+                }}
+              >
+                Voltar à câmara
+              </button>
+            </div>
+
+            <button className="close-video-btn" onClick={stopVideo}>✕</button>
+            <video
+              ref={videoRef}
+              src="/videos/terreiro-video.mp4"
+              onEnded={stopVideo}
+              playsInline
+              webkit-playsinline="true"
+              controls={true}
+              className="landscape-video"
+            />
+          </div>
+        )}
+
+        <a-scene
+          ref={sceneRef}
+          mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+          color-space="sRGB"
+          embedded
+          renderer="colorManagement: true; physicallyCorrectLights: true"
+          vr-mode-ui="enabled: false"
+          device-orientation-permission-ui="enabled: false"
+        >
+          <a-camera position="0 0 0" look-controls="enabled: false" />
+          <a-entity mindar-image-target="targetIndex: 0"></a-entity>
+        </a-scene>
+
+        {textVisible && (
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+            <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+              A praça,
+              um palco majestoso
+              banhado pelo Tejo.
+            </p>
+            <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+              Alegoria viva e vivida da cidade:
+              do que a cidade foi,
+              do que quiseram que ela fosse.
+              Mas de quem é ela?
+            </p>
+          </div>
         )}
       </div>
-
-      {targetVisible && (
-        <button
-          onClick={() => playVideoRef.current()}
-          style={{
-            position: "absolute",
-            bottom: "4rem",
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 1000,
-            padding: "14px 28px",
-            border: "none",
-            borderRadius: "999px",
-            background: "#EA562E",
-            color: "#E4D8C4",
-            fontSize: "1.25rem",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          Veja o vídeo
-        </button>
-      )}
-
-      <a-scene
-        ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
-        color-space="sRGB"
-        embedded
-        renderer="colorManagement: true; physicallyCorrectLights: true"
-        vr-mode-ui="enabled: false"
-        device-orientation-permission-ui="enabled: false"
-      >
-        <a-assets>
-          <video
-            ref={videoRef}
-            id="videoAsset"
-            src="/videos/terreiro-video.mp4"
-            preload="auto"
-            muted
-            loop
-            playsInline
-            webkit-playsinline="true"
-            style={{ display: "none" }}
-          />
-        </a-assets>
-
-        <a-camera position="0 0 0" look-controls="enabled: false" />
-
-        <a-entity mindar-image-target="targetIndex: 0">
-          <a-video
-            ref={videoPlaneRef}
-            src="#videoAsset"
-            position="0 0.1 0.01"
-            width="1.5"
-            height="1"
-            look-at="[camera]"
-          />
-        </a-entity>
-      </a-scene>
-
-      {textVisible && (
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            A praça,
-            um palco majestoso
-            banhado pelo Tejo.
-          </p>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Alegoria viva e vivida da cidade:
-            do que a cidade foi,
-            do que quiseram que ela fosse.
-            Mas de quem é ela?
-          </p>
-        </div>
-      )}
-      
-    </div>
+    </>
   );
 }
 
