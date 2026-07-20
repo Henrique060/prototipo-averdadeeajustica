@@ -187,7 +187,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
             scale={isTranslated ? "1.5 1.5 1.5" : "0 0 0"}
             width="1"
             height="0.75"
-            look-at="[camera]"
+            
           ></a-plane>
         </a-entity>
       </a-scene>
