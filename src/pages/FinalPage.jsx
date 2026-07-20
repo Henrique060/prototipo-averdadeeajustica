@@ -27,7 +27,7 @@ function FinalPage () {
     
                     <div className="model-viewer-div">
                         <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" ar 
-                        touch-action="pan-y"></model-viewer>
+                        ar-modes="scene-viewer quick-look" touch-action="pan-y"></model-viewer>
                     </div>
 
                     <p className="experience-title-question">Monumento à Justiça finalizado!</p>
