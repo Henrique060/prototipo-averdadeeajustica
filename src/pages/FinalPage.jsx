@@ -27,7 +27,11 @@ function FinalPage () {
     
                     <div className="model-viewer-div">
                         <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" ar 
-                        ar-modes="scene-viewer quick-look" touch-action="pan-y"></model-viewer>
+                        ar-modes="scene-viewer quick-look"touch-action="pan-y">
+                            <button className="mv-ar-btn" slot="ar-button">
+                                Entre na experiência
+                            </button>
+                        </model-viewer>
                     </div>
 
                     <p className="experience-title-question">Monumento à Justiça finalizado!</p>
@@ -38,9 +42,7 @@ function FinalPage () {
                     <p className="experiencie-list-text">
                     Dentro do monumento está uma mesa, coloque o objeto, dentro dos presentes, que acha que mais apropriado estar em cima da mesma.
                     </p>
-                    <button className="mv-ar-btn" slot="ar-button">
-                                Entre na experiência
-                    </button>
+                    
             </div>
         </div>
         <div className="quadro-container-button-wrapper">
