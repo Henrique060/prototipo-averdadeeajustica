@@ -10,7 +10,9 @@ import MapPopUp from './MapPopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
 
 
-function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId}) {
+function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId,
+  noMindARJS = false, navigateRoute = null
+}) {
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate(); // hook instance
 
@@ -79,10 +81,17 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           <p className="quadro-container-text">{description}</p>
         </div>
         
-        <div className="quadro-container-button-wrapper">
           {/* Replaced old local state button logic with navigation trigger */}
-          <button className="quadro-container-button"onClick={handleStartExperience}>{buttonLabel}</button>
-        </div>
+          {!noMindARJS ? (
+            <div className="quadro-container-button-wrapper">
+              <button className="quadro-container-button"onClick={handleStartExperience}>{buttonLabel}</button>
+            </div>
+          ) : (
+            <div className="quadro-container-button-wrapper">
+              <button className="quadro-container-button" onClick={() => navigate(navigateRoute)}>Escolher Experiência</button>
+            </div>
+          )}
+          
       </div>
       <NavBarExperience_2 />
     </div>

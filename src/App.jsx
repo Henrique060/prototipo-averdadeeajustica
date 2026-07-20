@@ -29,6 +29,7 @@ import Monumento from './pages/Monumento';
 import MonumentoQuestionario from './pages/MonumentoQuestionario';
 import FinalPage from './pages/FinalPage';
 import './App.css';
+import SoberaniaCatalogo from './pages/SoberaniaCatalogo';
 
 
 function SplashScreen({ onDone }) {
@@ -88,6 +89,7 @@ function App() {
             <Route path="/monumento" element={<Monumento />} />
             <Route path="/monumento-questionario" element={<MonumentoQuestionario />} />
             <Route path="/final-page" element={<FinalPage />} />
+            <Route path="/soberania-catalogo" element={<SoberaniaCatalogo />} />
           </Routes>
         </Router>
       )}
