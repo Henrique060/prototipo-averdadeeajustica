@@ -279,7 +279,7 @@ export default function MindARTerreiro1({ onTap }) {
               </svg>
               <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "600" }}>Rode o seu telemóvel</h2>
               <p style={{ marginTop: "1rem", fontSize: "1.1rem", lineHeight: "1.4" }}>
-                Coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro.
+                Coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro. Disfrute da experiência com o som ligado.
               </p>
               
               {/* Fallback button so they aren't trapped if sensor fails */}
