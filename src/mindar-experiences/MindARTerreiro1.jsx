@@ -302,7 +302,7 @@ export default function MindARTerreiro1({ onTap }) {
             <button className="close-video-btn" onClick={stopVideo}>✕</button>
             <video
               ref={videoRef}
-              src="/videos/terreiro-video.mp4"
+              src="/videos/terreiro-video-v2.mp4"
               onEnded={stopVideo}
               playsInline
               webkit-playsinline="true"
