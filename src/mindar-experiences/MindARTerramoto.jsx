@@ -154,8 +154,8 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
             Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
           );
 
-          if (distance < 70) data[i + 3] = 0;
-          if (distance_2 < 130) data[i + 3] = 0;
+          if (distance < 120) data[i + 3] = 0;
+          if (distance_2 < 70) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(imageData, 0, 0);
