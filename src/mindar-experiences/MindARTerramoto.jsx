@@ -55,6 +55,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           videoRef.current.play().then(() =>{
             videoRef.current.pause();
           }).catch(err=>console.log("Video unlock failed:", err));
+        
     }
         runTextSequence(); 
       };
@@ -155,7 +156,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           );
 
           if (distance < 120) data[i + 3] = 0;
-          if (distance_2 < 70) data[i + 3] = 0;
+          if (distance_2 < 120) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(imageData, 0, 0);
