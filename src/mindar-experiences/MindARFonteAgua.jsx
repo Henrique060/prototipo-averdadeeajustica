@@ -268,7 +268,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0 0.4 0.05" 
+              position="0 0.25 0.05" 
               {...(isVideoPlaying ? { width: "1.5", height: "1.5" } : { width: "0.0001", height: "0.0001" })}
             ></a-plane>
         </a-entity>
