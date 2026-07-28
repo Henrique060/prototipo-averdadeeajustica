@@ -262,8 +262,8 @@ export default function MindAREscadaria({
           uiLoading: no; 
           uiError: no; 
           uiScanning: no;
-          filterMinCF: 0.1; 
-          filterBeta: 10;
+          filterMinCF: 0.01; 
+          filterBeta: 0.01;
           warmupTolerance: 1;
           missTolerance: 3;
         "

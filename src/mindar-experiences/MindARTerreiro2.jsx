@@ -58,6 +58,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     // Cleanup and Start Video
     setTimeout(() => {
       setTextPhase('done');
+      // This will trigger the useEffect below to finally play the video
       setIsVideoPlaying(true); 
     }, 19000);
   };
@@ -75,9 +76,11 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     
     if (isInitialRun.current) {
       isInitialRun.current = false;
-      // Start video on initial run
+      // UNLOCK HACK: Play and immediately pause to satisfy mobile browser policies
       if (videoRef.current) {
-        videoRef.current.play().catch(err => console.log("Initial play failed:", err));
+        videoRef.current.play().then(() => {
+          videoRef.current.pause();
+        }).catch(err => console.log("Video unlock failed:", err));
       }
       runTextSequence(); 
     } else {
@@ -88,7 +91,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     }
   };
 
-  // Trigger video play state change
+  // Trigger video play state change once the text sequence finishes
   useEffect(() => {
     if (isVideoPlaying && videoRef.current && videoRef.current.paused && !showPopUp) {
       videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
@@ -292,8 +295,8 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         ref={sceneRef}
         mindar-image={`
           imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; 
-          filterMinCF: 0.1; 
-          filterBeta: 10; 
+          filterMinCF: 0.01; 
+          filterBeta: 0.01; 
           missTolerance: 3;
           warmupTolerance: 1;
           autoStart: false; 

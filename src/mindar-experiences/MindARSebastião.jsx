@@ -100,7 +100,12 @@ export default function MindARSebastião({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/alegoria-target.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; filterMinCF:0.0001; filterBeta:0.001;"
+        mindar-image="imageTargetSrc: /markers/alegoria-target.mind; autoStart: false; 
+        filterMinCF: 0.01; 
+          filterBeta: 0.01; 
+          missTolerance: 3; 
+          warmupTolerance: 1; 
+          uiLoading: no; uiError: no; uiScanning: no;"
         color-space="sRGB"
         embedded
         renderer="colorManagement: true;" // Fixed comma syntax bug
@@ -109,7 +114,7 @@ export default function MindARSebastião({ onTap }) {
       >
         <a-assets>
           {/* Note: Crossorigin attribute ensures canvas WebGL readback doesn't fail */}
-            	<a-asset-item id="sebastiao" src="/models/teatro-de-papel-beta3.glb"></a-asset-item>
+            	<a-asset-item id="sebastiao" src="/models/teatro-de-papel2.glb"></a-asset-item>
         </a-assets>
         
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
