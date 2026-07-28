@@ -165,7 +165,17 @@ export default function MindARNossaSraEstrela({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/estrela.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+        mindar-image="
+          imageTargetSrc: /markers/estrela.mind; 
+          filterMinCF: 0.1; 
+          filterBeta: 10; 
+          missTolerance: 3; 
+          warmupTolerance: 1; 
+          autoStart: false; 
+          uiLoading: no; 
+          uiError: no; 
+          uiScanning: no;
+        "
         color-space="sRGB"
         embedded
         renderer="colorManagement: true;"

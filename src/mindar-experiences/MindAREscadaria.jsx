@@ -11,73 +11,80 @@ export default function MindAREscadaria({
   videoSrc = "/videos/ana-escadaria.mov",
 }) {
   const sceneRef = useRef(null);
-
   const videoRef = useRef(null);
   const blitCanvasRef = useRef(null);
   const textureCanvasRef = useRef(null);
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
-
   const [textPhase, setTextPhase] = useState('hidden'); 
-    const hasRunSequence = useRef(false);
   
-    const runTextSequence = () => {
-      if (hasRunSequence.current) return;
-      hasRunSequence.current = true;
-  
-      setTextPhase('text1-in');
-  
-      setTimeout(() => {
-        setTextPhase('text1-out');
-      }, 8000);
-  
-      setTimeout(() => {
-        setTextPhase('text2-in');
-      }, 9500);
-  
-      setTimeout(() => {
-        setTextPhase('text2-out');
-      }, 17500);
-  
-      setTimeout(() => {
-        setTextPhase('done');
-      }, 19500);
-    };
-  
-    const handleClosePopUp = () => {
-      setShowPopUp(false);
-      runTextSequence(); 
-    };
-
-    
-
-  const detectedTargetsRef = useRef({
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-  });
+  const hasRunSequence = useRef(false);
+  const isInitialRun = useRef(true);
 
   useMindARLifecycle(sceneRef);
+
+  const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
+
+    setTextPhase('text1-in');
+
+    setTimeout(() => {
+      setTextPhase('text1-out');
+    }, 8000);
+
+    setTimeout(() => {
+      setTextPhase('text2-in');
+    }, 9500);
+
+    setTimeout(() => {
+      setTextPhase('text2-out');
+    }, 17500);
+
+    setTimeout(() => {
+      setTextPhase('done');
+    }, 19500);
+  };
+
+  const handleOpenPopUp = () => {
+    setShowPopUp(true);
+    // Pause video while popup is open
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause();
+    }
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    
+    if (isInitialRun.current) {
+      isInitialRun.current = false;
+      // Start video and sequence on initial run
+      if (videoRef.current) {
+        videoRef.current.play().catch(err => console.log("Initial play failed:", err));
+      }
+      runTextSequence(); 
+    } else {
+      // Just resume the video if opening/closing mid-experience
+      if (videoRef.current) {
+        videoRef.current.play().catch(err => console.error("Resume failed:", err));
+      }
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
 
     const sceneEl = sceneRef.current;
-
-    
-
-
-    const onTargetLost = () => {};
+    const videoEl = videoRef.current;
+    const processFrameRef = { current: null };
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
       await loadScript('https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
-
-      await loadScript('https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js');
 
       if (!isMounted || !sceneEl) return;
 
@@ -99,16 +106,14 @@ export default function MindAREscadaria({
       }
 
       // ---------------- CHROMA KEY ----------------
-
-      const videoEl = videoRef.current;
       if (!videoEl) return;
 
-      const processFrame = (now, metadata) => {
+      processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
         const plane = planeRef.current;
 
-        if (!blitCanvas || !textureCanvas || !videoRef) return;
+        if (!blitCanvas || !textureCanvas || !videoEl) return;
 
         const blitCtx = blitCanvas.getContext("2d");
         const textureCtx = textureCanvas.getContext("2d");
@@ -124,14 +129,7 @@ export default function MindAREscadaria({
         }
 
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
-
-        const imageData = blitCtx.getImageData(
-          0,
-          0,
-          targetWidth,
-          targetHeight
-        );
-
+        const imageData = blitCtx.getImageData(0, 0, targetWidth, targetHeight);
         const data = imageData.data;
 
         for (let i = 0; i < data.length; i += 4) {
@@ -144,9 +142,7 @@ export default function MindAREscadaria({
           const targetB = 127;
 
           const distance = Math.sqrt(
-            Math.pow(r - targetR, 2) +
-              Math.pow(g - targetG, 2) +
-              Math.pow(b - targetB, 2)
+            Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
 
           if (distance < 180) {
@@ -163,22 +159,16 @@ export default function MindAREscadaria({
           }
         }
 
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+        callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
       const handlePlay = () => {
-        callbackId = videoEl.requestVideoFrameCallback(processFrame);
+        if (videoEl && processFrameRef.current) {
+          callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+        }
       };
 
       videoEl.addEventListener("play", handlePlay);
-
-      if (videoEl.paused) {
-        videoEl
-          .play()
-          .catch((err) =>
-            console.log("Awaiting manual user interaction trigger context", err)
-          );
-      }
     };
 
     loadScripts();
@@ -186,23 +176,24 @@ export default function MindAREscadaria({
     return () => {
       isMounted = false;
 
-      if (videoRef.current && callbackId) {
-        videoRef.current.cancelVideoFrameCallback(callbackId);
+      if (videoEl && callbackId) {
+        videoEl.cancelVideoFrameCallback(callbackId);
+      }
+
+      if (onTap && sceneEl) {
+        sceneEl.removeEventListener("click", onTap);
       }
 
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
-
       if (arSystem?.started) {
         arSystem.stop();
       }
-
-  
     };
   }, [onTap, videoSrc]);
 
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-    const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-    const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -211,7 +202,7 @@ export default function MindAREscadaria({
         <LogoHeader />
         <HelpPopUpBtn
           className="help-btn-mindar"
-          onClick={() => setShowPopUp(true)}
+          onClick={handleOpenPopUp} // <-- Updated to use our new handler
         />
 
         {showPopUp && (
@@ -236,12 +227,7 @@ export default function MindAREscadaria({
       />
 
       <canvas ref={blitCanvasRef} style={{ display: "none" }} />
-
-      <canvas
-        id="chromaTextureCanvas"
-        ref={textureCanvasRef}
-        style={{ display: "none" }}
-      />
+      <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: "none" }} />
 
       <a-scene
         ref={sceneRef}
@@ -263,33 +249,13 @@ export default function MindAREscadaria({
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img
-            id="miratecnica"
-            src="/images/miratecnica.png"
-            crossOrigin='anonymous'
-            look-at="[camera]"
-          />
-          <img
-            id="arrow-left-1"
-            src="/images/arrow-left.webp"
-            crossOrigin="anonymous"
-          />
-          <img
-            id="arrow-left-2"
-            src="/images/arrow-left-2.webp"
-            crossOrigin="anonymous"
-          />
-          <img
-            id="arrow-end"
-            src="/images/arrow-end.png"
-            crossOrigin="anonymous"
-          />
+          <img id="miratecnica" src="/images/miratecnica.png" crossOrigin='anonymous' />
+          <img id="arrow-left-1" src="/images/arrow-left.webp" crossOrigin="anonymous" />
+          <img id="arrow-left-2" src="/images/arrow-left-2.webp" crossOrigin="anonymous" />
+          <img id="arrow-end" src="/images/arrow-end.png" crossOrigin="anonymous" />
         </a-assets>
 
-        <a-camera
-          position="0 0 0"
-          look-controls="enabled: false"
-        ></a-camera>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">
           <a-plane
@@ -298,6 +264,7 @@ export default function MindAREscadaria({
             width="2"
             height="2"
             transparent="true"
+            look-at="[camera]"
           ></a-plane>
         </a-entity>
 
@@ -346,8 +313,6 @@ export default function MindAREscadaria({
           ></a-plane>
         </a-entity>
       </a-scene>
-
-      
 
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
