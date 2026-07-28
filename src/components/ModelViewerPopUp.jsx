@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import './ModelViewerPopUp.css';
 
-function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, arButtonEnabled = true}) {
+function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, arButtonEnabled = true, continueFlag = true}) {
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
@@ -52,13 +52,14 @@ function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, desc
                 
                 {/* NEW: Button to proceed to the next form / page */}
                 <div className="mv-footer" style={{ marginTop: '20px', textAlign: 'center' }}>
-                    <button 
+                    {continueFlag && <button 
                         className="mv-proceed-btn" 
                         onClick={onProceed}
                         style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
                     >
                         Sim, pretendo continuar
-                    </button>
+                    </button>}
+                    
                 </div>
             </div>
         </div>

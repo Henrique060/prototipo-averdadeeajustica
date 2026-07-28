@@ -123,6 +123,7 @@ function SoberaniaCatalogo() {
 
         {isPopUpVisible && popupData && (
           <ModelViewerPopUp
+          continueFlag = {false}
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
           />
