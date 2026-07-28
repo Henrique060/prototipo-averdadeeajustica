@@ -28,28 +28,52 @@ export default function MindAREscadaria({
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
+    // Text 1 starts
     setTextPhase('text1-in');
 
+    // Text 1 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text1-out');
-    }, 8000);
+    }, 5000); 
 
+    // Text 2 starts (1 second gap for transition)
     setTimeout(() => {
       setTextPhase('text2-in');
-    }, 9500);
+    }, 6000); 
 
+    // Text 2 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text2-out');
-    }, 17500);
+    }, 11000); 
 
+    // Text 3 starts (1 second gap for transition)
+    setTimeout(() => {
+      setTextPhase('text3-in');
+    }, 12000); 
+
+    // Text 3 ends (shorter text, visible for 4 seconds)
+    setTimeout(() => {
+      setTextPhase('text3-out');
+    }, 16000); 
+
+    // Text 4 starts (1 second gap for transition)
+    setTimeout(() => {
+      setTextPhase('text4-in');
+    }, 17000); 
+
+    // Text 4 ends (visible for 5 seconds)
+    setTimeout(() => {
+      setTextPhase('text4-out');
+    }, 22000); 
+
+    // Cleanup phase
     setTimeout(() => {
       setTextPhase('done');
-    }, 19500);
+    }, 23000); 
   };
 
   const handleOpenPopUp = () => {
     setShowPopUp(true);
-    // Pause video while popup is open
     if (videoRef.current && !videoRef.current.paused) {
       videoRef.current.pause();
     }
@@ -60,13 +84,11 @@ export default function MindAREscadaria({
     
     if (isInitialRun.current) {
       isInitialRun.current = false;
-      // Start video and sequence on initial run
       if (videoRef.current) {
         videoRef.current.play().catch(err => console.log("Initial play failed:", err));
       }
       runTextSequence(); 
     } else {
-      // Just resume the video if opening/closing mid-experience
       if (videoRef.current) {
         videoRef.current.play().catch(err => console.error("Resume failed:", err));
       }
@@ -191,8 +213,11 @@ export default function MindAREscadaria({
     };
   }, [onTap, videoSrc]);
 
+  // Update opacities to account for 4 texts
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
+  const text4Opacity = textPhase === 'text4-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
@@ -202,7 +227,7 @@ export default function MindAREscadaria({
         <LogoHeader />
         <HelpPopUpBtn
           className="help-btn-mindar"
-          onClick={handleOpenPopUp} // <-- Updated to use our new handler
+          onClick={handleOpenPopUp}
         />
 
         {showPopUp && (
@@ -316,22 +341,31 @@ export default function MindAREscadaria({
 
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             Por teu bem querer, eu penso e discirno:
             que tu me sigas, e eu serei tua guia.
             - Eu sou Beatriz.
+          </p>
+          
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             Levar-te-ei daqui para lugar incerto;
             verás obras que não me deram respostas,
             mas me fizeram pensar.
           </p>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+          
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             (levando-te pela mão)
             partilharei contigo,
             os meus questionamentos,
+          </p>
+
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text4Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             atravessando de um passado para outro.
             E depois deste caminho, perguntar-te-ei:
             Que futuro almejas?
           </p>
+
         </div>
       )}
     </div>

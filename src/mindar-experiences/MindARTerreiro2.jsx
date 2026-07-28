@@ -17,7 +17,9 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
   const [isVideoOver, setIsVideoOver] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [textPhase, setTextPhase] = useState('hidden'); 
+  
   const hasRunSequence = useRef(false);
+  const isInitialRun = useRef(true);
 
   useMindARLifecycle(sceneRef);
 
@@ -25,43 +27,73 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
+    // Text 1 starts
     setTextPhase('text1-in');
 
+    // Text 1 ends (visible for 6 seconds, slightly longer text)
     setTimeout(() => {
       setTextPhase('text1-out');
-    }, 8000);
+    }, 6000);
 
+    // Text 2 starts
     setTimeout(() => {
       setTextPhase('text2-in');
-    }, 9500);
+    }, 7000);
 
+    // Text 2 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text2-out');
-    }, 17500);
+    }, 12000);
 
+    // Text 3 starts
+    setTimeout(() => {
+      setTextPhase('text3-in');
+    }, 13000);
+
+    // Text 3 ends (visible for 5 seconds)
+    setTimeout(() => {
+      setTextPhase('text3-out');
+    }, 18000);
+
+    // Cleanup and Start Video
     setTimeout(() => {
       setTextPhase('done');
       setIsVideoPlaying(true); 
-    }, 19500);
+    }, 19000);
+  };
+
+  const handleOpenPopUp = () => {
+    setShowPopUp(true);
+    // Pause video while popup is open
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause();
+    }
   };
 
   const handleClosePopUp = () => {
     setShowPopUp(false);
     
-    if (videoRef.current) {
-      videoRef.current.play().then(() => {
-        videoRef.current.pause();
-      }).catch(err => console.log("Video unlock failed:", err));
+    if (isInitialRun.current) {
+      isInitialRun.current = false;
+      // Start video on initial run
+      if (videoRef.current) {
+        videoRef.current.play().catch(err => console.log("Initial play failed:", err));
+      }
+      runTextSequence(); 
+    } else {
+      // Just resume the video if opening/closing mid-experience
+      if (videoRef.current && isVideoPlaying) {
+        videoRef.current.play().catch(err => console.error("Resume failed:", err));
+      }
     }
-    
-    runTextSequence(); 
   };
 
+  // Trigger video play state change
   useEffect(() => {
-    if (isVideoPlaying && videoRef.current) {
+    if (isVideoPlaying && videoRef.current && videoRef.current.paused && !showPopUp) {
       videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
     }
-  }, [isVideoPlaying]);
+  }, [isVideoPlaying, showPopUp]);
 
   useEffect(() => {
     let isMounted = true;
@@ -181,8 +213,10 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
     };
   }, [videoSrc]);
 
+  // Handle all 3 opacities
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
@@ -190,7 +224,8 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
       <div className="header-container-mindar">
         <BackButton />
         <LogoHeader/>
-        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={handleOpenPopUp} />
+        
         {showPopUp && 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
@@ -200,7 +235,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
           Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
           Mantenha a câmara apontada para observar a experiência na sua totalidade.
           "/>
-          }
+        }
       </div>
       
       <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
@@ -255,7 +290,17 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`
+          imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; 
+          filterMinCF: 0.1; 
+          filterBeta: 10; 
+          missTolerance: 3;
+          warmupTolerance: 1;
+          autoStart: false; 
+          uiLoading: no; 
+          uiError: no; 
+          uiScanning: no;
+        `}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
@@ -280,6 +325,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
 
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
+          
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             A praça,
             ópera do poder.
@@ -289,14 +335,19 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
             os seus tratados,
             ... endeusa pessoas.
           </p>
+          
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             Bom seria que cada um de nós
             pudesse edificar monumentos efémeros:
             os arcos dos nossos triunfos,
+          </p>
+          
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
             os obeliscos dos valores e amores,
             celebrar a nossa vida
             na monumentalidade humana.
           </p>
+
         </div>
       )}
     </div>

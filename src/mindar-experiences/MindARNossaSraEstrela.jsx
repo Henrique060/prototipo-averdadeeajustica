@@ -16,40 +16,49 @@ export default function MindARNossaSraEstrela({ onTap }) {
   // Tracks whether the user clicked the translation button to spawn the model
   const [isTranslated, setIsTranslated] = useState(false);
 
+  const [textPhase, setTextPhase] = useState('hidden'); 
+  
+  const hasRunSequence = useRef(false);
+  const isInitialRun = useRef(true);
+
   useMindARLifecycle(sceneRef);
 
-  const [textPhase, setTextPhase] = useState('hidden'); 
-      const hasRunSequence = useRef(false);
-    
-      const runTextSequence = () => {
-        if (hasRunSequence.current) return;
-        hasRunSequence.current = true;
-    
-        setTextPhase('text1-in');
-    
-        setTimeout(() => {
-          setTextPhase('text1-out');
-        }, 4000);
-    
-        setTimeout(() => {
-          setTextPhase('text2-in');
-        }, 5200);
-    
-        setTimeout(() => {
-          setTextPhase('text2-out');
-        }, 8500);
-    
-        setTimeout(() => {
-          setTextPhase('done');
-        }, 9500);
-      };
-    
-      const handleClosePopUp = () => {
-        setShowPopUp(false);
-        runTextSequence(); 
-      };
+  const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
 
+    setTextPhase('text1-in');
 
+    setTimeout(() => {
+      setTextPhase('text1-out');
+    }, 4000);
+
+    setTimeout(() => {
+      setTextPhase('text2-in');
+    }, 5200);
+
+    setTimeout(() => {
+      setTextPhase('text2-out');
+    }, 8500);
+
+    setTimeout(() => {
+      setTextPhase('done');
+    }, 9500);
+  };
+
+  const handleOpenPopUp = () => {
+    setShowPopUp(true);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    
+    // Only run the text sequence when closing the popup for the very first time
+    if (isInitialRun.current) {
+      isInitialRun.current = false;
+      runTextSequence(); 
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -58,7 +67,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
       await loadScript('https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js');
       await loadScript("https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js");
-
       
       try {
         await loadScript('https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js');
@@ -127,7 +135,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
       <div className="header-container-mindar">
         <BackButton />
         <LogoHeader/>
-        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={handleOpenPopUp} />
         {showPopUp &&
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
@@ -183,7 +191,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img id="nsraestrela" src="/images/nsraestrela.webp" crossorigin="anonymous" alt="target asset" />
+          <img id="nsraestrela" src="/images/nsraestrela.webp" crossOrigin="anonymous" alt="target asset" />
         </a-assets>
         
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -197,7 +205,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
             scale={isTranslated ? "1.5 1.5 1.5" : "0 0 0"}
             width="1"
             height="0.75"
-            
           ></a-plane>
         </a-entity>
       </a-scene>

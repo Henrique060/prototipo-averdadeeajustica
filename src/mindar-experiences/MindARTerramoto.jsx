@@ -14,71 +14,86 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
-
   const [isVideoOver, setIsVideoOver] = useState(false);
-
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [textPhase, setTextPhase] = useState('hidden'); 
   
+  const hasRunSequence = useRef(false);
+  const isInitialRun = useRef(true);
 
   useMindARLifecycle(sceneRef);
 
-  const [textPhase, setTextPhase] = useState('hidden'); 
-      const hasRunSequence = useRef(false);
-    
-      const runTextSequence = () => {
-        if (hasRunSequence.current) return;
-        hasRunSequence.current = true;
-    
-        setTextPhase('text1-in');
-    
-        setTimeout(() => {
-          setTextPhase('text1-out');
-        }, 4000);
-    
-        setTimeout(() => {
-          setTextPhase('text2-in');
-        }, 5200);
-    
-        setTimeout(() => {
-          setTextPhase('text2-out');
-        }, 8500);
-    
-        setTimeout(() => {
-          setTextPhase('done');
-          setIsVideoPlaying(true);
-        }, 9500);
-      };
-    
-      const handleClosePopUp = () => {
-        setShowPopUp(false);
-        if(videoRef.current){
-          videoRef.current.play().then(() =>{
-            videoRef.current.pause();
-          }).catch(err=>console.log("Video unlock failed:", err));
-        
-    }
-        runTextSequence(); 
-      };
+  const runTextSequence = () => {
+    if (hasRunSequence.current) return;
+    hasRunSequence.current = true;
 
-  //use effect para o video começar
-  useEffect(() => {
-    if(isVideoPlaying && videoRef.current){
-      videoRef.current.play().catch(err=>console.error("Delayed play fialed:",err));
+    // Text 1 starts
+    setTextPhase('text1-in');
+
+    // Text 1 ends (visible for 4 seconds)
+    setTimeout(() => {
+      setTextPhase('text1-out');
+    }, 4000);
+
+    // Text 2 starts (1 second gap for transition)
+    setTimeout(() => {
+      setTextPhase('text2-in');
+    }, 5000);
+
+    // Text 2 ends (visible for 4 seconds)
+    setTimeout(() => {
+      setTextPhase('text2-out');
+    }, 9000);
+
+    // Cleanup and Start Video
+    setTimeout(() => {
+      setTextPhase('done');
+      setIsVideoPlaying(true);
+    }, 10000);
+  };
+
+  const handleOpenPopUp = () => {
+    setShowPopUp(true);
+    // Pause video while popup is open
+    if (videoRef.current && !videoRef.current.paused) {
+      videoRef.current.pause();
     }
-  },[isVideoPlaying]);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    
+    if (isInitialRun.current) {
+      isInitialRun.current = false;
+      // Start video on initial run (iOS workaround play/pause)
+      if (videoRef.current) {
+        videoRef.current.play().then(() => {
+          videoRef.current.pause();
+        }).catch(err => console.log("Video unlock failed:", err));
+      }
+      runTextSequence(); 
+    } else {
+      // Just resume the video if opening/closing mid-experience
+      if (videoRef.current && isVideoPlaying) {
+        videoRef.current.play().catch(err => console.error("Resume failed:", err));
+      }
+    }
+  };
+
+  // Trigger video play state change, ensure it doesn't play behind an open popup
+  useEffect(() => {
+    if (isVideoPlaying && videoRef.current && videoRef.current.paused && !showPopUp) {
+      videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
+    }
+  }, [isVideoPlaying, showPopUp]);
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
     
-    // --- CHANGES START HERE ---
-    // 1. Keep a reference to the element at the top level of useEffect
     const videoEl = videoRef.current; 
-
-    // 2. Define the frame loop handler up here so it can reference processFrame safely
     const processFrameRef = { current: null };
 
-    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
     const handlePlay = () => {
       if (videoEl && processFrameRef.current) {
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
@@ -88,7 +103,6 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
     const handleEnded = () => {
       setIsVideoOver(true);
     };
-    // --- CHANGES END HERE ---
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
@@ -115,7 +129,6 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       // --- CHROMA KEY PROCESSING LOOP ---
       if (!videoEl) return;
 
-      // Assign our actual processing logic to the lifted reference
       processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
@@ -171,16 +184,12 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
-      // Attaching the listeners we declared above
       videoEl.addEventListener('play', handlePlay);
       videoEl.addEventListener('ended', handleEnded);
-      
-      
     };
 
     loadScripts();
 
-    // Now this cleanup return function works flawlessly without throwing an error!
     return () => {
       isMounted = false;
       if (videoEl && callbackId) {
@@ -197,7 +206,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
     };
   }, [videoSrc]);
 
-    const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
@@ -206,7 +215,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       <div className="header-container-mindar">
         <BackButton />
         <LogoHeader/>
-        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
+        <HelpPopUpBtn className="help-btn-mindar" onClick={handleOpenPopUp}/>
         {showPopUp && 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
@@ -216,8 +225,9 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
           Mantenha a câmara apontada para observar a experiência na sua totalidade.
           "/>
-          }
+        }
       </div>
+      
       {/* Hidden processing infrastructure */}
       <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
@@ -252,11 +262,21 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           Reiniciar Experiência
         </button>
       </div>
-    )}
+      )}
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/terramoto-marker.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`
+          imageTargetSrc: ${"/markers/terramoto-marker.mind"}; 
+          filterMinCF: 0.1; 
+          filterBeta: 10; 
+          missTolerance: 3; 
+          warmupTolerance: 1; 
+          autoStart: false; 
+          uiLoading: no; 
+          uiError: no; 
+          uiScanning: no;
+        `}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
