@@ -238,7 +238,7 @@ export default function MindARTerreiro1({ onTap }) {
               onClose={handleClosePopUp}
               imgSrc="/images/sala21-2.webp"
               description="
-            Dirija-se para a localização central da sala, de frente para a Santa, conforme demonstrado na imagem acima.
+            Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima.
             Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
             />
           )}
@@ -249,7 +249,7 @@ export default function MindARTerreiro1({ onTap }) {
             onClick={startVideo}
             style={{
               position: "absolute",
-              bottom: "4rem", /* Positions the button slightly above the bottom */
+              bottom: "5.5rem", /* Positions the button slightly above the bottom */
               left: "50%",
               transform: "translateX(-50%)",
               zIndex: 1000,
@@ -321,11 +321,19 @@ export default function MindARTerreiro1({ onTap }) {
           vr-mode-ui="enabled: false"
           device-orientation-permission-ui="enabled: false"
         >
+
+          <a-assets>
+            <a-asset-item id="fonte" src="/models/fonteapolo1.glb"></a-asset-item>
+          </a-assets>
           <a-camera position="0 0 0" look-controls="enabled: false" />
           
           <a-entity mindar-image-target="targetIndex: 0">
-            {/* Spawns a 3D cube when the target is detected */}
-            <a-box position="0 0 0.001" scale="0.5 0.5 0.5" color="#EA562E" material="opacity: 0.8; transparent: true"></a-box>
+            <a-gltf-model
+             src="#fonte"
+             position="0 0 0.01"
+             scale="0.25 0.25 0.25"
+             rotation="0 0 0"
+            ></a-gltf-model>
           </a-entity>
         </a-scene>
 

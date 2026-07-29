@@ -15,6 +15,7 @@ import MindARTerreiro1 from '../mindar-experiences/MindARTerreiro1.jsx';
 import MindARSoberania from '../mindar-experiences/MindARSoberania.jsx';
 import MindARSebastião from '../mindar-experiences/MindARSebastião.jsx';
 import MindARBustoRepublica from '../mindar-experiences/MindARBustoRepublica.jsx';
+import MindARMusicos from '../mindar-experiences/MindARMusicos.jsx';
 import './ARExperience.css';
 
 // 1. Create a registry map of your experiences
@@ -32,18 +33,20 @@ const EXPERIENCES = {
   oretorno: VideoARExperience,
   bustorepublica: MindARBustoRepublica,
   soberania: MindARSoberania,
+  musicos: MindARMusicos
 };
 
 // 2. Map each experience ID to the NEXT page route
 const NEXT_ROUTES = {
-  escadaria: "/quadro-terreiro-paco",
-  terreiro1: "/quadro-terreiro-paco-2",
-  terreiro2: "/figura-convite",
+  escadaria: "/quadro-terreiro-paco-2",
+  terreiro2: "/quadro-terreiro-paco1",
+  terreiro1: "/figura-convite",
   convite: "/djoao",
   djoao: "/fonte-agua",
   fonteagua: "/quadro-escombros",
   nsraestrela: "/terramoto",         // Verify if 'nsraestrela' is the ID for 'quadro-escombros'
   terramoto: "/gravura-marques",
+  musicos: "/musicos",
   sebastiao: "/lenco-saudade",       // Verify if 'sebastiao' is the ID for 'gravura-marques'
   saudade: "/o-retorno",
   oretorno: "/busto-republica",

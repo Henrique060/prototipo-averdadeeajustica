@@ -22,14 +22,14 @@ const experiencias = [
       headerName: 'Sala 21 - Experiências',
 
       listOfItems: [
-        'Terreiro do Paço Civil',
-        'Terreiro do Paço Militar',
+        'Cortejo Real',
+        'Terreiro do Paço',
         
       ],
 
       listOfURLs: [
-        '/quadro-terreiro-paco',
         '/quadro-terreiro-paco-2',
+        '/quadro-terreiro-paco',
       ],
     },
   },
@@ -83,7 +83,19 @@ const experiencias = [
     sala: 'Sala 24',
     titulo: 'Reconstrução pombalina / Escravatura',
     image: '/images/sala24.webp',
-    url: '/gravura-marques',
+    popup: {
+      headerName: 'Sala 24 - Reconstrução pombalina / Escravatura',
+
+      listOfItems: [
+        'Alegoria a Sebastião',
+        'Músicos de São Jorge',
+      ],
+
+      listOfURLs: [
+        '/gravura-marques',
+        '/musicos',
+      ],
+    },
   },
 
   {

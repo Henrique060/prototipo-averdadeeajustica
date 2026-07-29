@@ -9,6 +9,7 @@ import './Catalogo.css';
 
 
 const experiencias = [
+  
   {
     sala: 'Terreiro do Paço',
     titulo: 'Portal para o Terreiro do Paço',
@@ -40,6 +41,13 @@ const experiencias = [
       modelViewerSrc: '/models/teatro-de-papel2.glb',
 
     },
+  },
+
+  {
+    sala: 'A Verdade e a J-u-s-t-i-ç-a',
+    titulo: 'Monumento à Justiça',
+    image: '/images/monumentojustica.webp',
+    url: '/monumento'
   }
 
   
@@ -72,7 +80,7 @@ function Catalogo() {
                     <button className="title-btn-back-btn" onClick={() => window.history.back()}>
                         <IoArrowBackOutline />
                     </button>
-                    <PageHeader title="Catálogo de Experiências" />
+                    <PageHeader title="Laboratório de Experiências" />
                 </div>
             </div>
         </div>
@@ -84,9 +92,10 @@ function Catalogo() {
           <img className="map-content-img-inner-img" src="/images/jardim.webp" alt="Map" />
         </div>
 
+        <br/>
         <div className="experience-list-text-container">
           <p className="experiencie-list-text">
-            Selecione abaixo a sala em que se encontra. Poderá, após aceder a uma das salas abaixo, seguir a ordem natural das experiências.
+            Selecione abaixo o objeto que pretende colocar, à sua frente, no chão do jardim.
           </p>
         </div>
 

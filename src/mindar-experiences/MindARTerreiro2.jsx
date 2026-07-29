@@ -230,18 +230,18 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         <HelpPopUpBtn className="help-btn-mindar" onClick={handleOpenPopUp} />
         
         {showPopUp && 
-        <LearnMorePopUp 
-          headerName={"Como interagir na experiência?"}
-          onClose={handleClosePopUp}
-          imgSrc="/images/salaconvite.webp"
-          description="
-          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
-          Mantenha a câmara apontada para observar a experiência na sua totalidade.
-          "/>
+        <LearnMorePopUp
+              headerName={"Como interagir na experiência?"}
+              onClose={handleClosePopUp}
+              imgSrc="/images/sala21-2.webp"
+              description="
+            Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima.
+            Aponte a câmara ao quadro da direita, de modo a conhecer em maior detalhe a obra, através de uma experiência visual."
+            />
         }
       </div>
       
-      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline  crossOrigin="anonymous" preload="auto" style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 

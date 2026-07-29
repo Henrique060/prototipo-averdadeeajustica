@@ -144,18 +144,15 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           const g = data[i + 1];
           const b = data[i + 2];
           
-          const targetR = 164, targetG = 223, targetB = 52; 
-          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+          const targetR = 58, targetG = 168, targetB = 68; 
           
           const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
-          const distance_2 = Math.sqrt(
-            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
-          );
 
-          if (distance < 70) data[i + 3] = 0;
-          if (distance_2 < 130) data[i + 3] = 0;
+
+          if (distance < 40) data[i + 3] = 0;
+
         }
 
         textureCtx.putImageData(imageData, 0, 0);
@@ -206,10 +203,9 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
           <LearnMorePopUp 
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUp}
-            imgSrc="/images/salaconvite.webp"
+            imgSrc="/images/chafariz-rato.webp"
             description="
-            Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
-            Mantenha a câmara apontada para observar a experiência na sua totalidade.
+            Com a câmara, procure pelo quadro que representa a planta do chafariz do Rato, observando uma experiência audiovisual.
             "
           />
         }
@@ -254,7 +250,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/fonteaguamarker-target.mind"}; filterMinCF:0.1; filterBeta:10; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/fonteaguamarker-target.mind"}; filterMinCF:0.01; filterBeta:0.01; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"

@@ -20,9 +20,9 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
   //Navegação nas Routes para back btn
   let inactiveColor = "#A0A0A0";
   let btnActiveColor = "#003C72";
-  const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
-                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
-                   "/lenco-saudade", "/o-retorno", "/busto-republica",
+  const routes = ["/escadaria", "/quadro-terreiro-paco-2", "/quadro-terreiro-paco", "/figura-convite", 
+                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques", "/musicos",
+                  "/lenco-saudade", "/o-retorno", "/busto-republica",
                   "/soberania", "/jardim"
   ];
   const currentIndex = routes.findIndex(r => location.pathname.endsWith(r));

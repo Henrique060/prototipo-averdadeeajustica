@@ -257,7 +257,7 @@ export default function MindARDJoao({ onTap }) {
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUp}
             imgSrc="/images/djoao.webp"
-            description="Procure pelo quadro de D. João V. Aponte a câmara e devolva a riqueza, ao famoso 'Magnânimo', que se encontra à sua volta."
+            description="Procure pelo quadro de D. João V. Aponte a câmara e devolva a riqueza, ao famoso 'Magnânimo', tocando nos objetos que aparecem à sua volta."
           />
         }
       </div>

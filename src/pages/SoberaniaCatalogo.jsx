@@ -5,6 +5,7 @@ import ModelViewerPopUp from "../components/ModelViewerPopUp";
 import NavBarExperience_2 from "../components/NavBarExperience_2";
 import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
+import NextExperience from "../components/NextExperience";
 import './Catalogo.css';
 
 
@@ -129,6 +130,8 @@ function SoberaniaCatalogo() {
           />
         )}
       </div>
+
+      <NextExperience routeTo={'/jardim'}/>
     </div>
   );
 }

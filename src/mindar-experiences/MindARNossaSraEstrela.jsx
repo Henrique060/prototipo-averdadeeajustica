@@ -176,7 +176,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
         ref={sceneRef}
         mindar-image="
           imageTargetSrc: /markers/estrela.mind; 
-          filterMinCF: 0.01; 
+          filterMinCF: 0.001; 
           filterBeta: 0.001; 
           autoStart: false; 
           uiLoading: no; 

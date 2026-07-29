@@ -23,8 +23,8 @@ const NavBarExperience_2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const routes = ["/escadaria", "/quadro-terreiro-paco", "/quadro-terreiro-paco-2", "/figura-convite", 
-                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques",
+  const routes = ["/escadaria", "/quadro-terreiro-paco-2", "/quadro-terreiro-paco", "/figura-convite", 
+                  "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques", "/musicos",
                    "/lenco-saudade", "/o-retorno", "/busto-republica",
                   "/soberania", "/jardim"
   ];

@@ -7,7 +7,7 @@ import IntroTextSequence from '../components/IntroTextSequence';
 import BackButton from '../components/BackButton';
 import './MindAR.css';
 
-export default function MindARSebastião({ onTap }) {
+export default function MindARMusicos({ onTap }) {
   const sceneRef = useRef(null);
   const [showPopUp, setShowPopUp] = useState(true);
 
@@ -84,9 +84,10 @@ export default function MindARSebastião({ onTap }) {
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUP}
-            imgSrc="/images/alegoriaMarques.webp"
+            imgSrc="/images/sala23.webp"
             description="
-            Procure pelo quadro de Alegoria a Sebastião José de Carvalho e Melo, de modo a observar a obra com uma nova perspetiva."/>
+            Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo.
+            Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
         }
       </div>
 
@@ -99,9 +100,9 @@ export default function MindARSebastião({ onTap }) {
 
       <a-scene
         ref={sceneRef}
-        mindar-image="imageTargetSrc: /markers/alegoria-target.mind; autoStart: false; 
-        filterMinCF: 0.01; 
-          filterBeta: 0.01; 
+        mindar-image="imageTargetSrc: /markers/djosemarker.mind; autoStart: false; 
+        filterMinCF: 0.001; 
+          filterBeta: 0.001; 
           missTolerance: 3; 
           warmupTolerance: 1; 
           uiLoading: no; uiError: no; uiScanning: no;"
@@ -113,17 +114,17 @@ export default function MindARSebastião({ onTap }) {
       >
         <a-assets>
           {/* Note: Crossorigin attribute ensures canvas WebGL readback doesn't fail */}
-            	<a-asset-item id="sebastiao" src="/models/teatro-de-papel2.glb"></a-asset-item>
+                <a-asset-item id="musicos" src="/models/musicosdjose.glb"></a-asset-item>
         </a-assets>
         
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">
             <a-gltf-model
-             src="#sebastiao"
-             position="0 0 -0.05"
-             scale={modelsVisible? "0.05 0.05 0.05" : "0 0 0"}
-             rotation="0 0 0"
+             src="#musicos"
+             position="0 0.2 0"
+             scale={modelsVisible? "1 1 1" : "0 0 0"}
+             rotation="90 0 0"
             ></a-gltf-model>
       </a-entity>
       </a-scene>

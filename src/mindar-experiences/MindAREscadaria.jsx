@@ -234,9 +234,14 @@ export default function MindAREscadaria({
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUp}
-            imgSrc="/images/escadaria.webp"
+            carousel={true}
+            imagesSrc={[
+              "/images/marker1.webp",
+              "/images/marker2.webp",
+              "/images/marker3.webp"
+            ]}
             description="
-          Suba as escadas e aponte o telemóvel aos azulejos.
+          Suba as escadas e aponte o telemóvel aos azulejos, apresentados nas imagens acima.
           Siga as instruções das figuras de modo a iniciar a sua jornada nesta experiência no museu."
           />
         )}
@@ -274,10 +279,10 @@ export default function MindAREscadaria({
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img id="miratecnica" src="/images/miratecnica.png" crossOrigin='anonymous' />
-          <img id="arrow-left-1" src="/images/arrow-left.webp" crossOrigin="anonymous" />
-          <img id="arrow-left-2" src="/images/arrow-left-2.webp" crossOrigin="anonymous" />
-          <img id="arrow-end" src="/images/arrow-end.png" crossOrigin="anonymous" />
+          <img id="miratecnica" src="/images/miratecnica.png" preload="auto" crossOrigin='anonymous' />
+          <img id="arrow-left-1" src="/images/arrow-left.webp" preload="auto"  crossOrigin="anonymous" />
+          <img id="arrow-left-2" src="/images/arrow-left-2.webp" preload="auto"  crossOrigin="anonymous" />
+          <img id="arrow-end" src="/images/arrow-end.webp" preload="auto"  crossOrigin="anonymous" />
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -286,8 +291,8 @@ export default function MindAREscadaria({
           <a-plane
             src="#miratecnica"
             position="0 0.2 0.01"
-            width="2"
-            height="2"
+            width="1"
+            height="1"
             transparent="true"
             look-at="[camera]"
           ></a-plane>
@@ -297,8 +302,8 @@ export default function MindAREscadaria({
           <a-plane
             src="#arrow-left-1"
             position="0 0.5 0.01"
-            width="2"
-            height="2"
+            width="1"
+            height="1"
             look-at="[camera]"
             transparent="true"
           ></a-plane>
@@ -308,8 +313,8 @@ export default function MindAREscadaria({
           <a-plane
             src="#arrow-left-2"
             position="0 0.5 0.01"
-            width="2"
-            height="2"
+            width="1"
+            height="1"
             look-at="[camera]"
             transparent="true"
           ></a-plane>
@@ -331,8 +336,8 @@ export default function MindAREscadaria({
           <a-plane
             src="#arrow-end"
             position="0 0.5 0.01"
-            width="2"
-            height="2"
+            width="1"
+            height="1"
             look-at="[camera]"
             transparent="true"
           ></a-plane>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LogoHeader from '../components/LogoHeader.jsx';
 import NavBarExperience_2 from '../components/NavBarExperience_2.jsx';
 import MapPopUp from '../components/MapPopUp.jsx';
@@ -13,17 +14,8 @@ function Jardim() {
 
   const mapImgSrc = "/images/mapa.webp";
 
-  const experiencePopup = {
-    headerName: 'Experiências no Jardim',
-    listOfItems: [
-      'Monumento à J-u-s-t-i-ç-a',
-      'Outras Experiências',
-    ],
-    listOfURLs: [
-      '/monumento',
-      '/catalogo',
-    ],
-  };
+  const navigate = useNavigate();
+
 
   const handleExperienceClick = () => {
     setPopupData(experiencePopup);
@@ -85,7 +77,7 @@ function Jardim() {
         <div className="quadro-container-button-wrapper">
           <button
             className="quadro-container-button"
-            onClick={handleExperienceClick}
+            onClick={() => navigate('/catalogo')}
           >
             Selecionar Experiência
           </button>
@@ -94,15 +86,7 @@ function Jardim() {
 
       <NavBarExperience_2 />
 
-      {isPopUpVisible && popupData && (
-        <PopUp
-          {...popupData}
-          onClose={() => {
-            setIsPopUpVisible(false);
-            setPopupData(null);
-          }}
-        />
-      )}
+      
     </div>
   );
 }

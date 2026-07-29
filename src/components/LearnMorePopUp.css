@@ -16,8 +16,8 @@
     position: relative;
     width: 100%;
     max-width: 700px;
-    max-height: 75vh; /* Reduced max-height for a shorter pop-up */
-    max-height: calc(80dvh - 3rem); /* Modern dynamic viewport height, adjusted to be shorter */
+    max-height: 75vh;
+    max-height: calc(80dvh - 3rem);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: linear-gradient(145deg, #19283E, #131F31);
@@ -93,6 +93,7 @@
 }
 
 .learn-more-pop-up-content-img-div {
+    position: relative;
     aspect-ratio: 1 / 1;
     border-radius: 14px;
     overflow: hidden;
@@ -100,39 +101,110 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(226, 229, 255, 0.05);
     margin: auto;
-    max-width: 300px;
-    min-width: 200px;
+    max-width: 500px;
+    min-width: 400px;
 }
 
 .learn-more-pop-up-content-img-div img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
 }
 
+/* --- Carousel Navigation Styles --- */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(19, 31, 49, 0.75);
+    border: 1px solid rgba(226, 229, 255, 0.15);
+    color: #E2E5FF;
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.2s ease;
+    z-index: 2;
+    font-size: 1.1rem;
+}
+
+.carousel-btn:hover {
+    background: rgba(234, 86, 46, 0.9);
+    color: #FFFFFF;
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-btn.prev {
+    left: 8px;
+}
+
+.carousel-btn.next {
+    right: 8px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    background: rgba(10, 17, 28, 0.5);
+    padding: 4px 8px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(226, 229, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.carousel-dot.active {
+    background: #EA562E;
+    width: 16px;
+    border-radius: 8px;
+}
+
+/* --- Content Headers --- */
 .learn-more-pop-up-content-description-text-header {
     color: #C2C7F0; 
     font-size: 1.25rem;
-    line-height: 1.7;
     text-align: left;
     margin: auto;
     font-weight: 800;
     font-synthesis: style;
     padding-top: 20px;
-    white-space: pre-line;
 }
 
 .learn-more-pop-up-content-description-text {
     color: #C2C7F0; 
     font-size: 1.15rem;
-    line-height: 1.7;
+    line-height: 1;
     text-align: left;
     margin: 0;
     font-weight: 500;
-    font-synthesis: style;
-    white-space: pre-line;
+    line-height: 1.4;
+    
 }
 
 @keyframes fadeIn {
@@ -158,7 +230,7 @@
 
     .pop-up {
         max-height: 75vh;
-        max-height: calc(80dvh - 2rem); /* Noticeably shorter on mobile to avoid UI overlaps */
+        max-height: calc(80dvh - 2rem);
         padding: 1.25rem;
         padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
         border-radius: 20px;
@@ -176,9 +248,16 @@
     }
 
     .learn-more-pop-up-content-img-div {
-        max-width: 160px;
-        min-width: 120px;
-        margin-bottom: 1.25rem;
+        width: 100%;           /* Let it fill the available space... */
+        max-width: 250px;      /* ...but stop growing at 280px so it doesn't push text off-screen */
+        min-width: 200px;      /* Ensure it never gets too tiny */
+        margin-bottom: 1rem;
+    }
+
+    .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.95rem;
     }
 
     .learn-more-pop-up-content-description-text-header {
@@ -188,6 +267,10 @@
 
     .learn-more-pop-up-content-description-text {
         font-size: 1rem;
-        line-height: 1.6;
+        line-height: 1.4;
+    }
+
+    .iconforward{
+        z-index: 1000;
     }
 }

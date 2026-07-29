@@ -27,6 +27,7 @@ import Terramoto from './pages/Terramoto';
 import QuadroTerreiroPaco2 from './pages/QuadroTerreiroPaco2';
 import Monumento from './pages/Monumento';
 import MonumentoQuestionario from './pages/MonumentoQuestionario';
+import DJoseMusicos from './pages/DJoseMusicos';
 import FinalPage from './pages/FinalPage';
 import './App.css';
 import SoberaniaCatalogo from './pages/SoberaniaCatalogo';
@@ -87,6 +88,7 @@ function App() {
             <Route path="/terramoto" element={<Terramoto />} />
             <Route path="/catalogo" element={<Catalogo />} />
             <Route path="/monumento" element={<Monumento />} />
+            <Route path="/musicos" element={<DJoseMusicos />} />
             <Route path="/monumento-questionario" element={<MonumentoQuestionario />} />
             <Route path="/final-page" element={<FinalPage />} />
             <Route path="/soberania-catalogo" element={<SoberaniaCatalogo />} />

@@ -220,10 +220,9 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={handleClosePopUp}
-          imgSrc="/images/salaconvite.webp"
+          imgSrc="/images/terramoto.webp"
           description="
-          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
-          Mantenha a câmara apontada para observar a experiência na sua totalidade.
+          Aponte a câmara aos azulejos demonstrados acima, de modo a observar uma experiência audiovisual.
           "/>
         }
       </div>

@@ -28,9 +28,11 @@ function FinalPage () {
                     <div className="model-viewer-div">
                         <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" ar 
                         ar-modes="scene-viewer quick-look"touch-action="pan-y">
+                            <br />
                             <button className="mv-ar-btn" slot="ar-button">
-                                Entre na experiência
+                                Coloque no jardim
                             </button>
+                            <br />
                         </model-viewer>
                     </div>
 
@@ -47,7 +49,7 @@ function FinalPage () {
         </div>
         <div className="quadro-container-button-wrapper">
           {/* Replaced old local state button logic with navigation trigger */}
-          <button className="final-container-button"onClick={() => navigate("/thesis-project-page")}>Terminar</button>
+          <button className="final-container-button"onClick={() => navigate("/thesis-project-page")}>Terminar Visita</button>
         </div>
     </div>
     );

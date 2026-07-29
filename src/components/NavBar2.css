@@ -6,12 +6,13 @@
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 225px; /* The gap that makes them look like separate floating objects */
+  
+  /* REMOVE gap: 225px; */
+  justify-content: space-between; /* This pushes the buttons to the far left and right edges */
   width: 95%;
-  max-width: 500px;
+  max-width: 357px;
   z-index: 1000;
-  pointer-events: none; /* Allows clicks to pass through gaps to content behind */
+  pointer-events: none; 
 }
 
 /* Common styles for both the circles and the pill */
@@ -138,6 +139,8 @@
 .square-forward-btn {
   width: 65px;
   height: 65px;
+  min-width: 65px;
+  flex-shrink: 0;
   text-decoration: none;
 
   background-color: #E2E5FF;

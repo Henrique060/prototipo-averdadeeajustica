@@ -26,7 +26,7 @@ function Monumento () {
                 </div>
     
                     <div className="model-viewer-div">
-                        <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1"></model-viewer>
+                        <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" auto-rotate></model-viewer>
                     </div>
 
                     <p className="experience-title-question">E se pudesse criar um Monumento à Justiça?</p>
