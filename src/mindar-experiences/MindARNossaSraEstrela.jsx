@@ -147,7 +147,8 @@ export default function MindARNossaSraEstrela({ onTap }) {
         }
       </div>
 
-      {targetVisible && !isTranslated && (
+      {/* Button now requires textPhase to be 'done' */}
+      {targetVisible && !isTranslated && textPhase === 'done' && (
         <button
           onClick={() => setIsTranslated(true)}
           style={{
@@ -176,9 +177,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
         mindar-image="
           imageTargetSrc: /markers/estrela.mind; 
           filterMinCF: 0.01; 
-          filterBeta: 0.01; 
-          missTolerance: 3; 
-          warmupTolerance: 1; 
+          filterBeta: 0.001; 
           autoStart: false; 
           uiLoading: no; 
           uiError: no; 
@@ -191,21 +190,22 @@ export default function MindARNossaSraEstrela({ onTap }) {
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img id="nsraestrela" src="/images/nsraestrela.webp" crossOrigin="anonymous" alt="target asset" />
+          {/* Note: Crossorigin attribute ensures canvas WebGL readback doesn't fail */}
+          <a-asset-item id="nsraestrela" src="/models/nsraestrela.glb"></a-asset-item>
         </a-assets>
         
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">
-          <a-plane 
-            src="#nsraestrela"
-            position="0 0.2 0.01"
-            rotation="0 0 0"
-            /* Scale reacts to React state dynamically */
-            scale={isTranslated ? "1.5 1.5 1.5" : "0 0 0"}
-            width="1"
-            height="0.75"
-          ></a-plane>
+          {/* Model only renders if the user has clicked the button */}
+          {isTranslated && (
+            <a-gltf-model
+              src="#nsraestrela"
+              position="0 0 0"
+              scale="1 1 1"
+              rotation="90 0 0"
+            ></a-gltf-model>
+          )}
         </a-entity>
       </a-scene>
 

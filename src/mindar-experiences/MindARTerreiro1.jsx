@@ -249,7 +249,7 @@ export default function MindARTerreiro1({ onTap }) {
             onClick={startVideo}
             style={{
               position: "absolute",
-              bottom: "4rem",
+              bottom: "4rem", /* Positions the button slightly above the bottom */
               left: "50%",
               transform: "translateX(-50%)",
               zIndex: 1000,
@@ -263,7 +263,7 @@ export default function MindARTerreiro1({ onTap }) {
               cursor: "pointer",
             }}
           >
-            {hasWatched ? "Ver novamente" : "Veja o vídeo"}
+            {hasWatched ? "Ver novamente" : "Ver em detalhe"}
           </button>
         )}
 
@@ -322,7 +322,11 @@ export default function MindARTerreiro1({ onTap }) {
           device-orientation-permission-ui="enabled: false"
         >
           <a-camera position="0 0 0" look-controls="enabled: false" />
-          <a-entity mindar-image-target="targetIndex: 0"></a-entity>
+          
+          <a-entity mindar-image-target="targetIndex: 0">
+            {/* Spawns a 3D cube when the target is detected */}
+            <a-box position="0 0 0.001" scale="0.5 0.5 0.5" color="#EA562E" material="opacity: 0.8; transparent: true"></a-box>
+          </a-entity>
         </a-scene>
 
         {textVisible && (
