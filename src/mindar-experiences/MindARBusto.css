@@ -1,30 +1,5 @@
-.header-container-mindar{
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 10000;
-  gap: 8px;
-  width: fit-content; /* shrinks container to only as wide as its children need */
-  justify-content: flex-start; /* explicitly override any inherited space-between */
-}
-
-.help-btn-mindar{
-  background-color: #E2E5FF;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  border-radius: 50px;
-  margin-right:25px;
-
-}
-
-
-/* This forces the canvas camera and the underlying video to mirror uniformly */
+/* Removed the scaleX(-1) transforms so the tracking matches the visuals */
 .ar-viewport-wrapper {
-  transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -33,8 +8,24 @@
   z-index: 1;
 }
 
-/* Ensure header buttons sit cleanly on top of the webgl wrapper */
 .header-container-mindar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 8px;
+  width: fit-content; 
   position: relative;
-  z-index: 10; 
+  z-index: 10000; 
 }
+
+.help-btn-mindar {
+  background-color: #E2E5FF;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  margin-right: 25px;
+}
+

@@ -104,6 +104,8 @@ const handleClosePopUp = () => {
 
     init();
 
+    
+
     return () => {
       mounted = false;
       if (cleanupListeners) cleanupListeners();
@@ -142,36 +144,29 @@ const handleClosePopUp = () => {
             {/* NEW: Flipped wrapper container solely for the AR tracking view */}
             <div className="ar-viewport-wrapper">
             <a-scene 
-  ref={sceneRef}
-  mindar-face 
-  embedded 
-  color-space="sRGB" 
-  renderer="colorManagement: true, physicallyCorrectLights" 
-  vr-mode-ui="enabled: false" 
-  device-orientation-permission-ui="enabled: false"
->
+              ref={sceneRef}
+              mindar-face
+              embedded 
+              color-space="sRGB" 
+              renderer="colorManagement: true, physicallyCorrectLights" 
+              vr-mode-ui="enabled: false" 
+              device-orientation-permission-ui="enabled: false"
+              >
   <a-assets>
     <a-asset-item id="bustoRepublica" src="/models/busto-republica.glb"></a-asset-item>
   </a-assets>
 
   <a-camera active="false" position="0 0 0"></a-camera>
 
-  {/* MindAR tracks this target anchor */}
-  <a-entity mindar-face-target="anchorIndex:168">
-    
-    {/* NEW: Neutral wrapper entity used strictly to flip the horizontal axis */}
-    <a-entity scale="-1 1 1" rotation="0 0 0">
-      
-      <a-gltf-model
-        src="#bustoRepublica"
-        position="0 0.3 0"
-        scale="2.5 1.5 2.5" 
-      >
-      </a-gltf-model> 
-      
-    </a-entity>
 
-  </a-entity>
+  <a-entity mindar-face-target="anchorIndex:168">
+  <a-gltf-model
+    className="modelRepublica"
+    src="#bustoRepublica"
+    position="0 0.3 0"
+    scale="2.5 1.5 2.5"
+  />
+</a-entity>
 </a-scene>
 
 {textVisible && (
@@ -201,4 +196,6 @@ function loadScript(src) {
     script.onerror = reject;
     document.head.appendChild(script);
   });
+
+  
 }

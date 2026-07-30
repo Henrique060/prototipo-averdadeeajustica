@@ -31,6 +31,7 @@ import DJoseMusicos from './pages/DJoseMusicos';
 import FinalPage from './pages/FinalPage';
 import './App.css';
 import SoberaniaCatalogo from './pages/SoberaniaCatalogo';
+import Recompensa from './pages/Recompensa';
 
 
 function SplashScreen({ onDone }) {
@@ -91,6 +92,7 @@ function App() {
             <Route path="/musicos" element={<DJoseMusicos />} />
             <Route path="/monumento-questionario" element={<MonumentoQuestionario />} />
             <Route path="/final-page" element={<FinalPage />} />
+            <Route path="/recompensa" element={<Recompensa />} />
             <Route path="/soberania-catalogo" element={<SoberaniaCatalogo />} />
           </Routes>
         </Router>

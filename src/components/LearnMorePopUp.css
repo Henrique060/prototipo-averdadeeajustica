@@ -2,13 +2,14 @@
     position: fixed;
     inset: 0;
     display: flex;
+  
     align-items: center;
     justify-content: center;
     background: rgba(10, 17, 28, 0.75);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     padding: 1.5rem;
-    z-index: 9999;
+    z-index: 10000;
     animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

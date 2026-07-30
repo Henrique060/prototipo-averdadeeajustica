@@ -1,0 +1,137 @@
+import React, {useState} from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import LogoHeader from "../components/LogoHeader";
+import ModelViewerPopUp from "../components/ModelViewerPopUp";
+import NavBarExperience_2 from "../components/NavBarExperience_2";
+import PageHeader from "../components/PageHeader";
+import { IoArrowBackOutline } from "react-icons/io5";
+import './Catalogo.css';
+
+
+const experiencias = [
+  
+  {
+    sala: 'Terreiro do Paço',
+    titulo: 'Portal para o Terreiro do Paço',
+    image: '/images/arco-augusta.webp',
+    popup: {
+      headerName: 'Alegoria a Sebastião',
+      modelViewerSrc: '/models/terreiroFonteMusicos.glb',
+
+    },
+  },
+
+  {
+    sala: 'Alegoria a Sebastião',
+    titulo: 'Teatro de Papel',
+    image: '/images/teatro-papel.webp',
+    popup: {
+      headerName: 'Alegoria a Sebastião',
+      modelViewerSrc: '/models/teatro-de-papel2.glb',
+
+    },
+  }
+
+  
+];
+
+function Recompensa() {
+    const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+  const [popupData, setPopupData] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleExperienceClick = (exp) => {
+    // If this room has a popup
+    if (exp.popup) {
+      setPopupData(exp.popup);
+      setIsPopUpVisible(true);
+      return;
+    }
+
+    // Optional:
+    // if later you want direct navigation for normal rooms
+    if (exp.url) {
+      window.location.href = exp.url;
+    }
+  };
+  return (
+    <div className="page-wrapper">
+        <LogoHeader />
+        <div className="quadro-container">
+            <div className="title-wrapper">
+                <div className="title-btn-wrapper">
+                    <button className="title-btn-back-btn" onClick={() => window.history.back()}>
+                        <IoArrowBackOutline />
+                    </button>
+                    <PageHeader title="Leve Consigo" />
+                </div>
+            </div>
+        </div>
+
+      <div className="experience-list-container">
+
+        <div className="map-content-img">
+          <img className="map-content-img-inner-img" src="/images/terreirodopaco.webp" alt="Map" />
+        </div>
+
+        <br/>
+        <div className="experience-list-text-container">
+          <p className="experiencie-list-text">
+            Leve as experiências do museu consigo para visualizar no Terreiro do Paço, ou noutro espaço aberto que deseje.
+          </p>
+        </div>
+
+        <ul className="experience-list">
+          {experiencias.map((exp, index) => (
+            <li
+              key={index}
+              className="experience-card"
+              onClick={() => handleExperienceClick(exp)}>
+              <div className="experience-link">
+
+                <div className="experience-info">
+                  <span className="experience-room">
+                    {exp.sala}
+                  </span>
+
+                  <h3>{exp.titulo}</h3>
+                </div>
+
+                <div className="experience-image-wrapper">
+                  <img
+                    src={exp.image}
+                    alt={exp.titulo}
+                    className="experience-image"
+                  />
+                </div>
+
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        {isPopUpVisible && popupData && (
+          <ModelViewerPopUp
+            {...popupData}
+            onClose={() => setIsPopUpVisible(false)}
+          />
+        )}
+      </div>
+
+      <div className="quadro-container-button-wrapper">
+          <button
+            className="quadro-container-button"
+            onClick={() => navigate('/thesis-project-page')}
+          >
+            Sair
+          </button>
+        </div>
+
+
+    </div>
+    
+  );
+}
+
+export default Recompensa;
