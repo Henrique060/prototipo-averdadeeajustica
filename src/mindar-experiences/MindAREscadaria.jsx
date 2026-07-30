@@ -270,7 +270,7 @@ export default function MindAREscadaria({
           filterMinCF: 0.01; 
           filterBeta: 0.01;
           warmupTolerance: 1;
-          missTolerance: 3;
+          missTolerance: 2;
         "
         color-space="sRGB"
         embedded
@@ -279,7 +279,7 @@ export default function MindAREscadaria({
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img id="miratecnica" src="/images/miratecnica.png" preload="auto" crossOrigin='anonymous' />
+          <img id="miratecnica" src="/images/miratecnica.png" preload="auto" crossOrigin="anonymous" />
           <img id="arrow-left-1" src="/images/arrow-left.webp" preload="auto"  crossOrigin="anonymous" />
           <img id="arrow-left-2" src="/images/arrow-left-2.webp" preload="auto"  crossOrigin="anonymous" />
           <img id="arrow-end" src="/images/arrow-end.webp" preload="auto"  crossOrigin="anonymous" />
@@ -301,7 +301,7 @@ export default function MindAREscadaria({
         <a-entity mindar-image-target="targetIndex:1">
           <a-plane
             src="#arrow-left-1"
-            position="0 0.5 0.01"
+            position="0 0.3 0.01"
             width="1"
             height="1"
             look-at="[camera]"
@@ -312,7 +312,7 @@ export default function MindAREscadaria({
         <a-entity mindar-image-target="targetIndex:2">
           <a-plane
             src="#arrow-left-2"
-            position="0 0.5 0.01"
+            position="0 0.3 0.01"
             width="1"
             height="1"
             look-at="[camera]"
@@ -335,7 +335,7 @@ export default function MindAREscadaria({
         <a-entity mindar-image-target="targetIndex:4">
           <a-plane
             src="#arrow-end"
-            position="0 0.5 0.01"
+            position="0 0.3 0.01"
             width="1"
             height="1"
             look-at="[camera]"

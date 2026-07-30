@@ -263,7 +263,7 @@ export default function MindARTerreiro1({ onTap }) {
               cursor: "pointer",
             }}
           >
-            {hasWatched ? "Ver novamente" : "Ver em detalhe"}
+            {hasWatched ? "Ver novamente" : "Viage no tempo"}
           </button>
         )}
 

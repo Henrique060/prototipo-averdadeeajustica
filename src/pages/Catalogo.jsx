@@ -16,18 +16,7 @@ const experiencias = [
     image: '/images/arco-augusta.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/portalTerreiro.glb',
-
-    },
-  },
-
-  {
-    sala: 'Terreiro do Paço',
-    titulo: 'Chafariz de Apolo',
-    image: '/images/apolo.webp',
-    popup: {
-      headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel-beta3.glb',
+      modelViewerSrc: '/models/terreiroFonteMusicos.glb',
 
     },
   },

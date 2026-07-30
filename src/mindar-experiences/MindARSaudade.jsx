@@ -208,10 +208,10 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={handleClosePopUp}
-          imgSrc="/images/salaconvite.webp"
+          imgSrc="/images/fonteagua.webp"
           description="
-          Com a câmara, procure qual das figuras de convite pretende demonstrar a Burocracia na sua glória.
-          Mantenha a câmara apontada para observar a experiência na sua totalidade.
+          Com a câmara, procure pelo quadro representado acima.
+          Aponte para experienciar uma interpretação visual do mesmo.
           "/>
           }
       </div>

@@ -84,16 +84,15 @@ export default function MindARMusicos({ onTap }) {
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUP}
-            imgSrc="/images/sala23.webp"
+            imgSrc="/images/djose.webp"
             description="
-            Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo.
-            Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
+            Abra a gaveta número (??) e, aponte sob a imagem da maquete da estátua do Terreiro do Paço, de D.José I, de modo a observar uma versão reimaginada da mesma."/>
         }
       </div>
 
       <IntroTextSequence
-        text1="Vir neque silendus neque dicendus sine cura"
-        text2="Um homem sobre o qual não se deve permanecer em silêncio, nem falar sem pensar"
+        text1="DJose"
+        text2="Musicos"
         isActive={isIntroActive}
         onSequenceComplete={() => setModelsVisible(true)}
       />

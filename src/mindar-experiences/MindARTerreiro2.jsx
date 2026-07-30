@@ -297,8 +297,8 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
           imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; 
           filterMinCF: 0.01; 
           filterBeta: 0.01; 
-          missTolerance: 3;
-          warmupTolerance: 1;
+          missTolerance: 2;
+          warmupTolerance: 2;
           autoStart: false; 
           uiLoading: no; 
           uiError: no; 

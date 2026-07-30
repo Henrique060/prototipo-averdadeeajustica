@@ -132,8 +132,9 @@ const handleClosePopUp = () => {
                 <LearnMorePopUp
                 headerName={"Como interagir na experiência?"}
                 onClose={handleClosePopUp}
-                imgSrc="/images/sala21-2.webp"
-                description="Aponte a câmara para o seu rosto para ver a interação com o busto."
+                imgSrc="/images/bustorepublica.webp"
+                description="A experiência faz uso da câmara frontal. 
+                Transforme-se na famosa cara da república portuguesa, usando o busto da mesma."
                 />
             )}
             </div>

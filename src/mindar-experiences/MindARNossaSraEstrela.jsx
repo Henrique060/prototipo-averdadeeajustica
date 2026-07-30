@@ -201,7 +201,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
           {isTranslated && (
             <a-gltf-model
               src="#nsraestrela"
-              position="0 0 0"
+              position="0 0.2 0"
               scale="1 1 1"
               rotation="90 0 0"
             ></a-gltf-model>
