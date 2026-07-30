@@ -144,19 +144,26 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
         const textureCanvas = textureCanvasRef.current;
         const aPlane = planeRef.current;
         
-        if (!blitCanvas || !textureCanvas || !videoEl) return;
+        if (!blitCanvas || !textureCanvas || !videoEl || !metadata.width || !metadata.height) {
+          callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
+          return;
+        }
 
-        const blitCtx = blitCanvas.getContext('2d');
-        const textureCtx = textureCanvas.getContext('2d');
+        const blitCtx = blitCanvas.getContext('2d', { willReadFrequently: true });
+        const textureCtx = textureCanvas.getContext('2d', { willReadFrequently: true });
 
         const targetWidth = 480; 
-        const targetHeight = targetWidth * (metadata.height / metadata.width);
+        // Force integer to prevent floating point draw errors
+        const targetHeight = Math.round(targetWidth * (metadata.height / metadata.width));
 
-        if (blitCanvas.width !== targetWidth) {
+        let dimensionsChanged = false;
+
+        if (blitCanvas.width !== targetWidth || blitCanvas.height !== targetHeight) {
           blitCanvas.width = targetWidth;
           blitCanvas.height = targetHeight;
           textureCanvas.width = targetWidth;
           textureCanvas.height = targetHeight;
+          dimensionsChanged = true;
         }
 
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
@@ -167,27 +174,49 @@ export default function MindARTerreiro2({ videoSrc = "/videos/terramoto.mov" }) 
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
-          const targetR = 164, targetG = 223, targetB = 52; 
-          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
-          
+
+          const targetR = 3;
+          const targetG = 96;
+          const targetB = 34;
+
           const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
+
+          if (distance < 50) {
+            data[i + 3] = 0;
+          }
+
+          const r_2 = data[i];
+          const g_2 = data[i + 1];
+          const b_2 = data[i + 2];
+
+          const targetR_2 = 51;
+          const targetG_2 = 156;
+          const targetB_2 = 82;
+
           const distance_2 = Math.sqrt(
-            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
+            Math.pow(r_2 - targetR_2, 2) + Math.pow(g_2 - targetG_2, 2) + Math.pow(b_2 - targetB_2, 2)
           );
 
-          if (distance < 70) data[i + 3] = 0;
-          if (distance_2 < 130) data[i + 3] = 0;
+          if (distance_2 < 75) {
+            data[i + 3] = 0;
+          }
         }
 
         textureCtx.putImageData(imageData, 0, 0);
 
         if (aPlane && aPlane.getObject3D('mesh')) {
           const material = aPlane.getObject3D('mesh').material;
-          if (material && material.map) {
-            material.map.needsUpdate = true;
+          if (material) {
+            if (dimensionsChanged || !material.map) {
+              // If dimensions changed, DESTROY the old texture buffer and make a new one
+              if (material.map) material.map.dispose();
+              material.map = new window.THREE.CanvasTexture(textureCanvas);
+            } else {
+              // If dimensions are the same, normal pixel update is safe
+              material.map.needsUpdate = true;
+            }
           }
         }
 

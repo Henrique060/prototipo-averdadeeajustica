@@ -9,6 +9,19 @@ import './MindAR.css';
 export default function MindARDJoao({ onTap }) {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
+
+  const [isExperienceOver, setExperienceOver] = useState(false);
+
+  const handleEnded = () => {
+      setExperienceOver(true);
+    };
+
+  const [counter, setCounter] = useState(8);
+  const reduceCounterOnTap = () => {
+      setCounter(counter => counter - 1)
+  }
+
+  
   
   const barrasOuroRef = useRef(null);
   const brincosRef = useRef(null);
@@ -150,44 +163,53 @@ export default function MindARDJoao({ onTap }) {
 
       const animProps = { property: 'position', to: '0 0 0', dur: 1000, easing: 'easeInOutQuad' };
 
-      if (hitsBarrasOuro.length > 0 && barrasOuroRef.current) {
+      if (hitsBarrasOuro.length > 0 && barrasOuroRef.current && !collectedRef.current.barrasouro) {
         barrasOuroRef.current.setAttribute('animation', animProps);
         collectedRef.current.barrasouro = true;
+        reduceCounterOnTap();
       }
-      if (hitsBrincos.length > 0 && brincosRef.current) {
+      if (hitsBrincos.length > 0 && brincosRef.current && !collectedRef.current.brincos) {
         brincosRef.current.setAttribute('animation', animProps);
         collectedRef.current.brincos = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsCetro.length > 0 && cetroRef.current) {
+      if (hitsCetro.length > 0 && cetroRef.current && !collectedRef.current.cetro) {
         cetroRef.current.setAttribute('animation', animProps);
         collectedRef.current.cetro = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsColar.length > 0 && colarRef.current) {
+      if (hitsColar.length > 0 && colarRef.current && !collectedRef.current.colar) {
         colarRef.current.setAttribute('animation', animProps);
         collectedRef.current.colar = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsCoroa.length > 0 && coroaRef.current) {
+      if (hitsCoroa.length > 0 && coroaRef.current && !collectedRef.current.coroa) {
         coroaRef.current.setAttribute('animation', animProps);
         collectedRef.current.coroa = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsFaixaMagnanimo.length > 0 && faixaMagnanimoRef.current) {
+      if (hitsFaixaMagnanimo.length > 0 && faixaMagnanimoRef.current && !collectedRef.current.faixamagnanimo) {
         faixaMagnanimoRef.current.setAttribute('animation', animProps);
         collectedRef.current.faixamagnanimo = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsMoedasOuro.length > 0 && moedasOuroRef.current) {
+      if (hitsMoedasOuro.length > 0 && moedasOuroRef.current && !collectedRef.current.moedasouro) {
         moedasOuroRef.current.setAttribute('animation', animProps);
         collectedRef.current.moedasouro = true; // Fixed
+        reduceCounterOnTap();
       }
-      if (hitsTesouro.length > 0 && tesouroRef.current) {
+      if (hitsTesouro.length > 0 && tesouroRef.current && !collectedRef.current.tesouro) {
         tesouroRef.current.setAttribute('animation', animProps);
         collectedRef.current.tesouro = true; // Fixed
+        reduceCounterOnTap();
       }
 
       const { barrasouro, brincos, cetro, colar, coroa, faixamagnanimo, moedasouro, tesouro } = collectedRef.current;
 
       if (barrasouro && brincos && cetro && colar && coroa && faixamagnanimo && moedasouro && tesouro && !finalTextTriggered.current) {
         finalTextTriggered.current = true;
-        setTimeout(() => { setShowFinalText(true); }, 1000);
+        setTimeout(() => { setShowFinalText(true); setExperienceOver(true)}, 1000);
+        
       }
     };
 
@@ -246,6 +268,46 @@ export default function MindARDJoao({ onTap }) {
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
+  //reset
+
+  const handleRestart = () => {
+    // 1. Reset React states
+    setCounter(8);
+    setExperienceOver(false);
+    setShowFinalText(false);
+    
+    // 2. Reset tracking refs
+    finalTextTriggered.current = false;
+    collectedRef.current = {
+      barrasouro: false,
+      brincos: false,
+      cetro: false,
+      colar: false,
+      coroa: false,
+      faixamagnanimo: false,
+      moedasouro: false,
+      tesouro: false,
+    };
+
+    // 3. Helper to remove animation and reset position
+    const resetEntity = (ref, originalPosition) => {
+      if (ref.current) {
+        ref.current.removeAttribute('animation');
+        ref.current.setAttribute('position', originalPosition);
+      }
+    };
+
+    // 4. Apply original positions
+    resetEntity(barrasOuroRef, '0.2 0.1 0.01');
+    resetEntity(brincosRef, '0.3 0.25 0.01');
+    resetEntity(cetroRef, '-0.15 -0.25 0.01');
+    resetEntity(colarRef, '0.3 -0.2 0.01'); // (Fixed a typo here from 0-.2)
+    resetEntity(coroaRef, '0.2 -0.2 0.01');
+    resetEntity(faixaMagnanimoRef, '0 -0.25 0.01');
+    resetEntity(moedasOuroRef, '0.2 0 0.01');
+    resetEntity(tesouroRef, '-0.3 0 0.01');
+  };
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div className="header-container-mindar">
@@ -261,6 +323,13 @@ export default function MindARDJoao({ onTap }) {
           />
         }
       </div>
+
+      {!textVisible && (
+        <div className="counter-div">
+              <p className="counter-text">Itens em falta: {counter}</p>
+        </div>
+      )}
+      
 
       <a-scene
         ref={sceneRef}
@@ -318,7 +387,7 @@ export default function MindARDJoao({ onTap }) {
             gltf-model="/models/colar.glb"
             scale={modelsVisible ? ".225 .225 .225" : "0 0 0"}
             rotation="180 90 90"
-            position="0.3 0-.2 0.01"
+            position="0.3 -0.2 0.01"
           ></a-entity>
 
           <a-entity
@@ -386,6 +455,36 @@ export default function MindARDJoao({ onTap }) {
           </p>
         </div>
       )}
+
+      {isExperienceOver && (
+      <div className="video-overlay">
+        <button
+          onClick={
+            handleRestart
+          }
+          style={{
+            position: "absolute",
+            bottom: "20%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            padding: "14px 28px",
+            border: "none",
+            borderRadius: "14px",
+            background: "#EA562E",
+            color: "#E4D7C4",
+            fontSize: "1rem",
+            fontWeight: 600,
+            cursor: "pointer",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+          }}
+        >
+          Reiniciar Experiência
+        </button>
+      </div>
+    )}
+
+
     </div>
   );
 }

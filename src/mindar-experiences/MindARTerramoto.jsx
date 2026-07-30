@@ -157,19 +157,34 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
-          const targetR = 164, targetG = 223, targetB = 52; 
-          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
-          
+
+          const targetR = 3;
+          const targetG = 96;
+          const targetB = 34;
+
           const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
+
+          if (distance < 50) {
+            data[i + 3] = 0;
+          }
+
+          const r_2 = data[i];
+          const g_2 = data[i + 1];
+          const b_2 = data[i + 2];
+
+          const targetR_2 = 51;
+          const targetG_2 = 156;
+          const targetB_2 = 82;
+
           const distance_2 = Math.sqrt(
-            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
+            Math.pow(r_2 - targetR_2, 2) + Math.pow(g_2 - targetG_2, 2) + Math.pow(b_2 - targetB_2, 2)
           );
 
-          if (distance < 120) data[i + 3] = 0;
-          if (distance_2 < 120) data[i + 3] = 0;
+          if (distance_2 < 75) {
+            data[i + 3] = 0;
+          }
         }
 
         textureCtx.putImageData(imageData, 0, 0);

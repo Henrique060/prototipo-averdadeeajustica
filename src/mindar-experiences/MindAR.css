@@ -21,5 +21,21 @@
 
 }
 
+.counter-div{
+  background-color: #18283D;
+  border-radius: 14px;
+  width: 160px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.counter-text{
+  color: #E4D8C4;
+  font-size: 1rem;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
 
 

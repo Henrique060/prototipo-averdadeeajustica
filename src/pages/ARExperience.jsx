@@ -65,7 +65,7 @@ function ARExperience() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowBtn(true); 
-    }, 25000);
+    }, 40000);
 
     return () => clearTimeout(timer); 
   }, []); 

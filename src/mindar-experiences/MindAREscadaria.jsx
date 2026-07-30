@@ -28,45 +28,36 @@ export default function MindAREscadaria({
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
-    // Text 1 starts
     setTextPhase('text1-in');
 
-    // Text 1 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text1-out');
     }, 5000); 
 
-    // Text 2 starts (1 second gap for transition)
     setTimeout(() => {
       setTextPhase('text2-in');
     }, 6000); 
 
-    // Text 2 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text2-out');
     }, 11000); 
 
-    // Text 3 starts (1 second gap for transition)
     setTimeout(() => {
       setTextPhase('text3-in');
     }, 12000); 
 
-    // Text 3 ends (shorter text, visible for 4 seconds)
     setTimeout(() => {
       setTextPhase('text3-out');
     }, 16000); 
 
-    // Text 4 starts (1 second gap for transition)
     setTimeout(() => {
       setTextPhase('text4-in');
     }, 17000); 
 
-    // Text 4 ends (visible for 5 seconds)
     setTimeout(() => {
       setTextPhase('text4-out');
     }, 22000); 
 
-    // Cleanup phase
     setTimeout(() => {
       setTextPhase('done');
     }, 23000); 
@@ -96,6 +87,14 @@ export default function MindAREscadaria({
   };
 
   useEffect(() => {
+    const sceneEl = sceneRef.current;
+    if (sceneEl && onTap) {
+      sceneEl.addEventListener('click', onTap);
+      return () => sceneEl.removeEventListener('click', onTap);
+    }
+  }, [onTap]);
+
+  useEffect(() => {
     let isMounted = true;
     let callbackId;
 
@@ -123,11 +122,6 @@ export default function MindAREscadaria({
         sceneEl.addEventListener("renderstart", startAR, { once: true });
       }
 
-      if (onTap) {
-        sceneEl.addEventListener("click", onTap);
-      }
-
-      // ---------------- CHROMA KEY ----------------
       if (!videoEl) return;
 
       processFrameRef.current = (now, metadata) => {
@@ -159,15 +153,31 @@ export default function MindAREscadaria({
           const g = data[i + 1];
           const b = data[i + 2];
 
-          const targetR = 106;
-          const targetG = 238;
-          const targetB = 127;
+          const targetR = 102;
+          const targetG = 236;
+          const targetB = 130;
 
           const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
 
-          if (distance < 180) {
+          if (distance < 60) {
+            data[i + 3] = 0;
+          }
+
+          const r_2 = data[i];
+          const g_2 = data[i + 1];
+          const b_2 = data[i + 2];
+
+          const targetR_2 = 42;
+          const targetG_2 = 161;
+          const targetB_2 = 77;
+
+          const distance_2 = Math.sqrt(
+            Math.pow(r_2 - targetR_2, 2) + Math.pow(g_2 - targetG_2, 2) + Math.pow(b_2 - targetB_2, 2)
+          );
+
+          if (distance_2 < 100) {
             data[i + 3] = 0;
           }
         }
@@ -202,18 +212,13 @@ export default function MindAREscadaria({
         videoEl.cancelVideoFrameCallback(callbackId);
       }
 
-      if (onTap && sceneEl) {
-        sceneEl.removeEventListener("click", onTap);
-      }
-
       const arSystem = sceneRef.current?.systems["mindar-image-system"];
       if (arSystem?.started) {
         arSystem.stop();
       }
     };
-  }, [onTap, videoSrc]);
+  }, [videoSrc]);
 
-  // Update opacities to account for 4 texts
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
@@ -262,7 +267,7 @@ export default function MindAREscadaria({
       <a-scene
         ref={sceneRef}
         mindar-image="
-          imageTargetSrc: /markers/escadaria-target2.mind; 
+          imageTargetSrc: /markers/escadaria-target3.mind; 
           autoStart: false; 
           uiLoading: no; 
           uiError: no; 
@@ -325,9 +330,9 @@ export default function MindAREscadaria({
             ref={planeRef}
             src="#chromaTextureCanvas"
             material="transparent: true; shader: flat;"
-            position="0 0.25 0.01"
-            width="1"
-            height="2"
+            position="0 0.05 0.01"
+            width="0.5"
+            height="1"
             look-at="[camera]"
           ></a-plane>
         </a-entity>
