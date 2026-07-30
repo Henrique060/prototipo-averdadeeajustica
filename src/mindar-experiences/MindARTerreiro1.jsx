@@ -224,25 +224,25 @@ export default function MindARTerreiro1({ onTap }) {
       </style>
 
       <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
-        <div className="header-container-mindar">
-          <BackButton />
-          <LogoHeader />
-          <HelpPopUpBtn
-            className="help-btn-mindar"
-            onClick={() => setShowPopUp(true)}
-          />
-
-          {showPopUp && (
-            <LearnMorePopUp
-              headerName={"Como interagir na experiência?"}
-              onClose={handleClosePopUp}
-              imgSrc="/images/sala21-2.webp"
-              description="
-            Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima.
-            Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
+        {!isVideoPlaying && (
+          <div className="header-container-mindar">
+            <BackButton />
+            <LogoHeader />
+            <HelpPopUpBtn
+              className="help-btn-mindar"
+              onClick={() => setShowPopUp(true)}
             />
-          )}
-        </div>
+
+            {showPopUp && (
+              <LearnMorePopUp
+                headerName={"Como interagir na experiência?"}
+                onClose={handleClosePopUp}
+                imgSrc="/images/sala21-2.webp"
+                description="Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima. Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
+              />
+            )}
+          </div>
+        )}
 
         {buttonVisible && !isVideoPlaying && (
           <button
