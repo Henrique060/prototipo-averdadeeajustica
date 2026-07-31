@@ -168,7 +168,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
             boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
           }}
         >
-          <b>Toque aqui</b> para traduzir o quadro
+          <b>Toque aqui</b> para traduzir o texto no quadro
         </button>
       )}
 
@@ -176,8 +176,8 @@ export default function MindARNossaSraEstrela({ onTap }) {
         ref={sceneRef}
         mindar-image="
           imageTargetSrc: /markers/estrela.mind; 
-          filterMinCF: 0.001; 
-          filterBeta: 0.001; 
+          filterMinCF: 0.01; 
+          filterBeta: 0.01; 
           autoStart: false; 
           uiLoading: no; 
           uiError: no; 

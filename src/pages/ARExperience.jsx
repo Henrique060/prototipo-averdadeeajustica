@@ -46,8 +46,8 @@ const NEXT_ROUTES = {
   fonteagua: "/quadro-escombros",
   nsraestrela: "/terramoto",         // Verify if 'nsraestrela' is the ID for 'quadro-escombros'
   terramoto: "/gravura-marques",
-  musicos: "/musicos",
-  sebastiao: "/lenco-saudade",       // Verify if 'sebastiao' is the ID for 'gravura-marques'
+  sebastiao: "/musicos", 
+  musicos: "/lenco-saudade",      // Verify if 'sebastiao' is the ID for 'gravura-marques'
   saudade: "/o-retorno",
   oretorno: "/busto-republica",
   bustorepublica: "/soberania",

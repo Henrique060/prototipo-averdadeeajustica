@@ -14,10 +14,11 @@ function MapPopUp({ headerName, onClose, imgSrc }) {
         <div className="map-content-img">
           <img src={imgSrc} alt="Map" />
         </div>
-        <p className="map-content-description-text">Encontra-se na sala assinalada com o retângulo cor-de-laranja.</p>
+        <p className="map-content-description-text">A experiência em execução encontra-se na sala assinalada com o retângulo cor-de-laranja.</p>
       </div>
     </div>
   );
 }
+
 
 export default MapPopUp;

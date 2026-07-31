@@ -8,6 +8,7 @@ import {
   IoHelpCircleOutline,
   IoAlertCircleOutline
 } from "react-icons/io5";
+import { HiOutlineBuildingStorefront } from "react-icons/hi2";
 import { GoHome } from "react-icons/go";
 import { VscDebugStart } from "react-icons/vsc";
 import './NavBar.css';
@@ -18,7 +19,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const routes = ["/tutorial", "/map", "/quadro-terreiro-paco"];
+  const routes = ["/tutorial", "/map", "/quadro-terreiro-paco", "/recompensa"];
 
   const currentIndex = routes.indexOf(location.pathname);
 
@@ -55,6 +56,12 @@ const NavBar = () => {
           <div className="icon-text-container">
             <IoMapOutline size={18} />
             <p className="ic-text">Salas</p>
+          </div>
+        </NavLink>
+        <NavLink to="/recompensa" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <div className="icon-text-container">
+            <HiOutlineBuildingStorefront size={18} />
+            <p className="ic-text">Souvenirs</p>
           </div>
         </NavLink>
       </div>

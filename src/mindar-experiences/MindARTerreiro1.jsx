@@ -22,6 +22,9 @@ export default function MindARTerreiro1({ onTap }) {
   const [textPhase, setTextPhase] = useState('hidden'); 
   const hasRunSequence = useRef(false);
 
+  // NEW: State to track when the AR animations are allowed to start
+  const [arAnimationTriggered, setArAnimationTriggered] = useState(false);
+
   const runTextSequence = () => {
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
@@ -49,6 +52,13 @@ export default function MindARTerreiro1({ onTap }) {
     setShowPopUp(false);
     runTextSequence(); 
   };
+
+  // NEW: Effect to trigger 3D animations only when text finishes AND target is found
+  useEffect(() => {
+    if (textPhase === 'done' && isTargetFound && !arAnimationTriggered) {
+      setArAnimationTriggered(true);
+    }
+  }, [textPhase, isTargetFound, arAnimationTriggered]);
 
   useEffect(() => {
     let mounted = true;
@@ -244,12 +254,12 @@ export default function MindARTerreiro1({ onTap }) {
           </div>
         )}
 
-        {buttonVisible && !isVideoPlaying && (
+        {buttonVisible && !isVideoPlaying && arAnimationTriggered && (
           <button
             onClick={startVideo}
             style={{
               position: "absolute",
-              bottom: "5.5rem", /* Positions the button slightly above the bottom */
+              bottom: "5.5rem",
               left: "50%",
               transform: "translateX(-50%)",
               zIndex: 1000,
@@ -267,11 +277,8 @@ export default function MindARTerreiro1({ onTap }) {
           </button>
         )}
 
-        {/* 2D Video Overlay */}
         {isVideoPlaying && (
           <div className="video-overlay-wrapper">
-            
-            {/* The Orientation Warning Overlay */}
             <div className="orientation-warning">
               <svg className="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
@@ -282,7 +289,6 @@ export default function MindARTerreiro1({ onTap }) {
                 Coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro. Disfrute da experiência com o som ligado.
               </p>
               
-              {/* Fallback button so they aren't trapped if sensor fails */}
               <button 
                 onClick={stopVideo} 
                 style={{
@@ -314,26 +320,42 @@ export default function MindARTerreiro1({ onTap }) {
 
         <a-scene
           ref={sceneRef}
-          mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+          mindar-image="imageTargetSrc: /markers/terreiro-paco-target.mind; filterMinCF:0.01; filterBeta:0.01; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
           color-space="sRGB"
           embedded
           renderer="colorManagement: true; physicallyCorrectLights: true"
           vr-mode-ui="enabled: false"
           device-orientation-permission-ui="enabled: false"
         >
-
           <a-assets>
             <a-asset-item id="fonte" src="/models/fonteapolo1.glb"></a-asset-item>
+            <img id="circle" src="/images/circle.png"></img>
           </a-assets>
-          <a-camera position="0 0 0" look-controls="enabled: false" />
           
+          <a-camera position="0 0 0" look-controls="enabled: false" />
+
           <a-entity mindar-image-target="targetIndex: 0">
+
+            {/* NEW: Animations are conditionally attached based on arAnimationTriggered state */}
+            <a-plane 
+              src="#circle" 
+              position="0 0.08 0" 
+              height="0.25" width="0.25" 
+              rotation="0 0 0" 
+              transparent="true" 
+              opacity="0"
+              animation__fadein={arAnimationTriggered ? "property: opacity; to: 1; dur: 4000; delay: 500" : undefined}
+              animation__fadeout={arAnimationTriggered ? "property: opacity; to: 0; dur: 2000; delay: 10500" : undefined}
+            ></a-plane>
+
             <a-gltf-model
-             src="#fonte"
-             position="0 0 0.01"
-             scale="0.25 0.25 0.25"
-             rotation="0 0 0"
+              src="#fonte"
+              position="0.3 0 0.01"
+              scale="0 0 0"
+              rotation="0 0 0"
+              animation__appear={arAnimationTriggered ? "property: scale; to: 0.25 0.25 0.25; dur: 1000; delay: 11500; easing: easeOutElastic" : undefined}
             ></a-gltf-model>
+
           </a-entity>
         </a-scene>
 
@@ -357,13 +379,13 @@ export default function MindARTerreiro1({ onTap }) {
   );
 }
 
+// loadScript function is unchanged...
 function loadScript(src) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
       resolve();
       return;
     }
-
     const script = document.createElement("script");
     script.src = src;
     script.onload = resolve;

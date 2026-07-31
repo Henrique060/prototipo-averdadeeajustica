@@ -68,7 +68,7 @@
   border-radius: 40px;
   flex-grow: 1; /* Allows the pill to take up the remaining width */
   max-width: 280px;
-  gap: 30px;
+  gap: 20px;
 }
 
 /* Icon Styling */

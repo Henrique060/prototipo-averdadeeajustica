@@ -49,7 +49,7 @@ function FinalPage () {
         </div>
         <div className="quadro-container-button-wrapper">
           {/* Replaced old local state button logic with navigation trigger */}
-          <button className="final-container-button"onClick={() => navigate("/recompensa")}>Terminar Visita</button>
+          <button className="final-container-button"onClick={() => navigate("/thesis-project-page")}>Terminar Visita</button>
         </div>
     </div>
     );

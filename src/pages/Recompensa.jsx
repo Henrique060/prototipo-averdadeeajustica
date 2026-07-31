@@ -6,6 +6,7 @@ import NavBarExperience_2 from "../components/NavBarExperience_2";
 import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
 import './Catalogo.css';
+import NavBar from "../components/NavBar";
 
 
 const experiencias = [
@@ -60,12 +61,7 @@ function Recompensa() {
         <LogoHeader />
         <div className="quadro-container">
             <div className="title-wrapper">
-                <div className="title-btn-wrapper">
-                    <button className="title-btn-back-btn" onClick={() => window.history.back()}>
-                        <IoArrowBackOutline />
-                    </button>
-                    <PageHeader title="Leve Consigo" />
-                </div>
+                <PageHeader title="Souvenirs" />
             </div>
         </div>
 
@@ -128,8 +124,9 @@ function Recompensa() {
           </button>
         </div>
 
-
+        <NavBar/>
     </div>
+    
     
   );
 }
