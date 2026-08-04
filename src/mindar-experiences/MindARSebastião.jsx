@@ -113,7 +113,7 @@ export default function MindARSebastião({ onTap }) {
       >
         <a-assets>
           {/* Note: Crossorigin attribute ensures canvas WebGL readback doesn't fail */}
-            	<a-asset-item id="sebastiao" src="/models/teatro-de-papel2.glb"></a-asset-item>
+            	<a-asset-item id="sebastiao" src="/models/teatro-de-papelv3.glb"></a-asset-item>
         </a-assets>
         
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>

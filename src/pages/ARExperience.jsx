@@ -16,6 +16,7 @@ import MindARSoberania from '../mindar-experiences/MindARSoberania.jsx';
 import MindARSebastião from '../mindar-experiences/MindARSebastião.jsx';
 import MindARBustoRepublica from '../mindar-experiences/MindARBustoRepublica.jsx';
 import MindARMusicos from '../mindar-experiences/MindARMusicos.jsx';
+import MindARLenco from '../mindar-experiences/MindARLenco.jsx';
 import './ARExperience.css';
 
 // 1. Create a registry map of your experiences
@@ -30,7 +31,7 @@ const EXPERIENCES = {
   terramoto: MindARTerramoto,
   sebastiao: MindARSebastião,
   saudade: MindARSaudade,
-  oretorno: VideoARExperience,
+  oretorno: MindARLenco,
   bustorepublica: MindARBustoRepublica,
   soberania: MindARSoberania,
   musicos: MindARMusicos

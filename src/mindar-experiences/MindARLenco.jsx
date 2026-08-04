@@ -6,7 +6,7 @@ import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import BackButton from '../components/BackButton';
 import './MindAR.css';
 
-export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonumento.mov" }) {
+export default function MindARLenco({ videoSrc = "/videos/lenco.mp4" }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
   const blitCanvasRef = useRef(null);
@@ -14,97 +14,69 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
+
   const [isVideoOver, setIsVideoOver] = useState(false);
+
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [textPhase, setTextPhase] = useState('hidden'); 
-  
-  const hasRunSequence = useRef(false);
-  const isInitialRun = useRef(true);
 
   useMindARLifecycle(sceneRef);
 
-  const runTextSequence = () => {
-    if (hasRunSequence.current) return;
-    hasRunSequence.current = true;
-
-    // Text 1 starts
-    setTextPhase('text1-in');
-
-    // Text 1 ends (visible for 6 seconds, slightly longer text)
-    setTimeout(() => {
-      setTextPhase('text1-out');
-    }, 6000);
-
-    // Text 2 starts
-    setTimeout(() => {
-      setTextPhase('text2-in');
-    }, 7000);
-
-    // Text 2 ends (visible for 5 seconds)
-    setTimeout(() => {
-      setTextPhase('text2-out');
-    }, 12000);
-
-    // Text 3 starts
-    setTimeout(() => {
-      setTextPhase('text3-in');
-    }, 13000);
-
-    // Text 3 ends (visible for 5 seconds)
-    setTimeout(() => {
-      setTextPhase('text3-out');
-    }, 18000);
-
-    // Cleanup and Start Video
-    setTimeout(() => {
-      setTextPhase('done');
-      // This will trigger the useEffect below to finally play the video
-      setIsVideoPlaying(true); 
-    }, 19000);
-  };
-
-  const handleOpenPopUp = () => {
-    setShowPopUp(true);
-    // Pause video while popup is open
-    if (videoRef.current && !videoRef.current.paused) {
-      videoRef.current.pause();
-    }
-  };
-
-  const handleClosePopUp = () => {
-    setShowPopUp(false);
+  const [textPhase, setTextPhase] = useState('hidden'); 
+      const hasRunSequence = useRef(false);
     
-    if (isInitialRun.current) {
-      isInitialRun.current = false;
-      // UNLOCK HACK: Play and immediately pause to satisfy mobile browser policies
-      if (videoRef.current) {
-        videoRef.current.play().then(() => {
-          videoRef.current.pause();
-        }).catch(err => console.log("Video unlock failed:", err));
-      }
-      runTextSequence(); 
-    } else {
-      // Just resume the video if opening/closing mid-experience
-      if (videoRef.current && isVideoPlaying) {
-        videoRef.current.play().catch(err => console.error("Resume failed:", err));
-      }
-    }
-  };
+      const runTextSequence = () => {
+        if (hasRunSequence.current) return;
+        hasRunSequence.current = true;
+    
+        setTextPhase('text1-in');
+    
+        setTimeout(() => {
+          setTextPhase('text1-out');
+        }, 4000);
+    
+        setTimeout(() => {
+          setTextPhase('text2-in');
+        }, 5200);
+    
+        setTimeout(() => {
+          setTextPhase('text2-out');
+        }, 8500);
+    
+        setTimeout(() => {
+          setTextPhase('done');
+          setIsVideoPlaying(true);
+        }, 9500);
+      };
+    
+      const handleClosePopUp = () => {
+        setShowPopUp(false);
+        if(videoRef.current){
+          videoRef.current.play().then(() =>{
+            videoRef.current.pause();
+          }).catch(err=>console.log("Video unlock failed:", err));
+        }
+        runTextSequence(); 
+      };
 
-  // Trigger video play state change once the text sequence finishes
-  useEffect(() => {
-    if (isVideoPlaying && videoRef.current && videoRef.current.paused && !showPopUp) {
-      videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
-    }
-  }, [isVideoPlaying, showPopUp]);
+  //use effect para o video começar
+    useEffect(() => {
+      if(isVideoPlaying && videoRef.current){
+        videoRef.current.play().catch(err=>console.error("Delayed play fialed:",err));
+      }
+    },[isVideoPlaying]);
 
   useEffect(() => {
     let isMounted = true;
     let callbackId;
     
+    // --- CHANGES START HERE ---
+    // 1. Keep a reference to the element at the top level of useEffect
     const videoEl = videoRef.current; 
+
+    // 2. Define the frame loop handler up here so it can reference processFrame safely
     const processFrameRef = { current: null };
 
+    // 3. Define event listeners here so both loadScripts and the cleanup block can see them
     const handlePlay = () => {
       if (videoEl && processFrameRef.current) {
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
@@ -114,6 +86,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
     const handleEnded = () => {
       setIsVideoOver(true);
     };
+    // --- CHANGES END HERE ---
 
     const loadScripts = async () => {
       await loadScript('https://aframe.io/releases/1.5.0/aframe.min.js');
@@ -137,33 +110,28 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
         sceneEl.addEventListener('renderstart', startAR);
       }
 
+      // --- CHROMA KEY PROCESSING LOOP ---
       if (!videoEl) return;
 
+      // Assign our actual processing logic to the lifted reference
       processFrameRef.current = (now, metadata) => {
         const blitCanvas = blitCanvasRef.current;
         const textureCanvas = textureCanvasRef.current;
         const aPlane = planeRef.current;
         
-        if (!blitCanvas || !textureCanvas || !videoEl || !metadata.width || !metadata.height) {
-          callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
-          return;
-        }
+        if (!blitCanvas || !textureCanvas || !videoEl) return;
 
-        const blitCtx = blitCanvas.getContext('2d', { willReadFrequently: true });
-        const textureCtx = textureCanvas.getContext('2d', { willReadFrequently: true });
+        const blitCtx = blitCanvas.getContext('2d');
+        const textureCtx = textureCanvas.getContext('2d');
 
         const targetWidth = 480; 
-        // Force integer to prevent floating point draw errors
-        const targetHeight = Math.round(targetWidth * (metadata.height / metadata.width));
+        const targetHeight = targetWidth * (metadata.height / metadata.width);
 
-        let dimensionsChanged = false;
-
-        if (blitCanvas.width !== targetWidth || blitCanvas.height !== targetHeight) {
+        if (blitCanvas.width !== targetWidth) {
           blitCanvas.width = targetWidth;
           blitCanvas.height = targetHeight;
           textureCanvas.width = targetWidth;
           textureCanvas.height = targetHeight;
-          dimensionsChanged = true;
         }
 
         blitCtx.drawImage(videoEl, 0, 0, targetWidth, targetHeight);
@@ -174,61 +142,42 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-
-          const targetR = 3;
-          const targetG = 96;
-          const targetB = 34;
-
+          
+          const targetR = 164, targetG = 223, targetB = 52; 
+          const targetR_2 = 47, targetG_2 = 184, targetB_2 = 83;
+          
           const distance = Math.sqrt(
             Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
           );
-
-          if (distance < 50) {
-            data[i + 3] = 0;
-          }
-
-          const r_2 = data[i];
-          const g_2 = data[i + 1];
-          const b_2 = data[i + 2];
-
-          const targetR_2 = 51;
-          const targetG_2 = 156;
-          const targetB_2 = 82;
-
           const distance_2 = Math.sqrt(
-            Math.pow(r_2 - targetR_2, 2) + Math.pow(g_2 - targetG_2, 2) + Math.pow(b_2 - targetB_2, 2)
+            Math.pow(r - targetR_2, 2) + Math.pow(g - targetG_2, 2) + Math.pow(b - targetB_2, 2)
           );
 
-          if (distance_2 < 75) {
-            data[i + 3] = 0;
-          }
+          if (distance < 70) data[i + 3] = 0;
+          if (distance_2 < 130) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(imageData, 0, 0);
 
         if (aPlane && aPlane.getObject3D('mesh')) {
           const material = aPlane.getObject3D('mesh').material;
-          if (material) {
-            if (dimensionsChanged || !material.map) {
-              // If dimensions changed, DESTROY the old texture buffer and make a new one
-              if (material.map) material.map.dispose();
-              material.map = new window.THREE.CanvasTexture(textureCanvas);
-            } else {
-              // If dimensions are the same, normal pixel update is safe
-              material.map.needsUpdate = true;
-            }
+          if (material && material.map) {
+            material.map.needsUpdate = true;
           }
         }
 
         callbackId = videoEl.requestVideoFrameCallback(processFrameRef.current);
       };
 
+      // Attaching the listeners we declared above
       videoEl.addEventListener('play', handlePlay);
       videoEl.addEventListener('ended', handleEnded);
+   
     };
 
     loadScripts();
 
+    // Now this cleanup return function works flawlessly without throwing an error!
     return () => {
       isMounted = false;
       if (videoEl && callbackId) {
@@ -245,10 +194,8 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
     };
   }, [videoSrc]);
 
-  // Handle all 3 opacities
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
   const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
@@ -256,21 +203,20 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
       <div className="header-container-mindar">
         <BackButton />
         <LogoHeader/>
-        <HelpPopUpBtn className="help-btn-mindar" onClick={handleOpenPopUp} />
-        
+        <HelpPopUpBtn className="help-btn-mindar" onClick={() => setShowPopUp(true)}/>
         {showPopUp && 
-        <LearnMorePopUp
-              headerName={"Como interagir na experiência?"}
-              onClose={handleClosePopUp}
-              imgSrc="/images/sala21-2.webp"
-              description="
-            Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima.
-            Aponte a câmara ao quadro da direita, de modo a conhecer em maior detalhe a obra, através de uma experiência visual."
-            />
-        }
+        <LearnMorePopUp 
+          headerName={"Como interagir na experiência?"}
+          onClose={handleClosePopUp}
+          imgSrc="/images/fonteagua.webp"
+          description="
+          Com a câmara, procure pelo quadro representado acima.
+          Aponte para experienciar uma interpretação visual do mesmo.
+          "/>
+          }
       </div>
-      
-      <video ref={videoRef} src={videoSrc} muted playsInline  crossOrigin="anonymous" preload="auto" style={{ display: 'none' }} />
+      {/* Hidden processing infrastructure */}
+      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
@@ -280,21 +226,6 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
           onClick={() => {
             const video = videoRef.current;
             video.currentTime = 0;
-            const planeEl = planeRef.current;
-            if(planeEl){
-              planeEl.setAttribute('scale', '0.0001 0.0001 0.0001');
-              planeEl.removeAttribute('animation');
-
-              setTimeout(() => { 
-                planeEl.setAttribute('animation', {
-                  property: 'scale',
-                  to:'2 2 2',
-                  dur: '27000',
-                  easing: 'linear',
-                  loop: false
-                });
-              })
-            }
             setIsVideoOver(false);
             video.play();
           }}
@@ -322,17 +253,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`
-          imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; 
-          filterMinCF: 0.01; 
-          filterBeta: 0.01; 
-          missTolerance: 2;
-          warmupTolerance: 2;
-          autoStart: false; 
-          uiLoading: no; 
-          uiError: no; 
-          uiScanning: no;
-        `}
+        mindar-image={`imageTargetSrc: ${"/markers/lenco.mind"}; filterMinCF:0.0001; filterBeta:0.001; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
@@ -342,44 +263,27 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex:0">            
+            {/* Exactly centered, isolated chroma key video plane wrapper */}
             <a-plane 
               ref={planeRef}
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
-              position="0 0 0.05" 
-              width="1.5" 
-              height="2"
-              scale="0.0001 0.0001 0.0001"
-              {...(isVideoPlaying ? { animation: "property: scale; to: 1.2 1.2 1.2; dur:65000; easing:linear; loop: false" } : {})}
+              position="0 0.25 0.05" 
+              {...(isVideoPlaying ? { width: "1", height: "1" } : { width: "0.0001", height: "0.0001" })}
+
             ></a-plane>
         </a-entity>
       </a-scene>
 
+
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-          
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            A praça,
-            ópera do poder.
-            Constrói e comemora,
-            também de forma efémera,
-            os seus ritos,
-            os seus tratados,
-            ... endeusa pessoas.
+            Saudade
           </p>
-          
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Bom seria que cada um de nós
-            pudesse edificar monumentos efémeros:
-            os arcos dos nossos triunfos,
+            Felicidade
           </p>
-          
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            os obeliscos dos valores e amores,
-            celebrar a nossa vida
-            na monumentalidade humana.
-          </p>
-
         </div>
       )}
     </div>

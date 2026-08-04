@@ -27,7 +27,7 @@ const experiencias = [
     image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel2.glb',
+      modelViewerSrc: '/models/teatro-de-papelv3.glb',
 
     },
   },

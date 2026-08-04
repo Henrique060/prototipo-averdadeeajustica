@@ -13,11 +13,11 @@ const experiencias = [
   
   {
     sala: 'Terreiro do Paço',
-    titulo: 'Portal para o Terreiro do Paço',
-    image: '/images/arco-augusta.webp',
+    titulo: 'Estátua dos Músicos de São Jorge',
+    image: '/images/musicosdjose.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/terreiroFonteMusicos.glb',
+      headerName: 'Estátua dos Músicos de São Jorge',
+      modelViewerSrc: '/models/musicosdjose.glb',
 
     },
   },
@@ -28,10 +28,12 @@ const experiencias = [
     image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papel2.glb',
+      modelViewerSrc: '/models/teatro-de-papelv3.glb',
 
     },
-  }
+  },
+
+  
 
   
 ];
@@ -114,15 +116,6 @@ function Recompensa() {
           />
         )}
       </div>
-
-      <div className="quadro-container-button-wrapper">
-          <button
-            className="quadro-container-button"
-            onClick={() => navigate('/thesis-project-page')}
-          >
-            Sair
-          </button>
-        </div>
 
         <NavBar/>
     </div>
