@@ -6,11 +6,22 @@ function QuadroEscombros() {
     <ExperiencePageComponent
       imageSrc="/images/quadro-escombros.webp"
       imageAlt="Escombros-Nª Sr.ª da Estrela"
-      titleMain="Nª Sr.ª da Estrela"
+      titleMain="Aos Sobreviventes"
       titleSide="Sala 23 - Terramoto de 1755"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="- Sobreviventes, o que vos resta?
+Definharem, lentamente, pela colossal
+destruição,
+miséria 
+e morte?
+
+Traduz-se a voz de ontem para o dia de hoje: 
+
+Alguns, transcendem a razão, 
+com as mãos ao alto em
+agradecimento,
+Louvor,
+e glória.
+"
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-23.webp"

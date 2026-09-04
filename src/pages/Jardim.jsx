@@ -54,7 +54,7 @@ function Jardim() {
             <p className="title-side">Jardim</p>
           </div>
 
-          <p className="title-main">Lisboa no Jardim</p>
+          <p className="title-main">Um Jardim de Delícias...</p>
         </div>
 
         <div className="quadro-container-img-wrapper">
@@ -68,9 +68,19 @@ function Jardim() {
 
         <div className="quadro-container-text-wrapper">
           <p className="quadro-container-text">
-            Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa.
+            só eu sei,
+            so eu vejo.
+            Brinco, partilho...
+
+            Aumentar a realidade:
+            erguer monumentos,
+            tornar jardim em praça
+            viajo e desejo.
+
+            Desejar não o torna realidade,
+            Da virtualidade à verdade,
+            Terá tudo de ter corpo e materialidade?
+
           </p>
         </div>
 

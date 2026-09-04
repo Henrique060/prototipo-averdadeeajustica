@@ -7,7 +7,7 @@ function FiguraConvite() {
     <ExperiencePageComponent
       imageSrc="/images/salaconvite.webp"
       imageAlt="Sala Convite"
-      titleMain="Figuras de Convite"
+      titleMain="Alegoria da Burocracia"
       titleSide="Sala de Convite"
       description="A convite do poder,
                     é pesada engrenagem.

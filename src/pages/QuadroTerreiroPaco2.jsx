@@ -6,7 +6,7 @@ function QuadroTerreiroPaco2() {
     <ExperiencePageComponent
       imageSrc="/images/terreiro-militar.webp"
       imageAlt="Quadro Terreiro Paco Cortejo Real"
-      titleMain="Cortejo Real"
+      titleMain="Monumentos Efémeros"
       titleSide="Sala 21 - Cidade no séc. XVII"
       description="A praça,
                     ópera do poder.

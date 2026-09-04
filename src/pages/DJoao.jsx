@@ -7,7 +7,7 @@ function DJoao() {
     <ExperiencePageComponent
       imageSrc="/images/djoao.webp"
       imageAlt="D. João V"
-      titleMain="D.João V"
+      titleMain="Magnânimo"
       titleSide="Sala 22 - Cidade Joanina"
       description={`Magnífico, 
                 magnânimo. 

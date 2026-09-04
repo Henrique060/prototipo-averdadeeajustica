@@ -7,7 +7,7 @@ function Escadaria() {
     <ExperiencePageComponent
       imageSrc="/images/escadaria.webp"
       imageAlt="Introdução"
-      titleMain="Introdução"
+      titleMain="Prólogo"
       titleSide="Escadaria"
       description={`Por teu bem querer, eu penso e discirno: 
                     que tu me sigas, e eu serei tua guia. 

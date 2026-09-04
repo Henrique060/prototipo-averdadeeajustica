@@ -25,7 +25,7 @@ const NavBarExperience_2 = () => {
 
   const routes = ["/escadaria", "/quadro-terreiro-paco-2", "/quadro-terreiro-paco", "/figura-convite", 
                   "/djoao", "/fonte-agua", "/quadro-escombros", "/terramoto", "/gravura-marques", "/musicos",
-                   "/lenco-saudade", "/o-retorno", "/busto-republica",
+                   "/lenco-saudade", "/busto-republica",
                   "/soberania", "/jardim"
   ];
 

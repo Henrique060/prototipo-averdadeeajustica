@@ -8,7 +8,7 @@ import PopUp from '../components/PopUp';
 const experiencias = [
   {
     sala: 'Entrada',
-    titulo: 'Escadaria Principal',
+    titulo: 'Prólogo',
     image: '/images/escadaria.webp',
     url: '/escadaria',
   },
@@ -22,8 +22,8 @@ const experiencias = [
       headerName: 'Sala 21 - Experiências',
 
       listOfItems: [
-        'Cortejo Real',
-        'Terreiro do Paço',
+        'Monumentos Efémeros',
+        'O Chafariz de Apolo',
         
       ],
 
@@ -49,8 +49,8 @@ const experiencias = [
       headerName: 'Sala 22 - Cidade joanina',
 
       listOfItems: [
-        'D. João V - A Riqueza',
-        'A Fonte de Água',
+        'Magnânimo',
+        'Ciclo da Água e do Imposto',
       ],
 
       listOfURLs: [
@@ -68,8 +68,8 @@ const experiencias = [
       headerName: 'Sala 23 - Terramoto de 1755',
 
       listOfItems: [
-        'Nª Srª da Estrela',
-        'Terramoto',
+        'Aos Sobreviventes',
+        'Um Terremoto',
       ],
 
       listOfURLs: [
@@ -87,8 +87,8 @@ const experiencias = [
       headerName: 'Sala 24 - Reconstrução pombalina / Escravatura',
 
       listOfItems: [
-        'Alegoria a Sebastião',
-        'Músicos de São Jorge',
+        'Teatro de Papel',
+        'A Estátua da Praça',
       ],
 
       listOfURLs: [
@@ -102,19 +102,7 @@ const experiencias = [
     sala: 'Sala 26',
     titulo: 'Cidade no tempo de D. Maria I / Guerra Peninsular',
     image: '/images/sala26.webp',
-    popup: {
-      headerName: 'Sala 26 - Cidade no tempo de D. Maria I / Guerra Peninsular',
-
-      listOfItems: [
-        'Saudade e Felicidade',
-        'O Retorno',
-      ],
-
-      listOfURLs: [
-        '/lenco-saudade',
-        '/o-retorno',
-      ],
-    },
+    url: '/lenco-saudade',
   },
 
   {

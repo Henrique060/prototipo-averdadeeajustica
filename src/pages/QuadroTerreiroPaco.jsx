@@ -6,7 +6,7 @@ function QuadroTerreiroPaco() {
     <ExperiencePageComponent
       imageSrc="/images/terreiropaco.webp"
       imageAlt="Quadro Terreiro Paco"
-      titleMain="Terreiro do Paço"
+      titleMain="O Chafariz de Apolo"
       titleSide="Sala 21 - Cidade no séc. XVII"
       description="A praça,
                     um palco majestoso

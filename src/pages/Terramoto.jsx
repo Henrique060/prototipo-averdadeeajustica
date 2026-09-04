@@ -6,11 +6,29 @@ function Terramoto() {
     <ExperiencePageComponent
       imageSrc="/images/terramoto.webp"
       imageAlt="Terramoto Ana"
-      titleMain="Terramoto"
+      titleMain="Um Terremoto"
       titleSide="Sala 23 - Terramoto de 1755"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="A memória pública não esconde,
+mas também não lembra 
+a dor,
+a tristeza,
+o cataclismo...
+Recordar ou esquecer?
+A cidade, afinal, é da natureza,
+que se impôs e deixou o aviso:
+a cidade é dela.
+A praça é dela.
+
+Somos parte dela.
+Voltará ela a lembrar-nos
+da sua soberania?
+Caso caia (novamente)
+o Carmo e Trindade...
+Escreverão poemas e monumentos
+em nossa memória?
+Em memória de nós?
+
+"
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-23.webp"
