@@ -28,6 +28,19 @@ function DJoseMusicosCatalogo() {
     const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [popupData, setPopupData] = useState(null);
 
+  //preload ao asset modelo
+  useEffect(() => {
+    // Preload the models in the background as soon as the page loads
+    experiencias.forEach((exp) => {
+      if (exp.popup && exp.popup.modelViewerSrc) {
+        // Fetching it automatically stores it in the browser's HTTP cache
+        fetch(exp.popup.modelViewerSrc).catch((err) => 
+          console.warn("Background preload failed:", err)
+        );
+      }
+    });
+  }, []);
+
   const handleExperienceClick = (exp) => {
     // If this room has a popup
     if (exp.popup) {
