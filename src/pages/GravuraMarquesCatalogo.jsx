@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Link } from 'react-router-dom';
 import LogoHeader from "../components/LogoHeader";
 import ModelViewerPopUp from "../components/ModelViewerPopUp";
@@ -22,32 +22,22 @@ const experiencias = [
   },
 ];
 
-//preload ao asset modelo
-  useEffect(() => {
-    experiencias.forEach((exp) => {
-      if (exp.popup && exp.popup.modelViewerSrc) {
-        // 1. Log that loading has started
-        console.log(`[Preload] Loading started for: ${exp.popup.modelViewerSrc}`);
-        
-        fetch(exp.popup.modelViewerSrc)
-          .then((response) => {
-            if (response.ok) {
-              // 2. Log that loading has successfully finished
-              console.log(`[Preload] Loading complete for: ${exp.popup.modelViewerSrc}`);
-            } else {
-              console.error(`[Preload] Error loading model. Status: ${response.status}`);
-            }
-          })
-          .catch((err) => 
-            console.warn("[Preload] Background preload failed:", err)
-          );
-      }
-    });
-  }, []);
 
 function GravuraMarquesCatalogo() {
     const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [popupData, setPopupData] = useState(null);
+
+  useEffect(() => {
+      // Preload the models in the background as soon as the page loads
+      experiencias.forEach((exp) => {
+        if (exp.popup && exp.popup.modelViewerSrc) {
+          // Fetching it automatically stores it in the browser's HTTP cache
+          fetch(exp.popup.modelViewerSrc).catch((err) => 
+            console.warn("Background preload failed:", err)
+          );
+        }
+      });
+    }, []);
 
   const handleExperienceClick = (exp) => {
     // If this room has a popup
