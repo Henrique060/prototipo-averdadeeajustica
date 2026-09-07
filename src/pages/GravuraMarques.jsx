@@ -28,10 +28,10 @@ function GravuraMarques() {
                   Entre imagens,
                   Contam-se outras visões da história...
 "
-      buttonTo="/quadro-ar"
-      buttonLabel="Iniciar Experiência"
+
       mapImgSrc="/images/mapa-museu-24.webp"
-      experienceId="sebastiao"
+      noMindARJS={true}
+      navigateRoute={"/gravuramarquescatalogo"}
     />
   );
 }

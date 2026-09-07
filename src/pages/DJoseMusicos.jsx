@@ -1,5 +1,6 @@
 import React from 'react';
 import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
+import { useNavigate } from "react-router";
 
 function DJoseMusicos() {
   return (
@@ -37,27 +38,12 @@ uma oportunidade
 para celebrar comunidades.
 
 
-
-Dar a cara pela República
-Quem és tu?
-
-A quem pertences?
-Soberano de ti mesmo,
-Da tua carne e pensamentos.
-
-Em ti há liberdade?
-Em ti habita a Justiça?
-E se te pedir
-Para dares o teu corpo aos ideais?
-
-Encarnarias a democracia?
-Serias capaz de ser República?
-
 "
-      buttonTo="/quadro-ar"
+     
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-24.webp"
-      experienceId="musicos"
+      noMindARJS={true}
+      navigateRoute={"/djosemusicoscatalogo"}
     />
   );
 }

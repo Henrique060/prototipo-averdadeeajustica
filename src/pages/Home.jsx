@@ -43,6 +43,7 @@ function Home() {
                 <a className="btn-sobre" href="/escadaria">Iniciar sem Tutorial</a>
               </div>
             <a className="btn-sobre" href="/thesis-project-page">Sobre</a>
+            <a className="btn-forms" href="/forms">Formulários</a>
           </div>
         </div>
       </section>

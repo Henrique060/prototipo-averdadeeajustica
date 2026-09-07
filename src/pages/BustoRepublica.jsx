@@ -8,9 +8,21 @@ function BustoRepublica() {
       imageAlt="Busto Republica"
       titleMain="Busto da República"
       titleSide="Sala 27 - República"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="Dar a cara pela República
+Quem és tu?
+
+A quem pertences?
+Soberano de ti mesmo,
+Da tua carne e pensamentos.
+
+Em ti há liberdade?
+Em ti habita a Justiça?
+E se te pedir
+Para dares o teu corpo aos ideais?
+
+Encarnarias a democracia?
+Serias capaz de ser República?
+"
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-27.webp"

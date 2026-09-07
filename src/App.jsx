@@ -32,6 +32,9 @@ import FinalPage from './pages/FinalPage';
 import './App.css';
 import SoberaniaCatalogo from './pages/SoberaniaCatalogo';
 import Recompensa from './pages/Recompensa';
+import Forms from './pages/Forms';
+import DJoseMusicosCatalogo from './pages/DJoseMusicosCatalogo';
+import GravuraMarquesCatalogo from './pages/GravuraMarquesCatalogo';
 
 
 function SplashScreen({ onDone }) {
@@ -94,6 +97,9 @@ function App() {
             <Route path="/final-page" element={<FinalPage />} />
             <Route path="/recompensa" element={<Recompensa />} />
             <Route path="/soberania-catalogo" element={<SoberaniaCatalogo />} />
+            <Route path="/forms" element={<Forms />} />
+            <Route path="/djosemusicoscatalogo" element={<DJoseMusicosCatalogo />} />
+            <Route path="/gravuramarquescatalogo" element={<GravuraMarquesCatalogo/>} />
           </Routes>
         </Router>
       )}
