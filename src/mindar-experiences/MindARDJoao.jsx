@@ -159,7 +159,7 @@ const hitsMoedas2 = raycaster.intersectObjects(meshesMoedas2, false);
 const hitsAzeite = raycaster.intersectObjects(meshesAzeite, false);
 const hitsCopo = raycaster.intersectObjects(meshesCopo, false);
  
-const animProps = { property: 'position', to: '0.2 0.2 0.2', dur: 1000, easing: 'easeInOutQuad' };
+const animProps = { property: 'position', to: '0.35 0.35 0.35', dur: 1000, easing: 'easeInOutQuad' };
  
 if (hitsJoia1.length > 0 && joia1Ref.current && !collectedRef.current.joia1) {
 joia1Ref.current.setAttribute('animation', animProps);
@@ -352,7 +352,7 @@ device-orientation-permission-ui="enabled: false"
 ref={joia1Ref}
 id="joia1-entity"
 gltf-model="/models/joia1.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0.2 0.1 0.01"
 ></a-entity>
@@ -361,7 +361,7 @@ position="0.2 0.1 0.01"
 ref={joia2Ref}
 id="joia2-entity"
 gltf-model="/models/joia2.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0.3 0.25 0.01"
 ></a-entity>
@@ -370,7 +370,7 @@ position="0.3 0.25 0.01"
 ref={diamantes21Ref}
 id="diamantes21-entity"
 gltf-model="/models/diamantes21.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="-0.3 0.25 0.01"
 ></a-entity>
@@ -379,7 +379,7 @@ position="-0.3 0.25 0.01"
 ref={diamantes2Ref}
 id="diamantes2-entity"
 gltf-model="/models/diamantes2.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0.3 -0.2 0.01"
 ></a-entity>
@@ -388,7 +388,7 @@ position="0.3 -0.2 0.01"
 ref={moedas1Ref}
 id="moedas1-entity"
 gltf-model="/models/moedas1.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0.2 -0.2 0.01"
 ></a-entity>
@@ -397,7 +397,7 @@ position="0.2 -0.2 0.01"
 ref={moedas2Ref}
 id="moedas2-entity"
 gltf-model="/models/moedas2.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0 -0.25 0.01"
 ></a-entity>
@@ -406,7 +406,7 @@ position="0 -0.25 0.01"
 ref={azeiteRef}
 id="azeite-entity"
 gltf-model="/models/azeite.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="0.2 0 0.01"
 ></a-entity>
@@ -415,7 +415,7 @@ position="0.2 0 0.01"
 ref={copoRef}
 id="copo-entity"
 gltf-model="/models/copo.glb"
-scale={modelsVisible ? "1.5 1.5 1.5" : "0 0 0"}
+scale={modelsVisible ? "1.2 1.2 1.2" : "0 0 0"}
 rotation="180 90 90"
 position="-0.35 0.05 0.01"
 ></a-entity>

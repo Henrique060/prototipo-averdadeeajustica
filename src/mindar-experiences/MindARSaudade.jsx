@@ -208,7 +208,7 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={handleClosePopUp}
-          imgSrc="/images/fonteagua.webp"
+          imgSrc="/images/saudade.webp"
           description="
           Com a câmara, procure pelo quadro representado acima.
           Aponte para experienciar uma interpretação visual do mesmo.

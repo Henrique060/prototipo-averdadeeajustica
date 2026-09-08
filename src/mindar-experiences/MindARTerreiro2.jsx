@@ -350,7 +350,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
               width="1.5" 
               height="2"
               scale="0.0001 0.0001 0.0001"
-              {...(isVideoPlaying ? { animation: "property: scale; to: 1.2 1.2 1.2; dur:65000; easing:linear; loop: false" } : {})}
+              {...(isVideoPlaying ? { animation: "property: scale; to: 1 1 1; dur:65000; easing:linear; loop: false" } : {})}
             ></a-plane>
         </a-entity>
       </a-scene>
