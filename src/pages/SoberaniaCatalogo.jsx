@@ -12,7 +12,7 @@ import './Catalogo.css';
 const experiencias = [
   {
     sala: 'Estátua Soberania',
-    titulo: 'Esperança',
+    titulo: 'Esperança e Abundância',
     image: '/images/anaModelo.webp',
     popup: {
       headerName: 'Soberania Esperança',
