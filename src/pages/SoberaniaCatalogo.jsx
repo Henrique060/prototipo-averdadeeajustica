@@ -11,34 +11,34 @@ import './Catalogo.css';
 
 const experiencias = [
   {
-    sala: 'Balança',
-    titulo: 'Estátua Beatriz (?)',
+    sala: 'Estátua Soberania',
+    titulo: 'Esperança',
     image: '/images/anaModelo.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/anaModelo.glb',
+      headerName: 'Soberania Esperança',
+      modelViewerSrc: '/models/statueArtistaEsperanca.glb',
 
     },
   },
 
   {
-    sala: 'Item 2',
-    titulo: 'Estátua Beatriz (?)',
+    sala: 'Estátua Soberania',
+    titulo: 'Força',
     image: '/images/anaModelo.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/anaModelo.glb',
+      headerName: 'Soberania Força',
+      modelViewerSrc: '/models/statueArtistaForca.glb',
 
     },
   },
 
   {
-    sala: 'Item 3',
-    titulo: 'Estátua Beatriz (?)',
+    sala: 'Estátua Soberania',
+    titulo: 'Sem Medo',
     image: '/images/anaModelo.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/anaModelo.glb',
+      headerName: 'Soberania Sem Medo',
+      modelViewerSrc: '/models/statueArtistaSemMedo.glb',
 
     },
   }

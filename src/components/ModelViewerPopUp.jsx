@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import './ModelViewerPopUp.css';
 
-function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, arButtonEnabled = true, continueFlag = true}) {
+function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, poster=null, arButtonEnabled = true, continueFlag = true}) {
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
@@ -31,6 +31,7 @@ function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, desc
                             touch-action="pan-y"
                             ar
                             ar-modes="scene-viewer quick-look"
+                            poster={poster}
                         >
                         
                         {arButtonEnabled && (

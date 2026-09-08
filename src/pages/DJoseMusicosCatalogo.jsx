@@ -118,6 +118,7 @@ function DJoseMusicosCatalogo() {
           continueFlag = {false}
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
+            poster={"/images/musicosPoster.webp"}
           />
         )}
       </div>

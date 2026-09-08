@@ -116,6 +116,7 @@ function GravuraMarquesCatalogo() {
           continueFlag = {false}
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
+            poster={"/images/teatroPoster.webp"}
           />
         )}
       </div>

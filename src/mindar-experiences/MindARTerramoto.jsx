@@ -306,7 +306,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
               src="#chromaTextureCanvas"
               material="transparent: true; shader: flat;"
               position="0 0 0.05" 
-              {...(isVideoPlaying ? { width: "1.5", height: "2" } : { width: "0.0001", height: "0.0001" })}
+              {...(isVideoPlaying ? { width: "1", height: "1.5" } : { width: "0.0001", height: "0.0001" })}
             ></a-plane>
         </a-entity>
       </a-scene>
