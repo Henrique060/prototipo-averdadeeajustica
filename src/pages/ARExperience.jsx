@@ -40,7 +40,7 @@ const EXPERIENCES = {
 // 2. Map each experience ID to the NEXT page route
 const NEXT_ROUTES = {
   escadaria: "/quadro-terreiro-paco-2",
-  terreiro2: "/quadro-terreiro-paco1",
+  terreiro2: "/quadro-terreiro-paco",
   terreiro1: "/figura-convite",
   convite: "/djoao",
   djoao: "/fonte-agua",
@@ -49,8 +49,7 @@ const NEXT_ROUTES = {
   terramoto: "/gravura-marques",
   sebastiao: "/musicos", 
   musicos: "/lenco-saudade",      // Verify if 'sebastiao' is the ID for 'gravura-marques'
-  saudade: "/o-retorno",
-  oretorno: "/busto-republica",
+  saudade: "/busto-republica",
   bustorepublica: "/soberania",
   soberania: "/jardim"
 };
