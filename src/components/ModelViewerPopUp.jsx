@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import './ModelViewerPopUp.css';
 
-function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, poster=null, arButtonEnabled = true, continueFlag = true}) {
+function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, description, poster=null, arButtonEnabled = true, continueFlag = true, paragraph="Aguarde que o modelo 3D acima acabe de carregar antes de entrar na experiência"}) {
     const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
@@ -50,13 +50,17 @@ function ModelViewerPopUp({ headerName, onClose, onProceed, modelViewerSrc, desc
                 {description && (
                     <p className="mv-description">{description}</p>
                 )}
-                
+
+                <p className="mv-description">
+                    {paragraph}
+                </p>
+
                 {/* NEW: Button to proceed to the next form / page */}
                 <div className="mv-footer" style={{ marginTop: '20px', textAlign: 'center' }}>
                     {continueFlag && <button 
                         className="mv-proceed-btn" 
                         onClick={onProceed}
-                        style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}
+                        style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer', backgroundColor: '#E4D7C4', color: '#000' }}
                     >
                         Sim, pretendo continuar
                     </button>}

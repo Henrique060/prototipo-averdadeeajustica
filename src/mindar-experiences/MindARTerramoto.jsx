@@ -27,30 +27,40 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
-    // Text 1 starts
-    setTextPhase('text1-in');
+    // Phase 1
+    setTextPhase('text1-in'); 
+    setTimeout(() => setTextPhase('text1-out'), 5000); 
+    
+    // Phase 2
+    setTimeout(() => setTextPhase('text2-in'), 6200); 
+    setTimeout(() => setTextPhase('text2-out'), 10200); 
 
-    // Text 1 ends (visible for 4 seconds)
-    setTimeout(() => {
-      setTextPhase('text1-out');
-    }, 4000);
+    // Phase 3
+    setTimeout(() => setTextPhase('text3-in'), 11200); 
+    setTimeout(() => setTextPhase('text3-out'), 15200); 
 
-    // Text 2 starts (1 second gap for transition)
-    setTimeout(() => {
-      setTextPhase('text2-in');
-    }, 5000);
+    // Phase 4
+    setTimeout(() => setTextPhase('text4-in'), 16200); 
+    setTimeout(() => setTextPhase('text4-out'), 20200); 
 
-    // Text 2 ends (visible for 4 seconds)
-    setTimeout(() => {
-      setTextPhase('text2-out');
-    }, 9000);
+    // Phase 5
+    setTimeout(() => setTextPhase('text5-in'), 21200); 
+    setTimeout(() => setTextPhase('text5-out'), 25200); 
 
-    // Cleanup and Start Video
+    // Finish sequence and start video
     setTimeout(() => {
       setTextPhase('done');
       setIsVideoPlaying(true);
-    }, 10000);
+    }, 25800);
   };
+
+  // Define opacities for all 5 text blocks
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
+  const text4Opacity = textPhase === 'text4-in' ? 1 : 0;
+  const text5Opacity = textPhase === 'text5-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   const handleOpenPopUp = () => {
     setShowPopUp(true);
@@ -221,9 +231,6 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
     };
   }, [videoSrc]);
 
-  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
@@ -284,7 +291,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           imageTargetSrc: ${"/markers/terramoto-marker.mind"}; 
           filterMinCF: 0.1; 
           filterBeta: 10; 
-          missTolerance: 3; 
+          missTolerance: 4; 
           warmupTolerance: 1; 
           autoStart: false; 
           uiLoading: no; 
@@ -314,11 +321,28 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Tremor
-          </p>
+A memória pública não esconde,
+mas também não lembra 
+a dor,
+a tristeza,
+o cataclismo...          </p>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Terramoto
-          </p>
+Recordar ou esquecer?
+A cidade, afinal, é da natureza,
+que se impôs e deixou o aviso:
+a cidade é dela.
+A praça é dela.          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+Somos parte dela.
+Voltará ela a lembrar-nos
+da sua soberania?          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text4Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+Caso caia (novamente)
+o Carmo e Trindade...          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text5Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+Escreverão poemas e monumentos
+em nossa memória?
+Em memória de nós?          </p>
         </div>
       )}
     </div>

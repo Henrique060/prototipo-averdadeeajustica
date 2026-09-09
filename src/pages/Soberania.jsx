@@ -32,6 +32,7 @@ A cidadã que sou?
       mapImgSrc="/images/mapa-museu-28.webp"
       noMindARJS={true}
       navigateRoute={"/soberania-catalogo"}
+      buttonLabel="Escolher Experiência"
     />
     
     </div>

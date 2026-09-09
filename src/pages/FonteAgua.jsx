@@ -2,6 +2,21 @@ import React from 'react';
 import ExperiencePageComponent from '../components/ExperiencePageComponent.jsx';
 
 function FonteAgua() {
+
+  useEffect(() => {
+    const preloadLink = document.createElement("link");
+    preloadLink.href = "/videos/fonte-ciclo-agua.mp4";
+    preloadLink.rel = "preload";
+    preloadLink.as = "video";
+    // preloadLink.type = "video/quicktime"; // Un-comment if you need explicit MIME type typing
+    
+    document.head.appendChild(preloadLink);
+
+    return () => {
+      document.head.removeChild(preloadLink);
+    };
+  }, []);
+
   return (
     <ExperiencePageComponent
       imageSrc="/images/chafariz-rato.webp"

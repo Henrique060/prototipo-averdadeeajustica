@@ -6,7 +6,7 @@ import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import BackButton from '../components/BackButton';
 import './MindAR.css';
 
-export default function MindARSaudade({ videoSrc = "/videos/burocracia.mov" }) {
+export default function MindARConvite({ videoSrc = "/videos/burocracia.mov" }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
   const blitCanvasRef = useRef(null);

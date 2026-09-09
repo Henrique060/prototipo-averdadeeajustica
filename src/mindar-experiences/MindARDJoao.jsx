@@ -159,7 +159,7 @@ const hitsMoedas2 = raycaster.intersectObjects(meshesMoedas2, false);
 const hitsAzeite = raycaster.intersectObjects(meshesAzeite, false);
 const hitsCopo = raycaster.intersectObjects(meshesCopo, false);
  
-const animProps = { property: 'position', to: '0.35 0.35 0.35', dur: 1000, easing: 'easeInOutQuad' };
+const animProps = { property: 'position', to: '0 0.35 0', dur: 1000, easing: 'easeInOutQuad' };
  
 if (hitsJoia1.length > 0 && joia1Ref.current && !collectedRef.current.joia1) {
 joia1Ref.current.setAttribute('animation', animProps);

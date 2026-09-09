@@ -32,6 +32,7 @@ function GravuraMarques() {
       mapImgSrc="/images/mapa-museu-24.webp"
       noMindARJS={true}
       navigateRoute={"/gravuramarquescatalogo"}
+      buttonLabel="Iniciar Experiência"
     />
   );
 }

@@ -88,7 +88,7 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
             </div>
           ) : (
             <div className="quadro-container-button-wrapper">
-              <button className="quadro-container-button" onClick={() => navigate(navigateRoute)}>Escolher Experiência</button>
+              <button className="quadro-container-button" onClick={() => navigate(navigateRoute)}>{buttonLabel}</button>
             </div>
           )}
           

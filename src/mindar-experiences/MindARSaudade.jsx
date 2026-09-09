@@ -279,10 +279,22 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Saudade
+            Tu deixarás cada coisa amada mais caramente) 
+
+À margem,
+eis os descalços d’alma,
+de lenços brancos,
+entre ingleses e franceses:
+os portugueses.
           </p>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Felicidade
+            Saudosamente revoltos...
+De quem é a cidade?
+De quem é a praça?
+Quem desfila?
+A cidade é de quem pode.
+A praça é de quem manda.
+(suspiram)
           </p>
         </div>
       )}

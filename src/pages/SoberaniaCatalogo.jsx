@@ -13,10 +13,11 @@ const experiencias = [
   {
     sala: 'Estátua Soberania',
     titulo: 'Esperança e Abundância',
-    image: '/images/anaModelo.webp',
+    image: '/images/soberaniaEsperanca.webp',
     popup: {
       headerName: 'Soberania Esperança',
       modelViewerSrc: '/models/statueArtistaEsperanca.glb',
+      poster: "/images/soberaniaEsperanca.webp"
 
     },
   },
@@ -24,21 +25,22 @@ const experiencias = [
   {
     sala: 'Estátua Soberania',
     titulo: 'Força',
-    image: '/images/anaModelo.webp',
+    image: '/images/soberaniaForca.webp',
     popup: {
       headerName: 'Soberania Força',
       modelViewerSrc: '/models/statueArtistaForca.glb',
-
+      poster: "/images/soberaniaForca.webp"
     },
   },
 
   {
     sala: 'Estátua Soberania',
     titulo: 'Sem Medo',
-    image: '/images/anaModelo.webp',
+    image: '/images/soberaniaSemMedo.webp',
     popup: {
       headerName: 'Soberania Sem Medo',
       modelViewerSrc: '/models/statueArtistaSemMedo.glb',
+      poster: "/images/soberaniaSemMedo.webp"
 
     },
   }

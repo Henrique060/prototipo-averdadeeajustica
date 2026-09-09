@@ -27,16 +27,40 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
     if (hasRunSequence.current) return;
     hasRunSequence.current = true;
 
-    setTextPhase('text1-in');
-
+    // Phase 1
+    setTextPhase('text1-in'); 
     setTimeout(() => setTextPhase('text1-out'), 4000);
+    
+    // Phase 2
     setTimeout(() => setTextPhase('text2-in'), 5200);
-    setTimeout(() => setTextPhase('text2-out'), 8500);
+    setTimeout(() => setTextPhase('text2-out'), 9200);
+
+    // Phase 3
+    setTimeout(() => setTextPhase('text3-in'), 10400);
+    setTimeout(() => setTextPhase('text3-out'), 14400);
+
+    // Phase 4
+    setTimeout(() => setTextPhase('text4-in'), 15600);
+    setTimeout(() => setTextPhase('text4-out'), 19600);
+
+    // Phase 5
+    setTimeout(() => setTextPhase('text5-in'), 20800);
+    setTimeout(() => setTextPhase('text5-out'), 24800);
+
+    // Finish sequence and start video
     setTimeout(() => {
       setTextPhase('done');
       setIsVideoPlaying(true);
-    }, 9500);
+    }, 25800);
   };
+
+  // Define opacities for all 5 text blocks
+  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
+  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
+  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
+  const text4Opacity = textPhase === 'text4-in' ? 1 : 0;
+  const text5Opacity = textPhase === 'text5-in' ? 1 : 0;
+  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   const handleOpenPopUp = () => {
     setShowPopUp(true);
@@ -189,10 +213,6 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
     };
   }, [videoSrc]);
 
-  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
-
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
@@ -250,7 +270,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
 
       <a-scene
         ref={sceneRef}
-        mindar-image={`imageTargetSrc: ${"/markers/fonteaguamarker-target.mind"}; filterMinCF:0.01; filterBeta:0.01; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;`}
+        mindar-image={`imageTargetSrc: ${"/markers/fonteaguamarker.mind"}; filterMinCF:0.01; filterBeta:0.01; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; warmupTolerance: 1; missTolerance: 4;`}
         color-space="sRGB"
         embedded
         renderer="colorManagement: true, physicallyCorrectLights"
@@ -273,10 +293,19 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Agua!!!!
+            Água e azeite não se misturam, uma verdade cristalina; E a liberdade com os impostos?
           </p>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Agua??!!
+            As águas eram livres, mas as suas caminhadas foram impostas. As vidas na cidade... são impostas?
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+           O eterno equilíbrio dos quereres e dos deveres sobre a cidade, sobre a natureza, sobre a natureza da cidade.
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text4Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+           Fica o magnânimo monumento: percorre a paisagem, eis a água que sai de outros menores monumentos. Brindemos e nos banhemos em seu louvor!
+          </p>
+          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text5Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
+           E que se ergam monumentos de fazer água, de cuidar da água, de cuidar da cidade.
           </p>
         </div>
       )}

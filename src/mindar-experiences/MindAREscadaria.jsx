@@ -22,6 +22,8 @@ export default function MindAREscadaria({
   const hasRunSequence = useRef(false);
   const isInitialRun = useRef(true);
 
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
   useMindARLifecycle(sceneRef);
 
   const runTextSequence = () => {
@@ -60,6 +62,7 @@ export default function MindAREscadaria({
 
     setTimeout(() => {
       setTextPhase('done');
+      setIsVideoPlaying(true);
     }, 23000); 
   };
 
@@ -72,13 +75,16 @@ export default function MindAREscadaria({
 
   const handleClosePopUp = () => {
     setShowPopUp(false);
-    
+
     if (isInitialRun.current) {
       isInitialRun.current = false;
       if (videoRef.current) {
-        videoRef.current.play().catch(err => console.log("Initial play failed:", err));
+        // unlock autoplay without actually starting playback yet
+        videoRef.current.play().then(() => {
+          videoRef.current.pause();
+        }).catch(err => console.log("Video unlock failed:", err));
       }
-      runTextSequence(); 
+      runTextSequence();
     } else {
       if (videoRef.current) {
         videoRef.current.play().catch(err => console.error("Resume failed:", err));
@@ -219,6 +225,12 @@ export default function MindAREscadaria({
     };
   }, [videoSrc]);
 
+  useEffect(() => {
+  if (isVideoPlaying && videoRef.current) {
+    videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
+  }
+}, [isVideoPlaying]);
+
   const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
   const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
   const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
@@ -275,7 +287,7 @@ export default function MindAREscadaria({
           filterMinCF: 0.01; 
           filterBeta: 0.01;
           warmupTolerance: 1;
-          missTolerance: 2;
+          missTolerance: 4;
         "
         color-space="sRGB"
         embedded
@@ -284,7 +296,6 @@ export default function MindAREscadaria({
         device-orientation-permission-ui="enabled: false"
       >
         <a-assets>
-          <img id="miratecnica" src="/images/miratecnica.png" preload="auto" crossOrigin="anonymous" />
           <img id="arrow-left-1" src="/images/arrow-left.webp" preload="auto"  crossOrigin="anonymous" />
           <img id="arrow-left-2" src="/images/arrow-left-2.webp" preload="auto"  crossOrigin="anonymous" />
           <img id="arrow-end" src="/images/arrow-end.webp" preload="auto"  crossOrigin="anonymous" />
@@ -292,25 +303,13 @@ export default function MindAREscadaria({
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity mindar-image-target="targetIndex:0">
-          <a-plane
-            src="#miratecnica"
-            position="0 0.2 0.01"
-            width="1"
-            height="1"
-            transparent="true"
-            look-at="[camera]"
-          ></a-plane>
-        </a-entity>
-
         <a-entity mindar-image-target="targetIndex:1">
           <a-plane
             src="#arrow-left-1"
             position="0 0.3 0.01"
-            width="1"
-            height="1"
             look-at="[camera]"
             transparent="true"
+            {...(isVideoPlaying ? { width: "1", height: "1" } : { width: "0.0001", height: "0.0001" })}
           ></a-plane>
         </a-entity>
 
@@ -318,10 +317,9 @@ export default function MindAREscadaria({
           <a-plane
             src="#arrow-left-2"
             position="0 0.3 0.01"
-            width="1"
-            height="1"
             look-at="[camera]"
             transparent="true"
+            {...(isVideoPlaying ? { width: "1", height: "1" } : { width: "0.0001", height: "0.0001" })}
           ></a-plane>
         </a-entity>
 
@@ -331,9 +329,8 @@ export default function MindAREscadaria({
             src="#chromaTextureCanvas"
             material="transparent: true; shader: flat;"
             position="0 0.05 0.01"
-            width="0.5"
-            height="1"
             look-at="[camera]"
+            {...(isVideoPlaying ? { width: "0.5", height: "1" } : { width: "0.0001", height: "0.0001" })}
           ></a-plane>
         </a-entity>
 
@@ -341,10 +338,9 @@ export default function MindAREscadaria({
           <a-plane
             src="#arrow-end"
             position="0 0.3 0.01"
-            width="1"
-            height="1"
             look-at="[camera]"
             transparent="true"
+            {...(isVideoPlaying ? { width: "1", height: "1" } : { width: "0.0001", height: "0.0001" })}
           ></a-plane>
         </a-entity>
       </a-scene>

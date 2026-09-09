@@ -15,18 +15,18 @@ const experiencias = [
     titulo: 'Portal para o Terreiro do Paço',
     image: '/images/arco-augusta.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
+      headerName: 'Portal para o Terreiro do Paço',
       modelViewerSrc: '/models/terreiroFonteMusicos.glb',
 
     },
   },
 
   {
-    sala: 'Alegoria a Sebastião',
+    sala: 'Reconstrução Pombalina',
     titulo: 'Teatro de Papel',
     image: '/images/teatro-papel.webp',
     popup: {
-      headerName: 'Alegoria a Sebastião',
+      headerName: 'Teatro de Papel',
       modelViewerSrc: '/models/teatro-de-papelv3.glb',
 
     },
@@ -122,6 +122,7 @@ function Catalogo() {
           <ModelViewerPopUp
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
+            continueFlag={false}
           />
         )}
       </div>
