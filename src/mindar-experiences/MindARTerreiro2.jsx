@@ -324,9 +324,9 @@ export default function MindARTerreiro2({ videoSrc = "/videos/construcaomonument
         ref={sceneRef}
         mindar-image={`
           imageTargetSrc: ${"/markers/terreiro-militar-marker.mind"}; 
-          filterMinCF: 0.01; 
-          filterBeta: 0.01; 
-          missTolerance: 2;
+          filterMinCF: 0.001; 
+          filterBeta: 0.001; 
+          missTolerance: 4;
           warmupTolerance: 2;
           autoStart: false; 
           uiLoading: no; 
