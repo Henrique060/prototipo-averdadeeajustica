@@ -37,6 +37,7 @@ function Jardim() {
             headerName="Mapa de Salas"
             onClose={() => setShowPopUp(false)}
             imgSrc={mapImgSrc}
+            textDescr="Esta experiência encontra-se no Jardim do Museu de Lisboa"
           />
         )}
       </div>

@@ -3,7 +3,7 @@ import './MapPopUp.css';
 import { IoIosClose } from "react-icons/io";
 
 
-function MapPopUp({ headerName, onClose, imgSrc }) {
+function MapPopUp({ headerName, onClose, imgSrc, textDescr="A experiência em execução encontra-se na sala assinalada com o retângulo cor-de-laranja." }) {
   return (
     <div className="pop-up-overlay" onClick={onClose}>
       <div className="pop-up" onClick={(e) => e.stopPropagation()}>
@@ -14,7 +14,7 @@ function MapPopUp({ headerName, onClose, imgSrc }) {
         <div className="map-content-img">
           <img src={imgSrc} alt="Map" />
         </div>
-        <p className="map-content-description-text">A experiência em execução encontra-se na sala assinalada com o retângulo cor-de-laranja.</p>
+        <p className="map-content-description-text">{textDescr}</p>
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import PageHeader from '../components/PageHeader';
 import LogoHeader from '../components/LogoHeader';
 import NavBar from '../components/NavBar';
 import PopUp from '../components/PopUp';
+import { IoEnterOutline } from "react-icons/io5";
+
 
 const experiencias = [
   {
@@ -189,6 +191,7 @@ const ListaExperiencias = () => {
                     className="experience-image"
                   />
                 </div>
+              <IoEnterOutline size={24} style={{ color: '#EA562E' }}/>
 
               </div>
             </li>

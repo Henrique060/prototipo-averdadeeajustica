@@ -6,6 +6,8 @@ import NavBarExperience_2 from "../components/NavBarExperience_2";
 import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
 import NextExperience from "../components/NextExperience";
+import { IoEnterOutline } from "react-icons/io5";
+
 import './Catalogo.css';
 
 
@@ -107,7 +109,7 @@ function DJoseMusicosCatalogo() {
                     className="experience-image"
                   />
                 </div>
-
+              <IoEnterOutline size={24} style={{ color: '#EA562E' }}/>
               </div>
             </li>
           ))}
