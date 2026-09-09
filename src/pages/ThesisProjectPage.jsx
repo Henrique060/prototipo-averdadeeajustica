@@ -105,7 +105,7 @@ function ThesisProjectPage() {
                             <h4 className="team-member-name">Henrique Matos</h4>
                         </div>
                         <p>
-                            Breve texto sobre o segundo membro da equipa. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Desenvolvedor da aplicação, em âmbito de tese de mestrado na Faculdade de Ciências da Universidade de Lisboa, Henrique tem uma grande paixão por desenvolvimento de aplicações, websites e experiências interativas com foco no utilizador.
                         </p>
                     </div>
 
@@ -122,7 +122,10 @@ function ThesisProjectPage() {
                     <div className="acknowledgments-section">
                         <h4>Agradecimentos</h4>
                         <p>
-                            Um especial agradecimento a todos os envolvidos neste projeto, cujo apoio e colaboração foram fundamentais para a realização do mesmo. Deixamos aqui o nosso reconhecimento.
+                            Um especial agradecimento a todos os envolvidos neste projeto, cujo apoio e colaboração foram fundamentais para a realização do mesmo. Deixamos aqui o nosso reconhecimento ao Museu de Lisboa e aos seus constituintes por acolherem a aplicação web e ao LASIGE e FCUL pelas tecnologias fornecidas e pelo suporte contínuo dado à equipa.
+                        </p>
+                        <p>
+                            Agradecimentos especiais também à artista Renata B. Oliveira pelas fotografias fornecidas, ajudando aos processos de fotogrametria e registos ao longo da conceção deste projeto.
                         </p>
                         <div className="acknowledgments-images">
                             <img src="/images/ciencias.webp" alt="Apoio 1" />
