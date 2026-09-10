@@ -153,7 +153,7 @@ const handleClosePopUp = () => {
               device-orientation-permission-ui="enabled: false"
               >
   <a-assets>
-    <a-asset-item id="bustoRepublica" src="/models/busto-republica.glb"></a-asset-item>
+    <a-asset-item id="bustoRepublica" src="/models/republicav2.glb"></a-asset-item>
   </a-assets>
 
   <a-camera active="true" position="0 0 0"></a-camera>
@@ -164,7 +164,7 @@ const handleClosePopUp = () => {
     className="modelRepublica"
     src="#bustoRepublica"
     position="0 0.3 0"
-    scale="2.5 1.5 2.5"
+    scale="1 1 1"
   />
 </a-entity>
 </a-scene>
