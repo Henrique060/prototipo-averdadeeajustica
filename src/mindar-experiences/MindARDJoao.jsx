@@ -296,7 +296,7 @@ ref.current.setAttribute('position', originalPosition);
 resetEntity(joia1Ref, '0.2 0.1 0.01');
 resetEntity(joia2Ref, '0.3 0.25 0.01');
 resetEntity(diamantes21Ref, '-0.15 -0.25 0.01');
-resetEntity(diamantes2Ref, '0.3 -0.2 0.01'); // (Fixed a typo here from 0-.2)
+resetEntity(diamantes2Ref, '0.1 -0.1 0.01'); // (Fixed a typo here from 0-.2)
 resetEntity(moedas1Ref, '0.2 -0.2 0.01');
 resetEntity(moedas2Ref, '0 -0.25 0.01');
 resetEntity(azeiteRef, '0.2 0 0.01');
@@ -381,7 +381,7 @@ id="diamantes2-entity"
 gltf-model="/models/diamantes2.glb"
 scale={modelsVisible ? "1.1 1.1 1.1" : "0 0 0"}
 rotation="180 90 90"
-position="0.3 -0.2 0.01"
+position="0.1 -0.1 0.01"
 ></a-entity>
  
 <a-entity
