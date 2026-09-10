@@ -18,7 +18,7 @@ const experiencias = [
     image: '/images/musicosdjose.webp',
     popup: {
       headerName: 'Estátua dos Músicos de São Jorge',
-      modelViewerSrc: '/models/musicosdjose.glb',
+      modelViewerSrc: '/models/praca.glb',
 
     },
   },

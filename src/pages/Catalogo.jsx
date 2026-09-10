@@ -18,7 +18,7 @@ const experiencias = [
     image: '/images/arco-augusta.webp',
     popup: {
       headerName: 'Portal para o Terreiro do Paço',
-      modelViewerSrc: '/models/terreiroFonteMusicos.glb',
+      modelViewerSrc: '/models/portalTerreiro.glb',
 
     },
   },
