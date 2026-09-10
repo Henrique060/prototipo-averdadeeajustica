@@ -208,7 +208,7 @@ export default function MindARLenco({ videoSrc = "/videos/lenco.mp4" }) {
         <LearnMorePopUp 
           headerName={"Como interagir na experiência?"}
           onClose={handleClosePopUp}
-          imgSrc="/images/fonteagua.webp"
+          imgSrc="/images/saudade.webp"
           description="
           Com a câmara, procure pelo quadro representado acima.
           Aponte para experienciar uma interpretação visual do mesmo.
@@ -279,10 +279,16 @@ export default function MindARLenco({ videoSrc = "/videos/lenco.mp4" }) {
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Saudade
+            Mesmo por motivos nem sempre nobres,
+Lançados pela fama e pela vitória,
+Os que querem equilibrar a balança
+da vontade de uns à custa de todos,
           </p>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Felicidade
+            Para uma versão de quase todos por todos,
+Onde todos ainda sejam alguns,
+Merecem certa glória,
+Mesmo assim é uma vitória.
           </p>
         </div>
       )}
