@@ -1,6 +1,7 @@
-.ar-viewport-wrapper {
+.ar-viewport-wrapper video {
   transform: scaleX(-1);
 }
+
 .header-container-mindar {
   display: flex;
   align-items: center;

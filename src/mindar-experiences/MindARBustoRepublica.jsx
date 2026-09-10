@@ -50,6 +50,8 @@ const handleClosePopUp = () => {
       await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
       await loadScript("https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js");
 
+      
+
       if (!mounted) return;
 
       const scene = sceneRef.current;
@@ -101,6 +103,39 @@ const handleClosePopUp = () => {
         }
       };
     };
+
+    if (!window.AFRAME.components['mirror-follow']) {
+  const THREE = window.AFRAME.THREE;
+  window.AFRAME.registerComponent('mirror-follow', {
+    schema: { target: { type: 'selector' } },
+    init() {
+      this.pos = new THREE.Vector3();
+      this.quat = new THREE.Quaternion();
+      this.scale = new THREE.Vector3();
+      this.euler = new THREE.Euler();
+    },
+    tick() {
+      const targetObj = this.data.target?.object3D;
+      if (!targetObj) return;
+
+      targetObj.updateMatrix();
+      targetObj.matrix.decompose(this.pos, this.quat, this.scale);
+
+      // Mirror the position across the vertical axis
+      this.pos.x *= -1;
+
+      // Mirror rotation: flip yaw (Y) and roll (Z), keep pitch (X)
+      this.euler.setFromQuaternion(this.quat, 'YXZ');
+      this.euler.y *= -1;
+      this.euler.z *= -1;
+      this.quat.setFromEuler(this.euler);
+
+      this.el.object3D.position.copy(this.pos);
+      this.el.object3D.quaternion.copy(this.quat);
+      this.el.object3D.scale.copy(this.scale);
+    },
+  });
+}
 
     init();
 
@@ -159,13 +194,15 @@ const handleClosePopUp = () => {
   <a-camera active="true" position="0 0 0"></a-camera>
 
 
-  <a-entity mindar-face-target="anchorIndex:168">
-  <a-gltf-model
-    className="modelRepublica"
-    src="#bustoRepublica"
-    position="0 0.3 0"
-    scale="1 1 1"
-  />
+  <a-entity mindar-face-target="anchorIndex:168" id="faceAnchor" visible="false"></a-entity>
+
+    <a-entity mirror-follow="target: #faceAnchor">
+      <a-gltf-model
+        className="modelRepublica"
+        src="#bustoRepublica"
+        position="0 0.3 0"
+        scale="2 2 2"
+      />
 </a-entity>
 </a-scene>
 
@@ -196,6 +233,7 @@ function loadScript(src) {
     script.onerror = reject;
     document.head.appendChild(script);
   });
+  
 
   
 }
