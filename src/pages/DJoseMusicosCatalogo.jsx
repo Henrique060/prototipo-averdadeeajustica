@@ -18,7 +18,7 @@ const experiencias = [
     image: '/images/djose.webp',
     popup: {
       headerName: 'A Estátua da Praça',
-      modelViewerSrc: '/models/djoseMusicosSmall.glb',
+      modelViewerSrc: '/models/praca.glb',
 
     },
   },
