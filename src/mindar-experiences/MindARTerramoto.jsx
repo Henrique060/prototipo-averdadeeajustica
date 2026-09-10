@@ -78,7 +78,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       // Start video on initial run (iOS workaround play/pause)
       if (videoRef.current) {
         videoRef.current.play().then(() => {
-          videoRef.current.pause();
+          videoRef.current.pause(); // Immediately pause so it doesn't play during the text
         }).catch(err => console.log("Video unlock failed:", err));
       }
       runTextSequence(); 
@@ -250,7 +250,7 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
       </div>
       
       {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline crossOrigin="anonymous" preload="auto" style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
