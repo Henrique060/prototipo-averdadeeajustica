@@ -216,7 +216,7 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
           }
       </div>
       {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} crossOrigin="anonymous" preload="auto" muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
