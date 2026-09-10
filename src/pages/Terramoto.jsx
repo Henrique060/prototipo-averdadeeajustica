@@ -6,7 +6,7 @@ function Terramoto() {
     <ExperiencePageComponent
       imageSrc="/images/terramoto.webp"
       imageAlt="Terramoto Ana"
-      titleMain="Um Terremoto"
+      titleMain="Um Terramoto"
       titleSide="Sala 23 - Terramoto de 1755"
       description="A memória pública não esconde,
 mas também não lembra 

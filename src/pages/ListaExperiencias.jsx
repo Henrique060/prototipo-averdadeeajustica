@@ -71,7 +71,7 @@ const experiencias = [
 
       listOfItems: [
         'Aos Sobreviventes',
-        'Um Terremoto',
+        'Um Terramoto',
       ],
 
       listOfURLs: [
