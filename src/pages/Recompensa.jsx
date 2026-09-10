@@ -7,6 +7,7 @@ import PageHeader from "../components/PageHeader";
 import { IoArrowBackOutline } from "react-icons/io5";
 import './Catalogo.css';
 import NavBar from "../components/NavBar";
+import { IoEnterOutline } from "react-icons/io5";
 
 
 const experiencias = [
@@ -103,7 +104,7 @@ function Recompensa() {
                     className="experience-image"
                   />
                 </div>
-
+              <IoEnterOutline size={24} style={{ color: '#EA562E' }}/>
               </div>
             </li>
           ))}
@@ -113,11 +114,13 @@ function Recompensa() {
           <ModelViewerPopUp
             {...popupData}
             onClose={() => setIsPopUpVisible(false)}
+            continueFlag={false}
           />
         )}
       </div>
 
         <NavBar/>
+        
     </div>
     
     

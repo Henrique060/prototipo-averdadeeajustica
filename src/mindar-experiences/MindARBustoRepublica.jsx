@@ -156,7 +156,7 @@ const handleClosePopUp = () => {
     <a-asset-item id="bustoRepublica" src="/models/busto-republica.glb"></a-asset-item>
   </a-assets>
 
-  <a-camera active="false" position="0 0 0"></a-camera>
+  <a-camera active="true" position="0 0 0"></a-camera>
 
 
   <a-entity mindar-face-target="anchorIndex:168">
