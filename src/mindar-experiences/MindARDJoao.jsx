@@ -369,7 +369,7 @@ position="0.3 0.25 0.01"
 <a-entity
 ref={diamantes21Ref}
 id="diamantes21-entity"
-gltf-model="/models/diamantes21.glb"
+gltf-model="/models/diamantes1.glb"
 scale={modelsVisible ? "1.1 1.1 1.1" : "0 0 0"}
 rotation="180 90 90"
 position="-0.3 0.25 0.01"
