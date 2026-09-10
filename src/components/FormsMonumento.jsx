@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router";
 import ModelViewerPopUp from './ModelViewerPopUp'; // Adjust the import path as needed
-import './FormsMonumento.css'
-import { warn } from 'three';
+import './FormsMonumento.css';
 
 // Grouping the questions into an array makes it easy to step through them
 const QUESTIONS = [
@@ -48,16 +47,25 @@ const QUESTIONS = [
     }
 ];
 
+// Array of the available models from your screenshot
+const AVAILABLE_MODELS = [
+    "/models/monumentojusticadespido.glb",
+    "/models/monumentojusticanaoparedes.glb",
+    "/models/monumentojusticasemportascomrampa.glb",
+    "/models/monumentojusticavermelho.glb"
+];
+
 function FormsMonumento() {
     const navigate = useNavigate();
     
     // State to track our position and data
     const [currentStep, setCurrentStep] = useState(0);
-    const [currentSelection, setCurrentSelection] = useState(""); // Holds selection for current step
-    const [allAnswers, setAllAnswers] = useState({}); // Stores all chosen answers { q1: "d1a1", q2: "d2a3"... }
+    const [currentSelection, setCurrentSelection] = useState(""); 
+    const [allAnswers, setAllAnswers] = useState({}); 
     
-    // State for the PopUp
+    // State for the PopUp & Model Randomizer
     const [showPopUp, setShowPopUp] = useState(false);
+    const [currentModel, setCurrentModel] = useState(""); 
 
     const handleChange = (e) => {
         setCurrentSelection(e.target.value);
@@ -67,9 +75,8 @@ function FormsMonumento() {
         e.preventDefault();
         
         if (!currentSelection){
-            //alert("Por favor selecione uma opção.") //ver porque é que nao funciona
             return;
-        } ; // Prevent advancing if no option is selected
+        }
 
         // Save the answer for the current question
         const currentQuestionId = QUESTIONS[currentStep].id;
@@ -77,6 +84,10 @@ function FormsMonumento() {
             ...prev,
             [currentQuestionId]: currentSelection
         }));
+
+        // Pick a random model from the array
+        const randomIndex = Math.floor(Math.random() * AVAILABLE_MODELS.length);
+        setCurrentModel(AVAILABLE_MODELS[randomIndex]);
 
         // Trigger the popup
         setShowPopUp(true);
@@ -88,7 +99,6 @@ function FormsMonumento() {
 
         // Check if we are on the last question
         if (currentStep === QUESTIONS.length - 1) {
-            // If it's the last question, log all answers (optional) and redirect
             console.log("Respostas finais: ", allAnswers);
             navigate("/final-page");
         } else {
@@ -98,14 +108,12 @@ function FormsMonumento() {
         }
     };
 
-    // Grab the data for the step we are currently displaying
     const currentQ = QUESTIONS[currentStep];
 
     return (
-        
         <div className="forms-monumento-wrapper">
             <div className="forms-img-wrapper">
-                <img className="forms-img" src="/images/miratecnica-transparente.webp"/>
+                <img className="forms-img" src="/images/miratecnica-transparente.webp" alt="Mira Tecnica"/>
             </div>
             
             <form onSubmit={handleContinuar}>
@@ -128,20 +136,20 @@ function FormsMonumento() {
                     <button 
                         type="submit" 
                         className="btn-continue-form" 
-                        disabled={!currentSelection} // Disable button until an answer is picked
+                        disabled={!currentSelection}
                     >
                         Continuar
                     </button>
                 </div>
             </form>
 
-            {/* Render the PopUp when triggered */}
+            {/* Render the PopUp with the randomly selected model */}
             {showPopUp && (
                 <ModelViewerPopUp 
                     headerName="Monumento à Justiça"
                     onClose={() => setShowPopUp(false)}
                     onProceed={handlePopUpProceed}
-                    modelViewerSrc="/models/monumentoajustica.glb" // Or map this based on 'currentSelection'
+                    modelViewerSrc={currentModel} 
                     description="O monumento reflete a sua visão de justiça, atual. Pretende continuar?"
                     arButtonEnabled={false}
                 />
