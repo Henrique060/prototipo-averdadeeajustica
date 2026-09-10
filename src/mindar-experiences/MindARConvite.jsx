@@ -68,7 +68,7 @@ export default function MindARConvite({ videoSrc = "/videos/burocracia.mov" }) {
       // UNLOCK HACK: Play and immediately pause to satisfy mobile browser policies
       if (videoRef.current) {
         videoRef.current.play().then(() => {
-          videoRef.current.pause();
+          videoRef.current.pause(); // Immediately pause so it buffers but waits for the text sequence
         }).catch(err => console.log("Video unlock failed:", err));
       }
       runTextSequence(); 
@@ -230,7 +230,7 @@ export default function MindARConvite({ videoSrc = "/videos/burocracia.mov" }) {
           }
       </div>
       {/* Hidden processing infrastructure */}
-      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline crossOrigin="anonymous" preload="auto" style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 

@@ -78,7 +78,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
       // Audio/Video gesture unlock (iOS workaround)
       if (videoRef.current) {
         videoRef.current.play().then(() => {
-          videoRef.current.pause();
+          videoRef.current.pause(); // Immediately pause so it buffers but waits for the text sequence
         }).catch(err => console.log("Video unlock failed:", err));
       }
       runTextSequence();
@@ -231,7 +231,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/fonte-ciclo-agua.m
         }
       </div>
 
-      <video ref={videoRef} src={videoSrc} muted playsInline style={{ display: 'none' }} />
+      <video ref={videoRef} src={videoSrc} muted playsInline crossOrigin="anonymous" preload="auto" style={{ display: 'none' }} />
       <canvas ref={blitCanvasRef} style={{ display: 'none' }} />
       <canvas id="chromaTextureCanvas" ref={textureCanvasRef} style={{ display: 'none' }} />
 
