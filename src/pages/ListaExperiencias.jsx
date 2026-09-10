@@ -104,7 +104,19 @@ const experiencias = [
     sala: 'Sala 26',
     titulo: 'Cidade no tempo de D. Maria I / Guerra Peninsular',
     image: '/images/sala26.webp',
-    url: '/lenco-saudade',
+    popup: {
+      headerName: 'Sala 26 - Cidade no tempo de D. Maria I / Guerra Peninsular',
+
+      listOfItems: [
+        'Saudade',
+        'Um Caminho para a Justiça (souvenir)',
+      ],
+
+      listOfURLs: [
+        '/lenco-saudade',
+        '/o-retorno',
+      ],
+    },
   },
 
   {

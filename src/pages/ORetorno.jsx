@@ -5,12 +5,18 @@ function ORetorno() {
   return (
     <ExperiencePageComponent
       imageSrc="/images/lenco-retorno.webp"
-      imageAlt="O Retorno"
-      titleMain="O Retorno"
+      imageAlt="Um Caminho para a Justiça (souvenir)"
+      titleMain="Um Caminho para a Justiça (souvenir)"
       titleSide="Sala 26 - Cidade no tempo de D. Maria I"
-      description="Texto que irá descrever a alegoria e experiência desejada.
-        Deverá também este texto descrever ligeiramente o que se quer que o user faça.
-        Mais informações sobre a experiência podem ser adicionadas aqui - falar com equipa."
+      description="Mesmo por motivos nem sempre nobres,
+Lançados pela fama e pela vitória,
+Os que querem equilibrar a balança
+da vontade de uns à custa de todos,
+Para uma versão de quase todos por todos,
+Onde todos ainda sejam alguns,
+Merecem certa glória,
+Mesmo assim é uma vitória.
+"
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-26.webp"
