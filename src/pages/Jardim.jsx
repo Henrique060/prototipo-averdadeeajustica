@@ -68,18 +68,18 @@ function Jardim() {
         
 
         <div className="quadro-container-text-wrapper">
-          <p className="quadro-container-text">
-            só eu sei,
-            so eu vejo.
-            Brinco, partilho...
+          <p className="quadro-container-text" style={{ fontStyle: 'italic', lineHeight: '1.5', fontSynthesis: 'style' }}>
+            só eu sei, <br />
+            só eu vejo. <br />
+            Brinco, partilho... <br />
 
-            Aumentar a realidade:
-            erguer monumentos,
-            tornar jardim em praça
-            viajo e desejo.
+            Aumentar a realidade: <br />
+            erguer monumentos,<br />
+            tornar jardim em praça<br />
+            viajo e desejo.<br />
 
-            Desejar não o torna realidade,
-            Da virtualidade à verdade,
+            Desejar não o torna realidade,<br />
+            Da virtualidade à verdade,<br />
             Terá tudo de ter corpo e materialidade?
 
           </p>

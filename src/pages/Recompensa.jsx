@@ -69,15 +69,27 @@ function Recompensa() {
         </div>
 
       <div className="experience-list-container">
-
         <div className="map-content-img">
           <img className="map-content-img-inner-img" src="/images/terreirodopaco.webp" alt="Map" />
         </div>
 
         <br/>
         <div className="experience-list-text-container">
-          <p className="experiencie-list-text">
-            Leve as experiências do museu consigo para visualizar no Terreiro do Paço, ou noutro espaço aberto que deseje.
+          <p className="experiencie-list-text" style={{ fontStyle: 'italic', lineHeight: '1.5', fontSynthesis: 'style' }}>
+            Vê a nossa cidade,<br />
+            quão grande é a nossa praça!<br />
+            Interrogas-te como podes vê-la?<br />
+            <br /> {/* <-- Add an extra <br /> if you want a blank space/paragraph break here */}
+            Desce deste lugar,<br />
+            vai para campo aberto.<br />
+            Pois todas as coisas guardam entre si uma ordem<br />
+            que transforma a realidade,<br />
+            imersiva.<br />
+            <br />
+            Entre teatros de papel<br />
+            e monumentos,<br />
+            ela, que tão distante quanto parecia,<br />
+            permite vislumbrar a Verdade e a Justiça.
           </p>
         </div>
 
