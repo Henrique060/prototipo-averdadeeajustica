@@ -40,12 +40,12 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
     
         setTimeout(() => {
           setTextPhase('text2-out');
-        }, 8500);
+        }, 9500);
     
         setTimeout(() => {
           setTextPhase('done');
           setIsVideoPlaying(true);
-        }, 9500);
+        }, 10500);
       };
     
       const handleClosePopUp = () => {
@@ -279,7 +279,7 @@ export default function MindARSaudade({ videoSrc = "/videos/saudade.mov" }) {
       {textVisible && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
           <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Tu deixarás cada coisa amada mais caramente) 
+            (Tu deixarás cada coisa amada mais caramente) 
 
 À margem,
 eis os descalços d’alma,
