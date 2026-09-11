@@ -100,7 +100,7 @@ function FormsMonumento() {
         // Check if we are on the last question
         if (currentStep === QUESTIONS.length - 1) {
             console.log("Respostas finais: ", allAnswers);
-            navigate("/final-page");
+            navigate("/final-page", {state: {finalModel: currentModel}}); //vai transportar o modelo selecionado para a página final
         } else {
             // Otherwise, advance to the next question and reset the radio selection
             setCurrentStep(prev => prev + 1);

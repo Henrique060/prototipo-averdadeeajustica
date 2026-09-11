@@ -5,7 +5,7 @@ import LearnMorePopUp from '../components/LearnMorePopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
 import '@google/model-viewer'; // Add this line!
 import './FinalPage.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 
 const handleNextButton = () => {
     return
@@ -13,6 +13,10 @@ const handleNextButton = () => {
 
 function FinalPage () {
     let navigate = useNavigate();
+    let location = useLocation();
+
+    //recebo aqui o modelo vindo de FormsMonumento.jsx
+    const finalModelSrc = location.state?.finalModel || "/models/monumentoajustica.glb"; //if state que recebe o modelo ou mete o monumentoajustica default caso null
     return (
      <div className="page-wrapper">
       <LogoHeader />
@@ -26,8 +30,12 @@ function FinalPage () {
                 </div>
     
                     <div className="model-viewer-div">
-                        <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" ar 
-                        ar-modes="scene-viewer quick-look"touch-action="pan-y">
+                        <model-viewer 
+                        src={finalModelSrc}
+                        shadow-intensity="1" 
+                        ar 
+                        ar-modes="scene-viewer quick-look"
+                        touch-action="pan-y">
                             <br />
                             <button className="mv-ar-btn" slot="ar-button">
                                 Coloque no jardim

@@ -49,8 +49,8 @@ const NEXT_ROUTES = {
   terramoto: "/gravura-marques",
   sebastiao: "/musicos", 
   musicos: "/lenco-saudade",      // Verify if 'sebastiao' is the ID for 'gravura-marques'
-  saudade: "/busto-republica",
-  bustorepublica: "/soberania",
+  saudade: "/o-retorno",
+  oretorno: "/soberania",
   soberania: "/jardim"
 };
 
