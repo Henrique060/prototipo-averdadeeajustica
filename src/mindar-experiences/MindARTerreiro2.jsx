@@ -222,7 +222,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/monumentosEfemeros
               boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
             }}
           >
-            {hasWatched ? "Ver novamente" : "Viaje no tempo"}
+            {hasWatched ? "Ver novamente" : "Veja os Monumentos Efémeros"}
           </button>
         )}
 

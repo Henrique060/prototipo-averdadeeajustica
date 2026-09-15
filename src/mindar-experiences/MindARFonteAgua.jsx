@@ -195,7 +195,7 @@ export default function MindARFonteAgua({ videoSrc = "/videos/cicloAguaImposto.m
                 headerName={"Como interagir na experiência?"}
                 onClose={handleClosePopUp}
                 imgSrc="/images/chafariz-rato.webp"
-                description="Com a câmara, procure pelo quadro que representa a planta do chafariz do Rato, observando uma experiência audiovisual."
+                description="Com a câmara, procure pelo quadro 'Frontaria de Chafaris do Rato', observando uma experiência audiovisual."
               />
             )}
           </div>
