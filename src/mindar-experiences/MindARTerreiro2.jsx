@@ -201,15 +201,15 @@ export default function MindARTerreiro2({ videoSrc = "/videos/monumentosEfemeros
           </div>
         )}
 
-        {/* Start / Replay Video Button */}
+        {/* Button centered in the middle of the screen */}
         {buttonVisible && !isVideoPlaying && (
           <button
             onClick={startVideo}
             style={{
               position: "absolute",
-              bottom: "5.5rem",
+              top: "50%",
               left: "50%",
-              transform: "translateX(-50%)",
+              transform: "translate(-50%, -50%)",
               zIndex: 1000,
               padding: "14px 28px",
               border: "none",
@@ -219,7 +219,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/monumentosEfemeros
               fontSize: "1.25rem",
               fontWeight: 600,
               cursor: "pointer",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+              boxShadow: "0 4px 6px rgba(0,0,0,0.3)" /* Optional: added a small shadow to help it stand out over the camera feed */
             }}
           >
             {hasWatched ? "Ver novamente" : "Veja os Monumentos Efémeros"}

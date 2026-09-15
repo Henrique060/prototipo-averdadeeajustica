@@ -232,19 +232,19 @@ export default function MindARTerramoto({ videoSrc = "/videos/terramoto.mov" }) 
           }}
           style={{
             position: "absolute",
-            bottom: "50%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 1000,
-            padding: "14px 28px",
-            border: "none",
-            borderRadius: "14px",
-            background: "#EA562E",
-            color: "#E4D7C4",
-            fontSize: "1rem",
-            fontWeight: 600,
-            cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 1000,
+              padding: "14px 28px",
+              border: "none",
+              borderRadius: "999px",
+              background: "#EA562E",
+              color: "#E4D8C4",
+              fontSize: "1.25rem",
+              fontWeight: 600,
+              cursor: "pointer",
+              boxShadow: "0 4px 6px rgba(0,0,0,0.3)" 
           }}
         >
           Reiniciar Experiência
