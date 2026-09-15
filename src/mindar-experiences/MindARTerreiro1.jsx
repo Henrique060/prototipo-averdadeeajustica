@@ -245,9 +245,9 @@ export default function MindARTerreiro1({ onTap }) {
                 <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
                 <line x1="12" y1="18" x2="12.01" y2="18"></line>
               </svg>
-              <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "600" }}>Rode o seu telemóvel</h2>
+              <h2 style={{ margin: 0, fontSize: "1.5rem", fontWeight: "600" }}>Desbloqueie a orientação do ecrã e Rode o seu dispositivo</h2>
               <p style={{ marginTop: "1rem", fontSize: "1.1rem", lineHeight: "1.4" }}>
-                Coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro. Disfrute da experiência com o som ligado.
+                Certifique-se que tem o bloqueio de orientação do ecrã desligado e coloque o dispositivo na horizontal para assistir ao vídeo em ecrã inteiro. Disfrute da experiência com o som ligado.
               </p>
               
               <button 
