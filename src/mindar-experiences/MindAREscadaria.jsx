@@ -17,54 +17,11 @@ export default function MindAREscadaria({
   const planeRef = useRef(null);
 
   const [showPopUp, setShowPopUp] = useState(true);
-  const [textPhase, setTextPhase] = useState('hidden'); 
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   
-  const hasRunSequence = useRef(false);
   const isInitialRun = useRef(true);
 
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
   useMindARLifecycle(sceneRef);
-
-  const runTextSequence = () => {
-    if (hasRunSequence.current) return;
-    hasRunSequence.current = true;
-
-    setTextPhase('text1-in');
-
-    setTimeout(() => {
-      setTextPhase('text1-out');
-    }, 5000); 
-
-    setTimeout(() => {
-      setTextPhase('text2-in');
-    }, 6000); 
-
-    setTimeout(() => {
-      setTextPhase('text2-out');
-    }, 11000); 
-
-    setTimeout(() => {
-      setTextPhase('text3-in');
-    }, 12000); 
-
-    setTimeout(() => {
-      setTextPhase('text3-out');
-    }, 16000); 
-
-    setTimeout(() => {
-      setTextPhase('text4-in');
-    }, 17000); 
-
-    setTimeout(() => {
-      setTextPhase('text4-out');
-    }, 22000); 
-
-    setTimeout(() => {
-      setTextPhase('done');
-      setIsVideoPlaying(true);
-    }, 23000); 
-  };
 
   const handleOpenPopUp = () => {
     setShowPopUp(true);
@@ -79,12 +36,10 @@ export default function MindAREscadaria({
     if (isInitialRun.current) {
       isInitialRun.current = false;
       if (videoRef.current) {
-        // unlock autoplay without actually starting playback yet
-        videoRef.current.play().then(() => {
-          videoRef.current.pause();
-        }).catch(err => console.log("Video unlock failed:", err));
+        // unlock autoplay and instantly start the experience
+        videoRef.current.play().catch(err => console.log("Video unlock failed:", err));
       }
-      runTextSequence();
+      setIsVideoPlaying(true);
     } else {
       if (videoRef.current) {
         videoRef.current.play().catch(err => console.error("Resume failed:", err));
@@ -226,16 +181,11 @@ export default function MindAREscadaria({
   }, [videoSrc]);
 
   useEffect(() => {
-  if (isVideoPlaying && videoRef.current) {
-    videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
-  }
-}, [isVideoPlaying]);
+    if (isVideoPlaying && videoRef.current) {
+      videoRef.current.play().catch(err => console.error("Delayed play failed:", err));
+    }
+  }, [isVideoPlaying]);
 
-  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const text3Opacity = textPhase === 'text3-in' ? 1 : 0;
-  const text4Opacity = textPhase === 'text4-in' ? 1 : 0;
-  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   return (
     <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -257,9 +207,7 @@ export default function MindAREscadaria({
               "/images/marker2.webp",
               "/images/marker3.webp"
             ]}
-            description="
-          Suba as escadas e aponte o telemóvel aos azulejos, apresentados nas imagens acima.
-          Siga as instruções das figuras de modo a iniciar a sua jornada nesta experiência no museu."
+            description="Suba as escadas e aponte o telemóvel aos azulejos, apresentados nas imagens acima. Siga as instruções das figuras de modo a iniciar a sua jornada nesta experiência no museu."
           />
         )}
       </div>
@@ -344,36 +292,6 @@ export default function MindAREscadaria({
           ></a-plane>
         </a-entity>
       </a-scene>
-
-      {textVisible && (
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-          
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Por teu bem querer, eu penso e discirno:
-            que tu me sigas, e eu serei tua guia.
-            - Eu sou Beatriz.
-          </p>
-          
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Levar-te-ei daqui para lugar incerto;
-            verás obras que não me deram respostas,
-            mas me fizeram pensar.
-          </p>
-          
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text3Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            (levando-te pela mão)
-            partilharei contigo,
-            os meus questionamentos,
-          </p>
-
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text4Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            atravessando de um passado para outro.
-            E depois deste caminho, perguntar-te-ei:
-            Que futuro almejas?
-          </p>
-
-        </div>
-      )}
     </div>
   );
 }

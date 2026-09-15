@@ -33,6 +33,7 @@ Em memória de nós?
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-23.webp"
       experienceId="terramoto"
+      
     />
   );
 }

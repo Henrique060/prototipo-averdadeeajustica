@@ -19,46 +19,9 @@ export default function MindARTerreiro1({ onTap }) {
 
   useMindARLifecycle(sceneRef);
 
-  const [textPhase, setTextPhase] = useState('hidden'); 
-  const hasRunSequence = useRef(false);
-
-  // NEW: State to track when the AR animations are allowed to start
-  const [arAnimationTriggered, setArAnimationTriggered] = useState(false);
-
-  const runTextSequence = () => {
-    if (hasRunSequence.current) return;
-    hasRunSequence.current = true;
-
-    setTextPhase('text1-in');
-
-    setTimeout(() => {
-      setTextPhase('text1-out');
-    }, 5000);
-
-    setTimeout(() => {
-      setTextPhase('text2-in');
-    }, 7000);
-
-    setTimeout(() => {
-      setTextPhase('text2-out');
-    }, 12000);
-
-    setTimeout(() => {
-      setTextPhase('done');
-    }, 14000);
-  };
-
   const handleClosePopUp = () => {
     setShowPopUp(false);
-    runTextSequence(); 
   };
-
-  // NEW: Effect to trigger 3D animations only when text finishes AND target is found
-  useEffect(() => {
-    if (textPhase === 'done' && isTargetFound && !arAnimationTriggered) {
-      setArAnimationTriggered(true);
-    }
-  }, [textPhase, isTargetFound, arAnimationTriggered]);
 
   useEffect(() => {
     let mounted = true;
@@ -131,10 +94,6 @@ export default function MindARTerreiro1({ onTap }) {
       }
     };
   }, [onTap, hasWatched]);
-
-  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
 
   // --- Video Controls ---
   const startVideo = () => {
@@ -254,12 +213,13 @@ export default function MindARTerreiro1({ onTap }) {
           </div>
         )}
 
-        {buttonVisible && !isVideoPlaying && arAnimationTriggered && (
+        {/* Button lifted slightly from 5.5rem to 7.5rem */}
+        {buttonVisible && !isVideoPlaying && (
           <button
             onClick={startVideo}
             style={{
               position: "absolute",
-              bottom: "5.5rem",
+              bottom: "7.5rem",
               left: "50%",
               transform: "translateX(-50%)",
               zIndex: 1000,
@@ -327,59 +287,16 @@ export default function MindARTerreiro1({ onTap }) {
           vr-mode-ui="enabled: false"
           device-orientation-permission-ui="enabled: false"
         >
-          <a-assets>
-            <a-asset-item id="fonte" src="/models/fonteapolo1.glb"></a-asset-item>
-            <img id="circle" src="/images/circle.png"></img>
-          </a-assets>
-          
           <a-camera position="0 0 0" look-controls="enabled: false" />
 
-          <a-entity mindar-image-target="targetIndex: 0">
-
-            {/* NEW: Animations are conditionally attached based on arAnimationTriggered state */}
-            <a-plane 
-              src="#circle" 
-              position="0 0.08 0" 
-              height="0.25" width="0.25" 
-              rotation="0 0 0" 
-              transparent="true" 
-              opacity="0"
-              animation__fadein={arAnimationTriggered ? "property: opacity; to: 1; dur: 4000; delay: 500" : undefined}
-              animation__fadeout={arAnimationTriggered ? "property: opacity; to: 0; dur: 2000; delay: 10500" : undefined}
-            ></a-plane>
-
-            <a-gltf-model
-              src="#fonte"
-              position="0.3 0 0.01"
-              scale="0 0 0"
-              rotation="0 0 0"
-              animation__appear={arAnimationTriggered ? "property: scale; to: 0.25 0.25 0.25; dur: 1000; delay: 11500; easing: easeOutElastic" : undefined}
-            ></a-gltf-model>
-
-          </a-entity>
+          {/* Clean target entity waiting to act purely as a tracking trigger */}
+          <a-entity mindar-image-target="targetIndex: 0"></a-entity>
         </a-scene>
-
-        {textVisible && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-            <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-              A praça,
-              um palco majestoso
-              banhado pelo Tejo.
-            </p>
-            <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-              Alegoria viva e vivida da cidade:
-              do que a cidade foi,
-              do que quiseram que ela fosse.
-              Mas de quem é ela?
-            </p>
-          </div>
-        )}
       </div>
     </>
   );
 }
 
-// loadScript function is unchanged...
 function loadScript(src) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
