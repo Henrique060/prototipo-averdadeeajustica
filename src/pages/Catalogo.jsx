@@ -80,13 +80,13 @@ function Catalogo() {
       <div className="experience-list-container">
 
         <div className="map-content-img">
-          <img className="map-content-img-inner-img" src="/images/jardim.webp" alt="Map" />
+          <img className="map-content-img-inner-img" src="/images/averdade.webp" alt="Map" />
         </div>
 
         <br/>
         <div className="experience-list-text-container">
           <p className="experiencie-list-text">
-            Selecione abaixo o objeto que pretende colocar, à sua frente, no chão do jardim.
+            Selecione abaixo o objeto que pretende colocar, à sua frente, no chão do jardim, perto da estátua 'A Verdade'.
           </p>
         </div>
 
