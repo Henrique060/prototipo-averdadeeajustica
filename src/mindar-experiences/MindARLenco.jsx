@@ -195,7 +195,7 @@ export default function MindARLenco({ videoSrc = "/videos/oretorno.mp4" }) {
                 headerName={"Como interagir na experiência?"}
                 onClose={handleClosePopUp}
                 imgSrc="/images/lenco-retorno.webp"
-                description="Com a câmara, procure pelo quadro representado acima. Aponte para experienciar uma interpretação visual do mesmo."
+                description="Com a câmara, procure pelo lenço, representado acima. Aponte para experienciar uma interpretação visual do mesmo."
               />
             )}
           </div>

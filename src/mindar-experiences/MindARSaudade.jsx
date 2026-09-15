@@ -6,7 +6,7 @@ import { useMindARLifecycle } from '../hooks/UseMindARLifecycle';
 import BackButton from '../components/BackButton';
 import './MindAR.css';
 
-export default function MindARSaudade({ videoSrc = "/videos/saudadeChroma.mp4" }) {
+export default function MindARSaudade({ videoSrc = "/videos/saudadeChroma.mov" }) {
   const sceneRef = useRef(null);
   const videoRef = useRef(null);
 
@@ -281,7 +281,15 @@ export default function MindARSaudade({ videoSrc = "/videos/saudadeChroma.mp4" }
           <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
           
           {/* Empty Entity to handle tracking events. Video is detached. */}
-          <a-entity mindar-image-target="targetIndex:0"></a-entity>
+          <a-assets>
+            <img id="saudade" src="/images/saudadeStill.png" />
+          </a-assets>
+
+          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+          
+          <a-entity mindar-image-target="targetIndex:0">
+            <a-image src="#saudade" position="0 0.25 0" height="1.5" width="0.75" material="transparent: true"></a-image>
+          </a-entity>
         </a-scene>
       </div>
     </>
