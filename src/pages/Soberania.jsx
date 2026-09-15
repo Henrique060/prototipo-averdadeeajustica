@@ -7,7 +7,7 @@ function Soberania() {
   return (
     <div>
     <ExperiencePageComponent
-      imageSrc="/images/anaModelo.webp"
+      imageSrc="/images/soberania.webp"
       imageAlt="Soberania"
       titleMain="Soberania"
       titleSide="Sala 28 - Estado Novo"

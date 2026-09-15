@@ -28,7 +28,7 @@ function Monumento () {
                     <div className="model-viewer-div">
                         <model-viewer src="/models/monumentoajustica.glb" shadow-intensity="1" auto-rotate></model-viewer>
                     </div>
-
+        
                     <p className="experience-title-question">E se pudesse criar um Monumento à Justiça?</p>
                     <p className="experiencie-list-text">
                         Esse monumento, um espaço simbólico que pode ser “habitado” tem como objetivo representar a uma visão particular do conceito de Justiça. 

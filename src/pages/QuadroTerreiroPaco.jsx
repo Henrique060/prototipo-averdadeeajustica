@@ -17,9 +17,12 @@ function QuadroTerreiroPaco() {
                     Mas de quem é ela?
                     "
       buttonTo="/quadro-ar"
-      buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-21.webp"
       experienceId="terreiro1"
+
+      noMindARJS={true}
+      navigateRoute={"/terreirocatalogo"}
+      buttonLabel="Escolher Experiência"
     />
   );
 }

@@ -35,6 +35,7 @@ import Recompensa from './pages/Recompensa';
 import Forms from './pages/Forms';
 import DJoseMusicosCatalogo from './pages/DJoseMusicosCatalogo';
 import GravuraMarquesCatalogo from './pages/GravuraMarquesCatalogo';
+import TerreiroCatalogo from './pages/TerreiroCatalogo';
 
 
 function SplashScreen({ onDone }) {
@@ -100,6 +101,7 @@ function App() {
             <Route path="/forms" element={<Forms />} />
             <Route path="/djosemusicoscatalogo" element={<DJoseMusicosCatalogo />} />
             <Route path="/gravuramarquescatalogo" element={<GravuraMarquesCatalogo/>} />
+            <Route path="/terreirocatalogo" element={<TerreiroCatalogo />} />
           </Routes>
         </Router>
       )}

@@ -26,6 +26,7 @@ function QuadroTerreiroPaco2() {
       buttonLabel="Iniciar Experiência"
       mapImgSrc="/images/mapa-museu-21.webp"    
       experienceId="terreiro2"
+      
     />
   );
 }

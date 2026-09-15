@@ -16,35 +16,7 @@ export default function MindARNossaSraEstrela({ onTap }) {
   // Tracks whether the user clicked the translation button to spawn the model
   const [isTranslated, setIsTranslated] = useState(false);
 
-  const [textPhase, setTextPhase] = useState('hidden'); 
-  
-  const hasRunSequence = useRef(false);
-  const isInitialRun = useRef(true);
-
   useMindARLifecycle(sceneRef);
-
-  const runTextSequence = () => {
-    if (hasRunSequence.current) return;
-    hasRunSequence.current = true;
-
-    setTextPhase('text1-in');
-
-    setTimeout(() => {
-      setTextPhase('text1-out');
-    }, 4000);
-
-    setTimeout(() => {
-      setTextPhase('text2-in');
-    }, 5200);
-
-    setTimeout(() => {
-      setTextPhase('text2-out');
-    }, 8500);
-
-    setTimeout(() => {
-      setTextPhase('done');
-    }, 9500);
-  };
 
   const handleOpenPopUp = () => {
     setShowPopUp(true);
@@ -52,12 +24,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
 
   const handleClosePopUp = () => {
     setShowPopUp(false);
-    
-    // Only run the text sequence when closing the popup for the very first time
-    if (isInitialRun.current) {
-      isInitialRun.current = false;
-      runTextSequence(); 
-    }
   };
 
   useEffect(() => {
@@ -102,8 +68,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
       const handleTargetFound = () => setTargetVisible(true);
       const handleTargetLost = () => {
         setTargetVisible(false);
-        // Optional: Reset translation if tracking is lost, or keep it true if preferred
-        // setIsTranslated(false); 
       };
 
       if (target) {
@@ -126,10 +90,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
     };
   }, [onTap]);
 
-  const text1Opacity = textPhase === 'text1-in' ? 1 : 0;
-  const text2Opacity = textPhase === 'text2-in' ? 1 : 0;
-  const textVisible = textPhase !== 'hidden' && textPhase !== 'done';
-
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <div className="header-container-mindar">
@@ -140,15 +100,13 @@ export default function MindARNossaSraEstrela({ onTap }) {
           <LearnMorePopUp
             headerName={"Como interagir na experiência?"}
             onClose={handleClosePopUp}
-            imgSrc="/images/sala23.webp"
-            description="
-            Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo.
-            Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
+            imgSrc="/images/quadro-escombros.webp"
+            description="Procure o quadro de Nª Srª da Estrela, apontando a câmara para o mesmo. Conseguirá ver em detalhe a mensagem transmitida nesta obra."/>
         }
       </div>
 
-      {/* Button now requires textPhase to be 'done' */}
-      {targetVisible && !isTranslated && textPhase === 'done' && (
+      {/* Button immediately available once target is visible and popup is closed */}
+      {targetVisible && !isTranslated && !showPopUp && (
         <button
           onClick={() => setIsTranslated(true)}
           style={{
@@ -208,27 +166,6 @@ export default function MindARNossaSraEstrela({ onTap }) {
           )}
         </a-entity>
       </a-scene>
-
-      {textVisible && (
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 10 }}>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 5vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f5e9c8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text1Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            - Sobreviventes, o que vos resta?
-Definharem, lentamente, pela colossal
-destruição,
-miséria 
-e morte?
-          </p>
-          <p style={{ position: 'absolute', margin: 0, padding: '0 1.5rem', textAlign: 'center', fontFamily: "'Palatino Linotype', Georgia, serif", fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight:'600', fontStyle: 'italic', color: '#f0dfa8', textShadow: '0 2px 12px rgba(0,0,0,0.85)', opacity: text2Opacity, transition: 'opacity 1000ms ease-in-out', maxWidth: '80vw' }}>
-            Traduz-se a voz de ontem para o dia de hoje: 
-
-Alguns, transcendem a razão, 
-com as mãos ao alto em
-agradecimento,
-Louvor,
-e glória.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
