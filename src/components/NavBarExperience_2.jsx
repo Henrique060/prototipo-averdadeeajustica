@@ -59,7 +59,7 @@ const NavBarExperience_2 = () => {
         </NavLink>
       </div>
 
-      <div className="back-forward-buttons">
+      <div className="back-forward-buttons" style={{ visibility: currentIndex >= routes.length - 1 ? 'hidden' : 'visible' }}>
         <button
           onClick={goNext}
           className="square-forward-btn"

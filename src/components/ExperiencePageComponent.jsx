@@ -30,6 +30,9 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
     if (currentIndex > 0) {
       navigate(routes[currentIndex - 1]);
     }
+    else {
+      navigate("/tutorial"); 
+    }
   };
 
   //Para conseguir identificar a experiência AR
@@ -62,9 +65,13 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
       <div className="quadro-container">
         <div className="title-wrapper">
           <div className="title-btn-wrapper">
-            <button className="title-btn-back-btn"
+            {/* <button className="title-btn-back-btn"
                     onClick={goBack}
                     style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
+              <IoArrowBackOutline />
+            </button> */}
+            <button className="title-btn-back-btn"
+                    onClick={goBack}>
               <IoArrowBackOutline />
             </button>
             <p className="title-side">{titleSide}</p>
