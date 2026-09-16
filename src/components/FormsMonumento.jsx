@@ -7,6 +7,7 @@ import './FormsMonumento.css';
 const QUESTIONS = [
     {
         id: "q1",
+        nr:"1/4",
         question: "Acha que a justiça deve ter alguma separação do espaço público?", 
         options: [
             { value: "d1a1", label: "Sim, para preservar a privacidade de quem a quiser explorar/visitar/habitar" },
@@ -17,6 +18,7 @@ const QUESTIONS = [
     },
     {
         id: "q2",
+        nr:"2/4",
         question: "Já vimos as fronteiras da justiça no espaço público, na nossa vida. Vamos iniciar uma reflexão sobre a ideia de Justiça!",
         options: [
             { value: "d2a1", label: "A justiça está presente em todas as nossas interações pessoais e sociais. A justiça, sendo assim, a pluralidade de pensamento sobre a Justiça é reflexo de si mesma" },
@@ -27,6 +29,7 @@ const QUESTIONS = [
     },
     {
         id: "q3",
+        nr:"3/4",
         question: "Prosseguindo na reflexão sobre a Justiça, como a Justiça se apresenta à sociedade",
         options: [
             { value: "d3a1", label: "A justiça é um valor nobre, se chama atenção é pela sua ausência e não pela sua presença" },
@@ -37,6 +40,7 @@ const QUESTIONS = [
     },
     {
         id: "q4",
+        nr:"4/4",
         question: "Até agora estivemos a pensar sobre o que achamos da relação da Justiça com os indivíduos e com as sociedades. Vamos agora aprofundar sobre a natureza da justiça que queremos",
         options: [
             { value: "d4a1", label: "Uma Justiça ideal e universal é uma utopia, mas serve de inspiração para as nossas vidas" },
@@ -118,6 +122,7 @@ function FormsMonumento() {
             
             <form onSubmit={handleContinuar}>
                 <div className="form-data" key={currentQ.id}>
+                    <p className="question-nr">{currentQ.nr}</p>
                     <p className="question">{currentQ.question}</p>
                     <br/>
                     <div className="options-container">
