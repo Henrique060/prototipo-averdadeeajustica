@@ -39,6 +39,10 @@ function TerreiroCatalogo() {
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [popupData, setPopupData] = useState(null);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    }, [])
+
   // preload ao asset modelo
   useEffect(() => {
     // Preload the models in the background as soon as the page loads
@@ -84,7 +88,7 @@ function TerreiroCatalogo() {
             <button className="title-btn-back-btn" onClick={() => window.history.back()}>
               <IoArrowBackOutline />
             </button>
-            <PageHeader title="Monumentos Efémero" />
+            <PageHeader title="O Chafariz de Apolo" />
           </div>
         </div>
       </div>

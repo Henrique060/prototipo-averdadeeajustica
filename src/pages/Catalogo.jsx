@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import LogoHeader from "../components/LogoHeader";
 import ModelViewerPopUp from "../components/ModelViewerPopUp";
@@ -47,6 +47,10 @@ const experiencias = [
 function Catalogo() {
     const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [popupData, setPopupData] = useState(null);
+
+  useEffect(() => {
+      window.scrollTo(0, 0)
+      }, [])
 
   const handleExperienceClick = (exp) => {
     // If this room has a popup

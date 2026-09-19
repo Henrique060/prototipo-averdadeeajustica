@@ -13,6 +13,8 @@ import { GoHome } from "react-icons/go";
 import { VscDebugStart } from "react-icons/vsc";
 import { GrFormNextLink } from "react-icons/gr";
 import { GrFormPreviousLink } from "react-icons/gr";
+
+
 import './NavBar2.css';
 
 const NavBarExperience_2 = () => {
@@ -59,6 +61,20 @@ const NavBarExperience_2 = () => {
         </NavLink>
       </div>
 
+    
+    <div className="nav-buttons-div">
+        <div className="back-forward-buttons" style={{ visibility: currentIndex <= 0 ? 'hidden' : 'visible' }}>
+        <button
+          onClick={goBack}
+          className="square-forward-btn"
+          disabled={currentIndex <= 0}
+        >
+          <div className="icon-text-container">
+            <GrFormPreviousLink size={24} />
+          </div>
+        </button>
+      </div>
+
       <div className="back-forward-buttons" style={{ visibility: currentIndex >= routes.length - 1 ? 'hidden' : 'visible' }}>
         <button
           onClick={goNext}
@@ -71,6 +87,8 @@ const NavBarExperience_2 = () => {
           </div>
         </button>
       </div>
+    </div>
+      
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Add this
 import LogoHeader from './LogoHeader';
 import NavBarExperience from './NavBarExperience_1';
@@ -8,6 +8,11 @@ import NavBarExperience_2 from './NavBarExperience_2';
 import MapPopUpBtn from './MapPopUpBtn';
 import MapPopUp from './MapPopUp';
 import { IoArrowBackOutline } from "react-icons/io5";
+import { RiArrowGoBackLine } from "react-icons/ri";
+import { TbArrowBackUp } from "react-icons/tb";
+import GoTop from './GoTop';
+
+
 
 
 function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId,
@@ -16,6 +21,9 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate(); // hook instance
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   
   //Navegação nas Routes para back btn
   let inactiveColor = "#A0A0A0";
@@ -52,14 +60,17 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
     <div className="page-wrapper">
       <div className="header-container">
         <LogoHeader />
-        <MapPopUpBtn text="Salas" onClick={() => setShowPopUp(true)} />
-        {showPopUp && (
-          <MapPopUp
-            headerName="Mapa de Salas"
-            onClose={() => setShowPopUp(false)}
-            imgSrc={mapImgSrc}
-          />
-        )}
+        <div className="title-btn-wrapper">
+            {/* <button className="title-btn-back-btn"
+                    onClick={goBack}
+                    style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
+              <IoArrowBackOutline />
+            </button> */}
+            <button className="title-btn-back-btn"
+                    onClick={() => navigate("/tutorial")}>
+              <TbArrowBackUp size={18} />
+            </button>
+       </div>
       </div>
       
       <div className="quadro-container">
@@ -70,10 +81,14 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
                     style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
               <IoArrowBackOutline />
             </button> */}
-            <button className="title-btn-back-btn"
-                    onClick={goBack}>
-              <IoArrowBackOutline />
-            </button>
+            <MapPopUpBtn text="Salas" onClick={() => setShowPopUp(true)} />
+        {showPopUp && (
+          <MapPopUp
+            headerName="Mapa de Salas"
+            onClose={() => setShowPopUp(false)}
+            imgSrc={mapImgSrc}
+          />
+        )}
             <p className="title-side">{titleSide}</p>
           </div>
           <p className="title-main">{titleMain}</p>
@@ -100,7 +115,11 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           )}
           
       </div>
+
+      <GoTop/>
+
       <NavBarExperience_2 />
+      
     </div>
   );
 }

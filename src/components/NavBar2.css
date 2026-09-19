@@ -164,3 +164,11 @@
   color: #EA562E;
 }
 
+
+.nav-buttons-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  
+}

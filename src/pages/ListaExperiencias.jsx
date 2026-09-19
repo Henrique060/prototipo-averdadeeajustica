@@ -5,6 +5,9 @@ import LogoHeader from '../components/LogoHeader';
 import NavBar from '../components/NavBar';
 import PopUp from '../components/PopUp';
 import { IoEnterOutline } from "react-icons/io5";
+import { TbArrowBackUp } from "react-icons/tb";
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import GoTop from "../components/GoTop";
 
 
 const experiencias = [
@@ -142,6 +145,7 @@ const experiencias = [
 ];
 
 const ListaExperiencias = () => {
+  const navigate = useNavigate();
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [popupData, setPopupData] = useState(null);
 
@@ -162,7 +166,20 @@ const ListaExperiencias = () => {
 
   return (
     <div className="page-wrapper">
-      <LogoHeader />
+      <div className="header-container">
+        <LogoHeader />
+        <div className="title-btn-wrapper">
+            {/* <button className="title-btn-back-btn"
+                    onClick={goBack}
+                    style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
+              <IoArrowBackOutline />
+            </button> */}
+            <button className="title-btn-back-btn"
+                    onClick={() => navigate(-1)}>
+              <TbArrowBackUp size={18} />
+            </button>
+       </div>
+      </div>
       <PageHeader title="Salas com Experiências" />
       <NavBar />
 
@@ -217,6 +234,8 @@ const ListaExperiencias = () => {
           />
         )}
       </div>
+
+      <GoTop/>
     </div>
   );
 };

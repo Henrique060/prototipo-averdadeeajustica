@@ -1,0 +1,49 @@
+.goTop {
+    /* Reset default button styling */
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    
+    /* Layout & Positioning */
+    position: fixed;
+    bottom: 20%; /* Places it nicely at the bottom */
+    width: 30px;  /* Slightly larger for easier clicking */
+    height: 30px;
+    right:30px;
+    border-radius: 50%; /* Perfect circle */
+    z-index:1000;
+    padding: 0;
+    box-sizing: border-box;
+    
+    /* Centering the arrow inside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Appearance */
+    background: #1A293E;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    
+    /* Smooth fade in/out animation */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hover effect */
+.goTop:hover {
+    background: #253956; /* Slightly lighter on hover */
+    transform: translateY(-3px); /* Bumps up slightly */
+}
+
+/* Visibility states handled by React */
+.goTop.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.goTop.show {
+    opacity: 1;
+    visibility: visible;
+}
