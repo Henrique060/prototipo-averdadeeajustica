@@ -4,9 +4,13 @@ import PageHeader from '../components/PageHeader';
 import NavBar from '../components/NavBar';
 import LogoHeader from '../components/LogoHeader';
 import LearnMorePopUp from '../components/LearnMorePopUp';
+import { TbArrowBackUp } from "react-icons/tb";
 import './ThesisProjectPage.css';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import GoTop from "../components/GoTop";
 
 function ThesisProjectPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('projeto');
   const [activePopUp, setActivePopUp] = useState(false);
 
@@ -17,7 +21,20 @@ function ThesisProjectPage() {
 
   return (
     <div className="page-wrapper">
+        <div className="header-container">
         <LogoHeader />
+        <div className="title-btn-wrapper">
+            {/* <button className="title-btn-back-btn"
+                    onClick={goBack}
+                    style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
+              <IoArrowBackOutline />
+            </button> */}
+            <button className="title-btn-back-btn"
+                    onClick={() => navigate(-1)}>
+              <TbArrowBackUp size={18} />
+            </button>
+       </div>
+      </div>
         
         <NavBar />
 
@@ -136,6 +153,8 @@ function ThesisProjectPage() {
                 </div>
             </>
         )}
+
+        <GoTop/>
     </div>
   );
 }

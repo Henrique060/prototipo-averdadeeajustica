@@ -4,13 +4,30 @@ import PageHeader from '../components/PageHeader';
 import NavBar from '../components/NavBar';
 import LogoHeader from '../components/LogoHeader';
 import LearnMorePopUp from '../components/LearnMorePopUp';
+import { TbArrowBackUp } from "react-icons/tb";
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import GoTop from "../components/GoTop";
 
 function Tutorial() {
+  const navigate = useNavigate();
   const [activePopUp, setActivePopUp] = useState(null);
 
   return (
     <div className="page-wrapper">
-      <LogoHeader />
+      <div className="header-container">
+        <LogoHeader />
+        <div className="title-btn-wrapper">
+            {/* <button className="title-btn-back-btn"
+                    onClick={goBack}
+                    style={{color:currentIndex === 0? inactiveColor:btnActiveColor }}>
+              <IoArrowBackOutline />
+            </button> */}
+            <button className="title-btn-back-btn"
+                    onClick={() => navigate(-1)}>
+              <TbArrowBackUp size={18} />
+            </button>
+       </div>
+      </div>
       <PageHeader title="Como funcionam as experiências?" />
 
       <div className="tutorial-wrapper">
@@ -63,6 +80,8 @@ function Tutorial() {
         </div>
       </div>
 
+      <GoTop/>
+      
       <NavBar />
       
       {/* 
@@ -89,7 +108,7 @@ function Tutorial() {
           description="Estas experiências diferenciam-se das anteriores pelo facto de não precisarem de ter um telemóvel a apontar para um quadro ou imagem, continuamente. Seguindo as instruções no ecrã, aponte a câmara para o chão, de modo a digitalizar o ambiente à sua volta. O modelo tridimensional irá aparecer à sua frente, podendo observá-lo, rodar, aumentar ou diminuir, de modo a compreendê-lo em maior detalhe."
         />
       )}
-      
+      <GoTop />
     </div>
   );
 }

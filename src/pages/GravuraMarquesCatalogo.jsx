@@ -29,6 +29,10 @@ function GravuraMarquesCatalogo() {
   const [popupData, setPopupData] = useState(null);
 
   useEffect(() => {
+      window.scrollTo(0, 0)
+      }, [])
+
+  useEffect(() => {
       // Preload the models in the background as soon as the page loads
       experiencias.forEach((exp) => {
         if (exp.popup && exp.popup.modelViewerSrc) {
