@@ -108,16 +108,6 @@ function ThesisProjectPage() {
                 <div className="project-container">
                     <div className="team-member">
                         <div className="team-member-header">
-                            <img src="/images/anafonseca.png" alt="Membro 1" />
-                            <h4 className="team-member-name">Ana Fonseca</h4>
-                        </div>
-                        <p>
-                            Breve texto sobre o primeiro membro da equipa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                    </div>
-
-                    <div className="team-member reverse">
-                        <div className="team-member-header">
                             <img src="/images/henriquematos.webp" alt="Membro 2" />
                             <h4 className="team-member-name">Henrique Matos</h4>
                         </div>
@@ -125,6 +115,18 @@ function ThesisProjectPage() {
                             Desenvolvedor da aplicação, em âmbito de tese de mestrado na Faculdade de Ciências da Universidade de Lisboa, Henrique tem uma grande paixão por desenvolvimento de aplicações, websites e experiências interativas com foco no utilizador.
                         </p>
                     </div>
+
+                    <div className="team-member reverse">
+                        <div className="team-member-header">
+                            <img src="/images/anafonseca.png" alt="Membro 1" />
+                            <h4 className="team-member-name">Ana Fonseca</h4>
+                        </div>
+                        <p>
+                            Breve texto sobre o segundo membro da equipa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                    </div>
+
+                    
 
                     <div className="team-member">
                         <div className="team-member-header">
