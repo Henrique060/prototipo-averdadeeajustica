@@ -19,7 +19,7 @@ function FiguraConvite() {
                     "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-convite.webp"
+      mapImgSrc={["/images/mapa-museu-convite.webp", "/images/salaconvite.webp"]}
       experienceId="convite"
     />
   );

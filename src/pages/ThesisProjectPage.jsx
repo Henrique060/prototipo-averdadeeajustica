@@ -144,7 +144,14 @@ function ThesisProjectPage() {
                             Um especial agradecimento a todos os envolvidos neste projeto, cujo apoio e colaboração foram fundamentais para a realização do mesmo. Deixamos aqui o nosso reconhecimento ao Museu de Lisboa e aos seus constituintes por acolherem a aplicação web e ao LASIGE e FCUL pelas tecnologias fornecidas e pelo suporte contínuo dado à equipa.
                         </p>
                         <p>
-                            Agradecimentos especiais também à artista Renata B. Oliveira pelas fotografias fornecidas, ajudando aos processos de fotogrametria e registos ao longo da conceção deste projeto.
+                            Agradecimentos especiais também à fabulosa artista Renata B. Oliveira pelas fotografias fornecidas, ajudando aos processos de fotogrametria e registos ao longo da conceção deste projeto.
+                        </p>
+                        <p>
+
+                            Agradecimentos ao fantástico talento da Faculdade de Ciências da Universidade de Lisboa, pela modelação e animação das experiências incidentes no quadro de Dirk Stoop <i>Terreiro do Paço no séc. XVII</i>. 
+                            A Rita Dias, Maria Guerreiro e Tiago Rodrigues, agradecemos pelo vídeo desenvolvido, sobre o quadro de Dirk Stoop;     
+                            a Nita Pereira, José Brás e João da Silva, agradecemos pelo modelo do Chafariz de Apolo construído. 
+
                         </p>
                         <div className="acknowledgments-images">
                             <img src="/images/ciencias.webp" alt="Apoio 1" />

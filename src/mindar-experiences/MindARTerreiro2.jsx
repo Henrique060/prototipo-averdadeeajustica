@@ -194,7 +194,7 @@ export default function MindARTerreiro2({ videoSrc = "/videos/monumentosEfemeros
               <LearnMorePopUp
                 headerName={"Como interagir na experiência?"}
                 onClose={handleClosePopUp}
-                imgSrc="/images/sala21-2.webp"
+                imgSrc="/images/terreiro-militar.webp"
                 description="Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima. Aponte a câmara ao quadro da direita, de modo a conhecer em maior detalhe a obra, através de uma experiência visual."
               />
             )}

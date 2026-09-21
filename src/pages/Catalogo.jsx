@@ -29,7 +29,7 @@ const experiencias = [
     image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Teatro de Papel',
-      modelViewerSrc: '/models/teatro-de-papelv3.glb',
+      modelViewerSrc: '/models/teatroPapelBig.glb',
 
     },
   },

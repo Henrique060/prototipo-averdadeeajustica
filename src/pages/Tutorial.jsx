@@ -37,6 +37,9 @@ function Tutorial() {
           Para tal, <b>deverá permitir o acesso à câmara e ao microfone</b>, quando pedido.
           <br />
           Sinta-se livre para se aproximar das experiências e observar de diferentes perspetivas.
+          <br />
+          Consoante a iluminação nas salas, poderá haver artefactos nas experiências, funcionando na mesma.
+  
         </h3>
 
         <div className="tutorial-container">
@@ -95,7 +98,7 @@ function Tutorial() {
           onClose={() => setActivePopUp(null)}
           imgSrc="/images/markerlesstutorial.webp"
           descriptionHeader="Como interagir?"
-          description="Ao iniciar a experiência, siga as instruções que aparecem no ecrã. Dirija-se ao quadro ou imagem, respetiva à experiência, aponte a câmara do telemóvel e observe a experiência na sua totalidade. Por vezes, surgirão botões com sugestões de interação. Toque e observe as mudanças no cenário."
+          description="Ao iniciar a experiência, siga as instruções que aparecem no ecrã. Dirija-se ao quadro ou imagem, respetiva à experiência, aponte a câmara do telemóvel e observe a experiência na sua totalidade. Por vezes, surgirão botões com sugestões de interação. Toque e observe as mudanças no cenário. Tente estar o mais de frente, para as imagens, possível."
         />
       )}
 

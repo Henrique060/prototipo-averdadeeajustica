@@ -19,7 +19,7 @@ Mesmo assim é uma vitória.
 "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-26.webp"
+      mapImgSrc={["/images/mapa-museu-26.webp", "/images/sala26.webp"]}
       experienceId="oretorno"
     />
   );

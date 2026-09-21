@@ -206,7 +206,7 @@ export default function MindARTerreiro1({ onTap }) {
               <LearnMorePopUp
                 headerName={"Como interagir na experiência?"}
                 onClose={handleClosePopUp}
-                imgSrc="/images/sala21-2.webp"
+                imgSrc="/images/terreiropaco.webp"
                 description="Dirija-se para a localização central da sala, de frente para a estátua de Nossa Senhora da Pureza, conforme demonstrado na imagem acima. Aponte a câmara ao quadro da esquerda, de modo a conhecer em maior detalhe a obra, através de uma experiência audiovisual."
               />
             )}

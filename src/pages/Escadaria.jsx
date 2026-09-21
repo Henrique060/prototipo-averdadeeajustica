@@ -24,7 +24,7 @@ function Escadaria() {
                     `}
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu.webp"
+      mapImgSrc={["/images/mapa-museu.webp", "/images/entrada.webp"]}
       experienceId="escadaria" 
     />
   );

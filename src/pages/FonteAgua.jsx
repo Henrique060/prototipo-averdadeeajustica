@@ -37,7 +37,7 @@ de cuidar da cidade.
                     `}
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu.webp"
+      mapImgSrc={["/images/mapa-museu-22.webp", "/images/sala22.webp"]}
       experienceId="fonteagua" 
     />
   );
