@@ -29,7 +29,7 @@ O cidadão é difuso
 Espelham o povo que somos?
 A cidadã que sou?
 "
-      mapImgSrc="/images/mapa-museu-28.webp"
+      mapImgSrc={["/images/mapa-museu-28.webp", "/images/sala28.webp"]}
       noMindARJS={true}
       navigateRoute={"/soberania-catalogo"}
       buttonLabel="Escolher Experiência"

@@ -29,7 +29,7 @@ function GravuraMarques() {
                   Contam-se outras visões da história...
 "
 
-      mapImgSrc="/images/mapa-museu-24.webp"
+      mapImgSrc={["/images/mapa-museu-24.webp", "/images/sala24.webp"]}
       noMindARJS={true}
       navigateRoute={"/gravuramarquescatalogo"}
       buttonLabel="Iniciar Experiência"

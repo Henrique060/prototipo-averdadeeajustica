@@ -32,7 +32,18 @@ const experiencias = [
     image: '/images/teatro-papel.webp',
     popup: {
       headerName: 'Alegoria a Sebastião',
-      modelViewerSrc: '/models/teatro-de-papelv3.glb',
+      modelViewerSrc: '/models/teatroPapelBig.glb',
+
+    },
+  },
+
+  {
+    sala: 'O Chafariz de Apolo',
+    titulo: 'Teatro de Papel',
+    image: '/images/chafarizapolo.webp',
+    popup: {
+      headerName: 'Chafariz de Apolo',
+      modelViewerSrc: '/models/chafarizapolo.glb',
 
     },
   },

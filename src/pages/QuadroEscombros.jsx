@@ -24,7 +24,7 @@ e glória.
 "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-23.webp"
+      mapImgSrc={["/images/mapa-museu-23.webp", "/images/sala23.webp"]}
       experienceId="nsraestrela"
     />
   );

@@ -22,7 +22,7 @@ function DJoao() {
                 o néctar que o sacia?`}
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-22.webp"
+      mapImgSrc={["/images/mapa-museu-22.webp", "/images/sala22.webp"]}
       experienceId="djoao"
     />
   );

@@ -103,9 +103,13 @@ function TerreiroCatalogo() {
         <div className="experience-list-text-container">
           <p className="experiencie-list-text">
             A experiência divide-se em dois momentos: a visualização do modelo do Chafariz de Apolo e a interação com o quadro. <br />
-            Percorra ambas as experiências para descobrir a alegoria e história por detrás do quadro.
-          </p>
+            Percorra ambas as experiências para descobrir a alegoria e história por detrás do quadro.</p>
+            
+            
+            
         </div>
+
+        
 
         <ul className="experience-list">
           {experiencias.map((exp, index) => (
@@ -136,6 +140,16 @@ function TerreiroCatalogo() {
             </li>
           ))}
         </ul>
+
+        <div className="experience-list-text-container" style={{paddingBottom:"30px"}}>
+            <p className="experiencie-list-text">
+              <b>Créditos</b>:
+              <br /> <u>Rita Dias, Maria Guerreiro e Tiago Rodrigues</u> pelo vídeo desenvolvido, sobre o quadro de Dirk Stoop
+              
+              <br/> <u>Nita Pereira, José Brás e João da Silva</u> pelo modelo, do Chafariz de Apolo, construído. 
+
+            </p>
+        </div>
 
         {isPopUpVisible && popupData && (
           <ModelViewerPopUp

@@ -41,7 +41,7 @@ para celebrar comunidades.
 "
      
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-24.webp"
+      mapImgSrc={["/images/mapa-museu-24.webp", "/images/sala24.webp"]}
       noMindARJS={true}
       navigateRoute={"/djosemusicoscatalogo"}
     />

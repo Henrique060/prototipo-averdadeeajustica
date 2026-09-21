@@ -75,7 +75,7 @@ function DJoseMusicosCatalogo() {
       <div className="experience-list-container">
 
         <div className="map-content-img">
-          <img className="map-content-img-inner-img" src="/images/djosemusicostutorial.webp" alt="Map" />
+          <img className="map-content-img-inner-img" src="/images/djosemusicoscatalogo.webp" alt="Map" />
         </div>
 
         <br />

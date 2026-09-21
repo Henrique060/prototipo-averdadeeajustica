@@ -24,7 +24,7 @@ function QuadroTerreiroPaco2() {
                     "
       buttonTo="/quadro-ar"
       buttonLabel="Iniciar Experiência"
-      mapImgSrc="/images/mapa-museu-21.webp"    
+      mapImgSrc={["/images/mapa-museu-21.webp", "/images/sala21-2.webp"]}   
       experienceId="terreiro2"
       
     />

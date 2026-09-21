@@ -15,7 +15,7 @@ import GoTop from './GoTop';
 
 
 
-function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc, experienceId,
+function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, description, buttonLabel, mapImgSrc = [], experienceId,
   noMindARJS = false, navigateRoute = null
 }) {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -86,7 +86,8 @@ function ExperiencePageComponent({ imageSrc, imageAlt, titleMain, titleSide, des
           <MapPopUp
             headerName="Mapa de Salas"
             onClose={() => setShowPopUp(false)}
-            imgSrc={mapImgSrc}
+            imagesSrc={mapImgSrc}
+            carousel={true}
           />
         )}
             <p className="title-side">{titleSide}</p>
