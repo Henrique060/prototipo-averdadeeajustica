@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+    <link rel="stylesheet" href="MindARBusto.css">
+  </head>
+  <!-- Changed class="whole" to id="whole" just in case you use it for CSS -->
+  <body id="whole">
+    
+    <!-- ADDED: preserveDrawingBuffer: true to the renderer -->
+    <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights, preserveDrawingBuffer: true" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="busto" src="/models/busto-republica2.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera active="false" position="0 0 0"></a-camera>
+      <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model rotation="0 0 0" position="0 -0.25 -0.35" scale="1.65 1.65 1.65" src="#busto"></a-gltf-model>
+      </a-entity>
+    </a-scene>
+
+    <a class="capture-btn" onclick="take()"> 
+      <img src="images/recording.png" style="width: 50%; height: auto;">
+      <p>Take Photo</p>
+    </a>
+
+  </body>
+
+  <script>
+      window.take = function() {
+    const video = document.querySelector('video');
+    const aCanvas = document.querySelector('.a-canvas');
+    
+    if (!video || !aCanvas) return;
+
+    const mergeCanvas = document.createElement('canvas');
+    mergeCanvas.width = aCanvas.width;
+    mergeCanvas.height = aCanvas.height;
+    const ctx = mergeCanvas.getContext('2d');
+
+    // Draw video and 3D scene
+    ctx.drawImage(video, 0, 0, mergeCanvas.width, mergeCanvas.height);
+    ctx.drawImage(aCanvas, 0, 0);
+
+    // Convert to image
+    const dataUrl = mergeCanvas.toDataURL("image/png");
+
+    // Trigger direct download
+    const link = document.createElement('a');
+    link.download = 'ar-photo.png';
+    link.href = dataUrl;
+    link.click();
+}
+  </script>
+</html>

@@ -50,7 +50,8 @@ const NEXT_ROUTES = {
   sebastiao: "/musicos", 
   musicos: "/lenco-saudade",      // Verify if 'sebastiao' is the ID for 'gravura-marques'
   saudade: "/o-retorno",
-  oretorno: "/soberania",
+  oretorno: "/busto-republica",
+  bustorepublica: "/soberania",
   soberania: "/jardim"
 };
 
