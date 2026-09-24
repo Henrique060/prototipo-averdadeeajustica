@@ -122,7 +122,9 @@ function ThesisProjectPage() {
                             <h4 className="team-member-name">Ana Fonseca</h4>
                         </div>
                         <p>
-                            Breve texto sobre o segundo membro da equipa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            Ana Fonseca (São Paulo, Brasil, 1978) vive e trabalha em Lisboa. Artista visual. Licenciou-se na Middlesex University, Londres (2003), estudou na Chelsea College of Arts Foundation in Art and Design, Londres (1999-00).
+Artista plástica cuja prática multidisciplinar tem quase sempre como ponto de partida o desenho.
+Debruçando-se sobre os paradigmas sociológicos, psicológicos e históricos que marcaram ou marcam os locais por onde tem passado (“velho” mundo e “novo” mundo), o registo e o traço interliga-os de forma anacrónica, transparecendo um humor que é patente em todas as suas obras.
                         </p>
                     </div>
 
@@ -130,16 +132,16 @@ function ThesisProjectPage() {
 
                     <div className="team-member">
                         <div className="team-member-header">
-                            <img src="/images/beatrizcarmo.webp" alt="Membro 3" />
+                            <img src="/images/beatriz.webp" alt="Membro 3" />
                             <h4 className="team-member-name">Mª Beatriz Carmo</h4>
                         </div>
                         <p>
-                            Breve texto sobre o terceiro membro da equipa. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.
+Maria Beatriz Carmo é professora associada no Departamento de Informática, da Faculdade  de Ciências, da Universidade de Lisboa, e investigadora do LASIGE. As suas principais áreas de investigação são Realidade Aumentada, Realidade Virtual, Herança Cultural Digital e Visualização.
                         </p>
                     </div>
 
                     <div className="acknowledgments-section">
-                        <h4>Agradecimentos</h4>
+                        <h4><b>Agradecimentos</b></h4>
                         <p>
                             Um especial agradecimento a todos os envolvidos neste projeto, cujo apoio e colaboração foram fundamentais para a realização do mesmo. Deixamos aqui o nosso reconhecimento ao Museu de Lisboa e aos seus constituintes por acolherem a aplicação web e ao LASIGE e FCUL pelas tecnologias fornecidas e pelo suporte contínuo dado à equipa.
                         </p>

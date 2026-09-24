@@ -1,0 +1,8 @@
+.capture-btn{
+    border-radius: 25px;
+    background-color: #EA562E;
+    color: #E4D8C4;
+    bottom: 25%;
+    left: 50%;
+    z-index: 10000;
+}
